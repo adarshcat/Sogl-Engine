@@ -5,15 +5,24 @@
 
 #include "sogl_shader.hpp"
 
+//std
+#include <vector>
+
 namespace sogl
 {
     struct Material{
         glm::vec3 albedo;
     };
+
+    struct Vertex {
+        glm::vec3 Position;
+        glm::vec3 Normal;
+        glm::vec2 TexCoords;
+    };
     
     class SoglGameObject{
         public:
-        SoglGameObject(const GLfloat *inData, const int inDataSize, SoglShader *shaderPr, Material mat);
+        SoglGameObject(std::vector<Vertex> inVertices, std::vector<unsigned int> inIndices, SoglShader *shaderPr, Material mat);
 
         void draw(glm::mat4 viewProjectionMatrix, glm::vec3 camPos);
         void translate(glm::vec3 amnt);
@@ -27,10 +36,10 @@ namespace sogl
         void initialiseStorageBuffer();
 
         // All the geometry stuff
-        const GLfloat *geometryData;
-        const int geometryDataSize;
-
+        std::vector<Vertex> vertices;
+        std::vector<unsigned int> indices;
         GLuint vertexArrayObject;
+
         SoglShader *shaderProgram;
         Material material;
 

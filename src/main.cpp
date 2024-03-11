@@ -1,10 +1,6 @@
 
 #include "sogl_engine.hpp"
 
-#include <assimp/Importer.hpp>
-#include <assimp/scene.h>
-#include <assimp/postprocess.h>
-
 // std
 #include <iostream>
 

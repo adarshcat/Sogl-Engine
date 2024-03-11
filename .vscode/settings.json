@@ -69,7 +69,17 @@
         "xhash": "cpp",
         "fstream": "cpp",
         "xtree": "cpp",
-        "map": "cpp"
+        "map": "cpp",
+        "array": "cpp",
+        "*.tcc": "cpp",
+        "cwctype": "cpp",
+        "deque": "cpp",
+        "memory_resource": "cpp",
+        "numeric": "cpp",
+        "random": "cpp",
+        "string_view": "cpp",
+        "numbers": "cpp",
+        "cinttypes": "cpp"
     },
     "C_Cpp.errorSquiggles": "enabled"
 }

@@ -12,17 +12,17 @@ uniform vec3 albedo;
 
 void main(){
     vec3 lightColor = vec3(1.0);
-    vec3 lightPos = vec3(2.0, 3.0, -2.0);
+    vec3 lightPos = vec3(3.0, 3.0, 3.0);
     vec3 lightDir = normalize(lightPos - fragPos);
-    float lightStrength = 1.2f;
+    float lightStrength = 2.2f;
 
-    float ambientStrength = 0.1;
+    float ambientStrength = 0.2;
     vec3 ambient = ambientStrength * lightColor;
 
     float diff = max(dot(worldNormal, lightDir), 0.0);
     vec3 diffuse = diff * lightColor * lightStrength;
 
-    float specularStrength = 0.5;
+    float specularStrength = 0.75;
     vec3 viewDir = normalize(cameraPos -fragPos);
     vec3 reflectDir = reflect(-lightDir, worldNormal);
 
@@ -30,5 +30,5 @@ void main(){
     vec3 specular = specularStrength * spec * lightColor;
 
     vec3 result = (ambient + diffuse + specular) * albedo;
-    FragColor = result;
+    FragColor = result/(result+1.0f);
 }

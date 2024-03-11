@@ -1,31 +1,45 @@
 //#include "sogl_shader_loader.hpp"
 #include "sogl_game_object.hpp"
 
+//std
 #include <iostream>
 
 namespace sogl
 {
     
-    SoglGameObject::SoglGameObject(const GLfloat *inData, const int inVertexDataSize, SoglShader *shaderPr, Material mat): 
-        geometryData{inData}, geometryDataSize{inVertexDataSize}, shaderProgram{shaderPr}, material{mat}
+    SoglGameObject::SoglGameObject(std::vector<Vertex> inVertices, std::vector<unsigned int> inIndices, SoglShader *shaderPr, Material mat): 
+        vertices{inVertices}, indices{inIndices}, shaderProgram{shaderPr}, material{mat}
     {
         initialiseStorageBuffer();
     }
 
     void SoglGameObject::initialiseStorageBuffer(){
-        glGenVertexArrays(1, &vertexArrayObject);
-        glBindVertexArray(vertexArrayObject);
-        // Attach the vertex buffer
         GLuint vertexBuffer;
+        GLuint elementBuffer;
+
+        glGenVertexArrays(1, &vertexArrayObject);
         glGenBuffers(1, &vertexBuffer);
+        glGenBuffers(1, &elementBuffer);
+
+        glBindVertexArray(vertexArrayObject);
+
         glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
-        // vertex data
-        glBufferData(GL_ARRAY_BUFFER, sizeof(geometryData[0])*geometryDataSize, geometryData, GL_STATIC_DRAW);
-        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)0);
+        glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(Vertex), &vertices[0], GL_STATIC_DRAW);
+
+        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, elementBuffer);
+        glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(GLuint), &indices[0], GL_STATIC_DRAW);
+
+        // vertex positions
         glEnableVertexAttribArray(0);
-        // normal data
-        glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)(3* sizeof(float)));
-        glEnableVertexAttribArray(1);
+        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)0);
+        // vertex normals
+        glEnableVertexAttribArray(1);	
+        glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, Normal));
+        // vertex texture coords
+        glEnableVertexAttribArray(2);	
+        glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, TexCoords));
+
+        glBindVertexArray(0);
     }
 
     void SoglGameObject::draw(glm::mat4 viewProjectionMatrix, glm::vec3 camPos){
@@ -36,7 +50,7 @@ namespace sogl
         shaderProgram->applyShader();
 
         glBindVertexArray(vertexArrayObject);
-        glDrawArrays(GL_TRIANGLES, 0, geometryDataSize/3);
+        glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);
     }
 
     void SoglGameObject::applyMaterial(){

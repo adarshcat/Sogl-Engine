@@ -18,7 +18,7 @@ namespace sogl
         private:
         std::string currentProgram = "";
 
-        std::string programPath = "shaders/";
+        std::string programPath = "assets/shaders/";
         std::map <std::string, GLuint> activePrograms;
     };
 } // namespace sogl

@@ -12,6 +12,7 @@
                 "-I${workspaceFolder}/include",
                 "-I${workspaceFolder}/src/renderer",
                 "-I${workspaceFolder}/src/engine",
+                "-I${workspaceFolder}/src/util/shaders",
                 "-I${workspaceFolder}/src/util",
 
                 "-L${workspaceFolder}/lib",
@@ -20,6 +21,7 @@
                 "${workspaceFolder}/src/renderer/*.cpp",
                 "${workspaceFolder}/src/engine/*.cpp",
                 "${workspaceFolder}/src/util/*.cpp",
+                "${workspaceFolder}/src/util/shaders/*.cpp",
 
                 "-lopengl32",
                 "-lglew32",

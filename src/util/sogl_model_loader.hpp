@@ -17,7 +17,7 @@ namespace sogl
     class SoglModelLoader{
         public:
         static std::string modelRoot;
-        static SoglShader *defaultShader;
+        static std::string defaultShader;
         
         static std::vector<SoglGameObject> loadModel(std::string relativePath);
         static void processNode(aiNode *node, const aiScene *scene, std::vector<SoglGameObject> &loadedGameObjects);

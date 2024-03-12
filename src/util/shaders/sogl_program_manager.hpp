@@ -1,9 +1,9 @@
 #pragma once
 
 #include <GL/glew.h>
+#include <glm/gtc/matrix_transform.hpp>
 
 //std
-#include <string>
 #include <map>
 
 namespace sogl
@@ -11,14 +11,17 @@ namespace sogl
     
     class SoglProgramManager{
         public:
-        SoglProgramManager();
-        GLuint addProgram(std::string programName);
-        void useProgram(std::string programName);
+        static GLuint addProgram(std::string programName);
+        static void useProgram(std::string programName);
 
-        private:
-        std::string currentProgram = "";
+        static void setVec3(const std::string uniformName, glm::vec3 value);
+        static void setMat4(const std::string uniformName, glm::mat4 value);
+        static void bindImage(const std::string uniformName, GLuint val);
 
-        std::string programPath = "assets/shaders/";
-        std::map <std::string, GLuint> activePrograms;
+        static std::string currentProgram;
+        static GLuint currentProgramId;
+
+        static std::string programPath;
+        static std::map <std::string, GLuint> activePrograms;
     };
 } // namespace sogl

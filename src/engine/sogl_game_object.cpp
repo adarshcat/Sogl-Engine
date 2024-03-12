@@ -1,5 +1,6 @@
 //#include "sogl_shader_loader.hpp"
 #include "sogl_game_object.hpp"
+#include "sogl_program_manager.hpp"
 
 //std
 #include <iostream>
@@ -7,9 +8,10 @@
 namespace sogl
 {
     
-    SoglGameObject::SoglGameObject(std::vector<Vertex> inVertices, std::vector<unsigned int> inIndices, SoglShader *shaderPr, Material mat): 
-        vertices{inVertices}, indices{inIndices}, shaderProgram{shaderPr}, material{mat}
+    SoglGameObject::SoglGameObject(std::vector<Vertex> inVertices, std::vector<unsigned int> inIndices, std::string _shader, Material mat): 
+        vertices{inVertices}, indices{inIndices}, shader{_shader}, material{mat}
     {
+        SoglProgramManager::addProgram(shader);
         initialiseStorageBuffer();
     }
 
@@ -43,18 +45,18 @@ namespace sogl
     }
 
     void SoglGameObject::draw(glm::mat4 viewProjectionMatrix, glm::vec3 camPos){
+        SoglProgramManager::useProgram(shader);
         applyMaterial();
-        shaderProgram->setVec3("cameraPos", camPos);
-        shaderProgram->setMat4("MVP", viewProjectionMatrix * modelMatrix);
-        shaderProgram->setMat4("M", modelMatrix);
-        shaderProgram->applyShader();
+        SoglProgramManager::setVec3("cameraPos", camPos);
+        SoglProgramManager::setMat4("MVP", viewProjectionMatrix * modelMatrix);
+        SoglProgramManager::setMat4("M", modelMatrix);
 
         glBindVertexArray(vertexArrayObject);
         glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);
     }
 
     void SoglGameObject::applyMaterial(){
-        shaderProgram->setVec3("albedo", material.albedo);
+        SoglProgramManager::setVec3("albedo", material.albedo);
     }
 
     void SoglGameObject::translate(glm::vec3 amnt){

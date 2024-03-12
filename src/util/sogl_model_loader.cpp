@@ -4,7 +4,7 @@
 namespace sogl
 {
     std::string SoglModelLoader::modelRoot = "assets/models/";
-    SoglShader *SoglModelLoader::defaultShader = nullptr;
+    std::string SoglModelLoader::defaultShader = "default";
     
     std::vector<SoglGameObject> SoglModelLoader::loadModel(std::string relativePath){
         std::string path = modelRoot + relativePath;

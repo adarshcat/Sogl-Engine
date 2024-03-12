@@ -3,10 +3,10 @@
 #include <GL/glew.h>
 #include <glm/gtc/matrix_transform.hpp>
 
-#include "sogl_shader.hpp"
 
 //std
 #include <vector>
+#include <string>
 
 namespace sogl
 {
@@ -22,7 +22,7 @@ namespace sogl
     
     class SoglGameObject{
         public:
-        SoglGameObject(std::vector<Vertex> inVertices, std::vector<unsigned int> inIndices, SoglShader *shaderPr, Material mat);
+        SoglGameObject(std::vector<Vertex> inVertices, std::vector<unsigned int> inIndices, std::string _shader, Material mat);
 
         void draw(glm::mat4 viewProjectionMatrix, glm::vec3 camPos);
         void translate(glm::vec3 amnt);
@@ -40,7 +40,7 @@ namespace sogl
         std::vector<unsigned int> indices;
         GLuint vertexArrayObject;
 
-        SoglShader *shaderProgram;
+        std::string shader;
         Material material;
 
         // transforms

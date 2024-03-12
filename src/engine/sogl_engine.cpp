@@ -7,13 +7,12 @@ namespace sogl
 {
     
     SoglEngine::SoglEngine(): 
-        soglWindow{RENDER_WIDTH, RENDER_HEIGHT, "Sogl Window"} ,soglRenderer(soglWindow, RENDER_WIDTH, RENDER_HEIGHT),
-        soglCamera(RENDER_WIDTH, RENDER_HEIGHT), shaderManager{SoglShaderManager()}, programManager{SoglProgramManager()}, 
+        soglWindow{RENDER_WIDTH, RENDER_HEIGHT, "Sogl Window"} ,
+        soglCamera(RENDER_WIDTH, RENDER_HEIGHT),
+        soglRenderer(soglWindow, RENDER_WIDTH, RENDER_HEIGHT),
         cameraController{SoglCameraController(&soglCamera)}
     {
-
-        shaderManager.addShader(SoglShader(&programManager));
-        SoglModelLoader::defaultShader = &shaderManager.getShader(0);
+        soglRenderer.initialiseRenderer();
 
         // Directly using the engine, not how its supposed to be used. Remove later
 
@@ -35,7 +34,7 @@ namespace sogl
             lastFrame = currentFrame;
             
             cameraController.processInput(soglWindow, deltaTime);
-            //gameObjects[0].rotate(glm::vec3(0, 1, 0), 0.001f);
+            gameObjects[0].rotate(glm::vec3(0, 1, 0), 0.001f);
 
             windowShouldClose = soglRenderer.draw(gameObjects, soglCamera.getViewProjectionMatrix(), cameraController.cameraPos);
         }

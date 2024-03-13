@@ -1,8 +1,8 @@
 #pragma once
 
-#include "sogl_renderer.hpp"
-#include "sogl_program_manager.hpp"
-#include "sogl_camera_controller.hpp"
+#include "renderer/sogl_renderer.hpp"
+#include "util/shaders/sogl_program_manager.hpp"
+#include "util/sogl_camera_controller.hpp"
 
 // std
 #include <vector>
@@ -16,7 +16,8 @@ namespace sogl
 
         void run();
 
-        void addGameObject(SoglGameObject &gameObj);
+        void addGameObject(SoglGameObject &_gameObj);
+        void addGameObjects(std::vector<SoglGameObject> &_gameObjs);
         
         private:
         const int RENDER_WIDTH = 1024;

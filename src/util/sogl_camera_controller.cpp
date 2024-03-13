@@ -1,5 +1,5 @@
 
-#include "sogl_camera_controller.hpp"
+#include "util/sogl_camera_controller.hpp"
 #include <cmath>
 
 namespace sogl

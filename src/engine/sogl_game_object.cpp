@@ -1,6 +1,6 @@
 //#include "sogl_shader_loader.hpp"
-#include "sogl_game_object.hpp"
-#include "sogl_program_manager.hpp"
+#include "engine/sogl_game_object.hpp"
+#include "util/shaders/sogl_program_manager.hpp"
 
 //std
 #include <iostream>

@@ -1,6 +1,6 @@
 
-#include "sogl_shader_loader.hpp"
-#include "sogl_program_manager.hpp"
+#include "util/shaders/sogl_shader_loader.hpp"
+#include "util/shaders/sogl_program_manager.hpp"
 
 #include <cstring>
 #include <iostream>
@@ -22,7 +22,7 @@ namespace sogl
         std::string vertexPath = programPath + programName + ".vert";
         std::string fragmentPath = programPath + programName + ".frag";
 
-        GLuint programID = LoadShaders(vertexPath.c_str(), fragmentPath.c_str());
+        GLuint programID = sogl::LoadShaders(vertexPath.c_str(), fragmentPath.c_str());
         activePrograms.insert({programName, programID});
 
         return programID;

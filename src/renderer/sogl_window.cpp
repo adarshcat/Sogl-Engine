@@ -1,5 +1,5 @@
 
-#include "sogl_window.hpp"
+#include "renderer/sogl_window.hpp"
 
 namespace sogl
 {

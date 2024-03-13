@@ -10,10 +10,7 @@
                 "-std=c++17",
 
                 "-I${workspaceFolder}/include",
-                "-I${workspaceFolder}/src/renderer",
-                "-I${workspaceFolder}/src/engine",
-                "-I${workspaceFolder}/src/util/shaders",
-                "-I${workspaceFolder}/src/util",
+                "-I${workspaceFolder}/src",
 
                 "-L${workspaceFolder}/lib",
 

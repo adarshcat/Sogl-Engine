@@ -1,5 +1,5 @@
 
-#include "sogl_model_loader.hpp"
+#include "util/sogl_model_loader.hpp"
 
 namespace sogl
 {

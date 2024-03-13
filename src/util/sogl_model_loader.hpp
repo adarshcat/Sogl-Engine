@@ -4,7 +4,7 @@
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
 
-#include "sogl_game_object.hpp"
+#include "engine/sogl_game_object.hpp"
 
 //std
 #include <vector>

@@ -3,10 +3,10 @@
 #include <GL/glew.h>
 #include <glm/gtc/matrix_transform.hpp>
 
-#include "sogl_window.hpp"
-#include "sogl_camera.hpp"
-#include "sogl_game_object.hpp"
-#include "sogl_program_manager.hpp"
+#include "renderer/sogl_window.hpp"
+#include "engine/sogl_camera.hpp"
+#include "engine/sogl_game_object.hpp"
+#include "util/shaders/sogl_program_manager.hpp"
 
 // std
 #include <vector>

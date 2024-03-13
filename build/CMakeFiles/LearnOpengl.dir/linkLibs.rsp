@@ -1,0 +1,1 @@
+ -lopengl32 "C:/Users/adars/Documents/Cpp Projects/FirstOpengl/lib/glew32.lib" "C:/Users/adars/Documents/Cpp Projects/FirstOpengl/lib/libglfw3dll.a" "C:/Users/adars/Documents/Cpp Projects/FirstOpengl/lib/libassimp.dll.a" -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32 

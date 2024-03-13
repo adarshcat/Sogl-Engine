@@ -3,10 +3,10 @@
     "configurations": [
         
         {
-            "name": "C/C++: g++.exe build and debug active file",
+            "name": "Cmake debug",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceFolder}/Debugx64.exe",
+            "program": "${workspaceFolder}/build/LearnOpengl.exe",
             "args": [],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
@@ -26,7 +26,7 @@
                     "ignoreFailures": true
                 }
             ],
-            "preLaunchTask": "C/C++: g++.exe build active file"
+            "preLaunchTask": "build"
         }
     ]
 }

@@ -16,6 +16,7 @@ namespace sogl
 
         static void setVec3(const std::string uniformName, glm::vec3 value);
         static void setMat4(const std::string uniformName, glm::mat4 value);
+        static void setFloat(const std::string uniformName, float value);
         static void bindImage(const std::string uniformName, GLuint val);
 
         static std::string currentProgram;

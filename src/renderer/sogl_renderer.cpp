@@ -25,14 +25,16 @@ namespace sogl
         std::cout << "App initialised" << std::endl;
     }
 
-    void SoglRenderer::initialiseRenderer(){
+    void SoglRenderer::initialiseLighting(DirectionalLight dirLight){
         lightingShader = "lighting";
         SoglProgramManager::addProgram(lightingShader);
         SoglProgramManager::useProgram(lightingShader);
         SoglProgramManager::bindImage("gPositionView", 0);
         SoglProgramManager::bindImage("gNormal", 1);
         SoglProgramManager::bindImage("gAlbedoSpec", 2);
-        SoglProgramManager::bindImage("shadowMap", 3);
+        SoglProgramManager::bindImage("dirLight.shadowMap", 3);
+
+        updateDirectionalLight(dirLight);
         
         glEnable(GL_DEPTH_TEST);
         glDepthFunc(GL_LESS);
@@ -167,11 +169,9 @@ namespace sogl
         glClear(GL_DEPTH_BUFFER_BIT);
 
         // Draw shadow calls to all the game objects
-        glCullFace(GL_FRONT);
         for (SoglGameObject &gameObj : gameObjects){
             gameObj.drawShadow(dirLightMatrix);
         }
-        glCullFace(GL_BACK);
 
         // reset stuff
         glBindFramebuffer(GL_FRAMEBUFFER, 0);
@@ -195,10 +195,18 @@ namespace sogl
 
         SoglProgramManager::setMat4("invViewMatrix", camData.invViewMatrix);
         SoglProgramManager::setVec3("cameraPos", camData.camPos);
-        SoglProgramManager::setMat4("dirLightMatrix", dirLightMatrix);
 
+        SoglProgramManager::setMat4("dirLight.transformMatrix", dirLightMatrix);
+        
         // draw the render quad
         glBindVertexArray(renderQuadVAO);
         glDrawArrays(GL_TRIANGLES, 0, 6);
+    }
+
+    void SoglRenderer::updateDirectionalLight(DirectionalLight dirLight){
+        SoglProgramManager::useProgram(lightingShader);
+        SoglProgramManager::setVec3("dirLight.color", dirLight.color);
+        SoglProgramManager::setVec3("dirLight.direction", glm::normalize(dirLight.direction));
+        SoglProgramManager::setFloat("dirLight.strength", dirLight.strength);
     }
 } // namespace sogl

@@ -18,8 +18,8 @@ namespace sogl
     class SoglRenderer{
         public:
         SoglRenderer(SoglWindow& wind, const int width, const int height);
-        void initialiseRenderer();
 
+        void initialiseLighting(DirectionalLight dirLight);
         bool draw(std::vector<SoglGameObject> &gameObjects, CameraData camData, DirectionalLight dirLight);
 
         const int WIDTH;
@@ -45,6 +45,8 @@ namespace sogl
         void geometryPass(std::vector<SoglGameObject> &gameObjects, CameraData camData);
         void shadowPass(std::vector<SoglGameObject> &gameObjects, glm::mat4 lightSpaceMatrix);
         void lightingPass(CameraData camData, glm::mat4 lightSpaceMatrix);
+
+        void updateDirectionalLight(DirectionalLight dirLight);
     };
 } // namespace sogl
 

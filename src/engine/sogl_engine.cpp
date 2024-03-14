@@ -12,8 +12,6 @@ namespace sogl
         soglRenderer(soglWindow, RENDER_WIDTH, RENDER_HEIGHT),
         cameraController{SoglCameraController(&soglCamera)}
     {
-        soglRenderer.initialiseRenderer();
-        
         // temporarily initialse the directional light here, will fix it later
 
         float near_plane = 1.0f, far_plane = 10.5f;
@@ -21,6 +19,12 @@ namespace sogl
         directionalLight.projectionMatrix = glm::ortho(-width, width, -width, width, near_plane, far_plane);
         directionalLight.viewMatrix = glm::lookAt(glm::vec3(2.0f, 4.0f, -1.0f),  glm::vec3( 0.0f, 0.0f,  0.0f),
             glm::vec3( 0.0f, 1.0f,  0.0f));
+        
+        directionalLight.color = glm::vec3(1.0);
+        directionalLight.direction = glm::normalize(glm::vec3(2.0f, 4.0f, -1.0f));
+        directionalLight.strength = 2.2f;
+
+        soglRenderer.initialiseLighting(directionalLight);   
     }
 
     void SoglEngine::run(){

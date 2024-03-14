@@ -18,6 +18,8 @@ namespace sogl
 
         void addGameObject(SoglGameObject &_gameObj);
         void addGameObjects(std::vector<SoglGameObject> &_gameObjs);
+
+        DirectionalLight directionalLight;
         
         private:
         const int RENDER_WIDTH = 1024;

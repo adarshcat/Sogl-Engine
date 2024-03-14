@@ -275,6 +275,7 @@ CMakeFiles/LearnOpengl.dir/src/renderer/sogl_renderer.cpp.obj: \
  C:/msys64/mingw64/include/c++/13.2.0/bits/stl_map.h \
  C:/msys64/mingw64/include/c++/13.2.0/bits/stl_multimap.h \
  C:/msys64/mingw64/include/c++/13.2.0/bits/erase_if.h \
+ C:/Users/adars/DOCUME~1/CPPPRO~1/FIRSTO~1/src/engine/sogl_lights.hpp \
  C:/msys64/mingw64/include/c++/13.2.0/iostream \
  C:/msys64/mingw64/include/c++/13.2.0/ostream \
  C:/msys64/mingw64/include/c++/13.2.0/ios \

@@ -10,8 +10,9 @@ using namespace sogl;
 
 int main() {
     SoglEngine engine;
-    std::vector<SoglGameObject> monkeyModel = SoglModelLoader::loadModel("monkey.obj");
+    std::vector<SoglGameObject> monkeyModel = SoglModelLoader::loadModel("cube.glb");
     std::vector<SoglGameObject> planeModel = SoglModelLoader::loadModel("plane.obj");
+    planeModel[0].material.albedo = glm::vec3(1.0, 1.0, 0.0);
 
     planeModel[0].translate(glm::vec3(0, -2.2, 0));
 

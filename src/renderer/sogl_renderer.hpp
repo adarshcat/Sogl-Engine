@@ -7,6 +7,7 @@
 #include "engine/sogl_camera.hpp"
 #include "engine/sogl_game_object.hpp"
 #include "util/shaders/sogl_program_manager.hpp"
+#include "engine/sogl_lights.hpp"
 
 // std
 #include <vector>
@@ -18,10 +19,8 @@ namespace sogl
         public:
         SoglRenderer(SoglWindow& wind, const int width, const int height);
         void initialiseRenderer();
-        void initialiseGBuffer();
-        void initialiseRenderQuad();
 
-        bool draw(std::vector<SoglGameObject> &gameObjects, glm::mat4 viewProjectionMatrix, glm::vec3 camPos);
+        bool draw(std::vector<SoglGameObject> &gameObjects, CameraData camData, DirectionalLight dirLight);
 
         const int WIDTH;
         const int HEIGHT;
@@ -31,13 +30,21 @@ namespace sogl
         std::string lightingShader;
 
         GLuint gBuffer;
-        GLuint gPosition, gNormal, gAlbedoSpec;
+        GLuint gPositionView, gNormal, gAlbedoSpec;
+
+        const unsigned int SHADOW_WIDTH = 1024, SHADOW_HEIGHT = 1024;
+        GLuint shadowBuffer;
+        GLuint shadowMap;
 
         GLuint renderQuadVAO;
 
-        void geometryPass(std::vector<SoglGameObject> &gameObjects, glm::mat4 viewProjectionMatrix, glm::vec3 camPos);
-        void lightingPass();
-        
+        void initialiseGBuffer();
+        void initialiseRenderQuad();
+        void initialiseShadowMap();
+
+        void geometryPass(std::vector<SoglGameObject> &gameObjects, CameraData camData);
+        void shadowPass(std::vector<SoglGameObject> &gameObjects, glm::mat4 lightSpaceMatrix);
+        void lightingPass(CameraData camData, glm::mat4 lightSpaceMatrix);
     };
 } // namespace sogl
 

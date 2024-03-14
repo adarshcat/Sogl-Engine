@@ -276,6 +276,7 @@ CMakeFiles/LearnOpengl.dir/src/engine/sogl_engine.cpp.obj: \
  C:/msys64/mingw64/include/c++/13.2.0/bits/stl_map.h \
  C:/msys64/mingw64/include/c++/13.2.0/bits/stl_multimap.h \
  C:/msys64/mingw64/include/c++/13.2.0/bits/erase_if.h \
+ C:/Users/adars/DOCUME~1/CPPPRO~1/FIRSTO~1/src/engine/sogl_lights.hpp \
  C:/Users/adars/DOCUME~1/CPPPRO~1/FIRSTO~1/src/util/sogl_camera_controller.hpp \
  C:/Users/adars/DOCUME~1/CPPPRO~1/FIRSTO~1/src/util/sogl_model_loader.hpp \
  C:/Users/adars/DOCUME~1/CPPPRO~1/FIRSTO~1/include/assimp/Importer.hpp \

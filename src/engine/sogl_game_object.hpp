@@ -2,6 +2,7 @@
 
 #include <GL/glew.h>
 #include <glm/gtc/matrix_transform.hpp>
+#include "engine/sogl_camera.hpp"
 
 
 //std
@@ -24,10 +25,14 @@ namespace sogl
         public:
         SoglGameObject(std::vector<Vertex> inVertices, std::vector<unsigned int> inIndices, std::string _shader, Material mat);
 
-        void draw(glm::mat4 viewProjectionMatrix, glm::vec3 camPos);
+        void draw(CameraData camData);
+        void drawShadow(glm::mat4 lightSpaceMatrix);
+
         void translate(glm::vec3 amnt);
         void rotate(glm::vec3 axis, float angle);
         void scale(glm::vec3 scaleVec);
+
+        Material material;
 
         protected:
         void applyMaterial();
@@ -41,7 +46,6 @@ namespace sogl
         GLuint vertexArrayObject;
 
         std::string shader;
-        Material material;
 
         // transforms
         glm::mat4 modelMatrix{1.0};

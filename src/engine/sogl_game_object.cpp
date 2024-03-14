@@ -12,6 +12,7 @@ namespace sogl
         vertices{inVertices}, indices{inIndices}, shader{_shader}, material{mat}
     {
         SoglProgramManager::addProgram(shader);
+        SoglProgramManager::addProgram(shader+"_shadow");
         initialiseStorageBuffer();
     }
 
@@ -44,12 +45,22 @@ namespace sogl
         glBindVertexArray(0);
     }
 
-    void SoglGameObject::draw(glm::mat4 viewProjectionMatrix, glm::vec3 camPos){
+    void SoglGameObject::draw(CameraData camData){
         SoglProgramManager::useProgram(shader);
         applyMaterial();
-        SoglProgramManager::setVec3("cameraPos", camPos);
-        SoglProgramManager::setMat4("MVP", viewProjectionMatrix * modelMatrix);
-        SoglProgramManager::setMat4("M", modelMatrix);
+        SoglProgramManager::setMat4("mvpMatrix", camData.viewProjectionMatrix * modelMatrix);
+        SoglProgramManager::setMat4("mvMatrix", camData.viewMatrix * modelMatrix);
+        SoglProgramManager::setMat4("modelMatrix", modelMatrix);
+
+        glBindVertexArray(vertexArrayObject);
+        glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);
+    }
+
+    void SoglGameObject::drawShadow(glm::mat4 lightSpaceMatrix){
+        SoglProgramManager::useProgram(shader+"_shadow");
+        applyMaterial();
+        SoglProgramManager::setMat4("modelMatrix", modelMatrix);
+        SoglProgramManager::setMat4("lightSpaceMatrix", lightSpaceMatrix);
 
         glBindVertexArray(vertexArrayObject);
         glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);

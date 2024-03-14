@@ -17,12 +17,20 @@ namespace sogl
         projectionMatrix = glm::perspective(glm::radians(45.0f), (float) WIDTH / (float)HEIGHT, 0.1f, 100.0f);
     }
 
-    void SoglCamera::setViewMatrix(glm::mat4 viewMat){
-        viewMatrix = viewMat;
-    }
-
     glm::mat4 SoglCamera::getViewProjectionMatrix(){
         return projectionMatrix * viewMatrix;
+    }
+
+    glm::mat4 SoglCamera::getViewMatrix(){
+        return viewMatrix;
+    }
+
+    glm::mat4 SoglCamera::getInvViewMatrix(){
+        return glm::inverse(viewMatrix);
+    }
+
+    void SoglCamera::setViewMatrix(glm::mat4 viewMat){
+        viewMatrix = viewMat;
     }
 
 

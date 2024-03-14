@@ -253,6 +253,7 @@ CMakeFiles/LearnOpengl.dir/src/engine/sogl_engine.cpp.obj: C:/Users/adars/Docume
   C:/Users/adars/Documents/Cpp\ Projects/FirstOpengl/src/engine/sogl_camera.hpp \
   C:/Users/adars/Documents/Cpp\ Projects/FirstOpengl/src/engine/sogl_engine.hpp \
   C:/Users/adars/Documents/Cpp\ Projects/FirstOpengl/src/engine/sogl_game_object.hpp \
+  C:/Users/adars/Documents/Cpp\ Projects/FirstOpengl/src/engine/sogl_lights.hpp \
   C:/Users/adars/Documents/Cpp\ Projects/FirstOpengl/src/renderer/sogl_renderer.hpp \
   C:/Users/adars/Documents/Cpp\ Projects/FirstOpengl/src/renderer/sogl_window.hpp \
   C:/Users/adars/Documents/Cpp\ Projects/FirstOpengl/src/util/shaders/sogl_program_manager.hpp \
@@ -587,6 +588,7 @@ CMakeFiles/LearnOpengl.dir/src/engine/sogl_game_object.cpp.obj: C:/Users/adars/D
   C:/Users/adars/Documents/Cpp\ Projects/FirstOpengl/include/glm/mat4x4.hpp \
   C:/Users/adars/Documents/Cpp\ Projects/FirstOpengl/include/glm/gtc/matrix_transform.hpp \
   C:/Users/adars/Documents/Cpp\ Projects/FirstOpengl/include/glm/gtc/matrix_transform.inl \
+  C:/Users/adars/Documents/Cpp\ Projects/FirstOpengl/src/engine/sogl_camera.hpp \
   C:/Users/adars/Documents/Cpp\ Projects/FirstOpengl/src/engine/sogl_game_object.hpp \
   C:/Users/adars/Documents/Cpp\ Projects/FirstOpengl/src/util/shaders/sogl_program_manager.hpp \
   C:/Users/adars/Documents/Cpp\ Projects/FirstOpengl/include/glm/common.hpp \
@@ -940,6 +942,7 @@ CMakeFiles/LearnOpengl.dir/src/main.cpp.obj: C:/Users/adars/Documents/Cpp\ Proje
   C:/Users/adars/Documents/Cpp\ Projects/FirstOpengl/include/glm/gtc/matrix_transform.inl \
   C:/Users/adars/Documents/Cpp\ Projects/FirstOpengl/src/engine/sogl_camera.hpp \
   C:/Users/adars/Documents/Cpp\ Projects/FirstOpengl/src/engine/sogl_game_object.hpp \
+  C:/Users/adars/Documents/Cpp\ Projects/FirstOpengl/src/engine/sogl_lights.hpp \
   C:/Users/adars/Documents/Cpp\ Projects/FirstOpengl/src/renderer/sogl_renderer.hpp \
   C:/Users/adars/Documents/Cpp\ Projects/FirstOpengl/src/renderer/sogl_window.hpp \
   C:/Users/adars/Documents/Cpp\ Projects/FirstOpengl/src/util/shaders/sogl_program_manager.hpp \
@@ -1278,6 +1281,7 @@ CMakeFiles/LearnOpengl.dir/src/renderer/sogl_renderer.cpp.obj: C:/Users/adars/Do
   C:/Users/adars/Documents/Cpp\ Projects/FirstOpengl/include/glm/gtc/matrix_transform.inl \
   C:/Users/adars/Documents/Cpp\ Projects/FirstOpengl/src/engine/sogl_camera.hpp \
   C:/Users/adars/Documents/Cpp\ Projects/FirstOpengl/src/engine/sogl_game_object.hpp \
+  C:/Users/adars/Documents/Cpp\ Projects/FirstOpengl/src/engine/sogl_lights.hpp \
   C:/Users/adars/Documents/Cpp\ Projects/FirstOpengl/src/renderer/sogl_renderer.hpp \
   C:/Users/adars/Documents/Cpp\ Projects/FirstOpengl/src/renderer/sogl_window.hpp \
   C:/Users/adars/Documents/Cpp\ Projects/FirstOpengl/src/util/shaders/sogl_program_manager.hpp \
@@ -2325,6 +2329,7 @@ CMakeFiles/LearnOpengl.dir/src/util/sogl_model_loader.cpp.obj: C:/Users/adars/Do
   C:/Users/adars/Documents/Cpp\ Projects/FirstOpengl/include/glm/mat4x4.hpp \
   C:/Users/adars/Documents/Cpp\ Projects/FirstOpengl/include/glm/gtc/matrix_transform.hpp \
   C:/Users/adars/Documents/Cpp\ Projects/FirstOpengl/include/glm/gtc/matrix_transform.inl \
+  C:/Users/adars/Documents/Cpp\ Projects/FirstOpengl/src/engine/sogl_camera.hpp \
   C:/Users/adars/Documents/Cpp\ Projects/FirstOpengl/src/engine/sogl_game_object.hpp \
   C:/Users/adars/Documents/Cpp\ Projects/FirstOpengl/src/util/sogl_model_loader.hpp \
   C:/Users/adars/Documents/Cpp\ Projects/FirstOpengl/include/glm/common.hpp \
@@ -3236,6 +3241,8 @@ C:/Users/adars/Documents/Cpp\ Projects/FirstOpengl/include/assimp/vector2.inl:
 C:/Users/adars/Documents/Cpp\ Projects/FirstOpengl/src/engine/sogl_engine.hpp:
 
 C:/Users/adars/Documents/Cpp\ Projects/FirstOpengl/src/engine/sogl_game_object.hpp:
+
+C:/Users/adars/Documents/Cpp\ Projects/FirstOpengl/src/engine/sogl_lights.hpp:
 
 C:/Users/adars/Documents/Cpp\ Projects/FirstOpengl/src/renderer/sogl_renderer.hpp:
 

@@ -14,25 +14,52 @@ namespace sogl
     {
         soglRenderer.initialiseRenderer();
         
+        // temporarily initialse the directional light here, will fix it later
+
+        float near_plane = 1.0f, far_plane = 10.5f;
+        const float width = 5.0f;
+        directionalLight.projectionMatrix = glm::ortho(-width, width, -width, width, near_plane, far_plane);
+        directionalLight.viewMatrix = glm::lookAt(glm::vec3(2.0f, 4.0f, -1.0f),  glm::vec3( 0.0f, 0.0f,  0.0f),
+            glm::vec3( 0.0f, 1.0f,  0.0f));
     }
 
     void SoglEngine::run(){
         bool windowShouldClose = false;
         float deltaTime = 0.0;
-        float lastFrame = 0.0;
+        float lastTick = 0.0;
+        float lastFixedTick = 0.0;
+        float fixedLoopInterval = 1.0/60;
+
         do {
-            float currentFrame = glfwGetTime();
-            deltaTime = currentFrame - lastFrame;
-            lastFrame = currentFrame;
+            // delta time calculation
+            float currentTime = glfwGetTime();
+            deltaTime = currentTime - lastTick;
+            lastTick = currentTime;
+
+            // Fixed loop, runs a fixed number of times a second
+            float lastFixedLoopTime = currentTime - lastFixedTick;
+            if (lastFixedLoopTime > fixedLoopInterval){
+                // fixed loop stuff goes here
+
+                lastFixedTick = currentTime;
+            }
+
+            // construct camera data for renderer
+            CameraData camData;
+            camData.viewProjectionMatrix = soglCamera.getViewProjectionMatrix();
+            camData.viewMatrix = soglCamera.getViewMatrix();
+            camData.invViewMatrix = soglCamera.getInvViewMatrix();
+            camData.camPos = cameraController.cameraPos;
             
             cameraController.processInput(soglWindow, deltaTime);
 
             gameObjects[0].rotate(glm::vec3(0, 1, 0), 0.001f);
 
-            windowShouldClose = soglRenderer.draw(gameObjects, soglCamera.getViewProjectionMatrix(), cameraController.cameraPos);
+            windowShouldClose = soglRenderer.draw(gameObjects, camData, directionalLight);
         }
         while(!windowShouldClose);
     }
+
 
     void SoglEngine::addGameObject(SoglGameObject &_gameObj){
         gameObjects.push_back(_gameObj);

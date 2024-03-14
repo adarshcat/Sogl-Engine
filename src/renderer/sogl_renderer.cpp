@@ -29,16 +29,19 @@ namespace sogl
         lightingShader = "lighting";
         SoglProgramManager::addProgram(lightingShader);
         SoglProgramManager::useProgram(lightingShader);
-        SoglProgramManager::bindImage("gPosition", 0);
+        SoglProgramManager::bindImage("gPositionView", 0);
         SoglProgramManager::bindImage("gNormal", 1);
         SoglProgramManager::bindImage("gAlbedoSpec", 2);
+        SoglProgramManager::bindImage("shadowMap", 3);
         
         glEnable(GL_DEPTH_TEST);
         glDepthFunc(GL_LESS);
-        glDisable(GL_BLEND);
+        glEnable(GL_CULL_FACE);
+        glCullFace(GL_BACK);
 
         initialiseGBuffer();
         initialiseRenderQuad();
+        initialiseShadowMap();
     }
 
     void SoglRenderer::initialiseGBuffer(){
@@ -46,12 +49,12 @@ namespace sogl
         glBindFramebuffer(GL_FRAMEBUFFER, gBuffer);
         
         // - position color buffer
-        glGenTextures(1, &gPosition);
-        glBindTexture(GL_TEXTURE_2D, gPosition);
+        glGenTextures(1, &gPositionView);
+        glBindTexture(GL_TEXTURE_2D, gPositionView);
         glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA16F, WIDTH, HEIGHT, 0, GL_RGBA, GL_FLOAT, NULL);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-        glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, gPosition, 0);
+        glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, gPositionView, 0);
         
         // - normal color buffer
         glGenTextures(1, &gNormal);
@@ -112,15 +115,41 @@ namespace sogl
         glBindVertexArray(0);
     }
 
+    void SoglRenderer::initialiseShadowMap(){
+        glGenFramebuffers(1, &shadowBuffer);
+
+        glGenTextures(1, &shadowMap);
+        glBindTexture(GL_TEXTURE_2D, shadowMap);
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT, 
+                    SHADOW_WIDTH, SHADOW_HEIGHT, 0, GL_DEPTH_COMPONENT, GL_FLOAT, NULL);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_BORDER);
+        float borderColor[] = { 1.0f, 1.0f, 1.0f, 1.0f };
+        glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_BORDER_COLOR, borderColor);  
+
+        glBindFramebuffer(GL_FRAMEBUFFER, shadowBuffer);
+        glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, shadowMap, 0);
+        glDrawBuffer(GL_NONE);
+        glReadBuffer(GL_NONE);
+        glBindFramebuffer(GL_FRAMEBUFFER, 0);
+    }
+
     // Renders onto glfw window, takes in all the renderable game objects and calls draw() on them
-    bool SoglRenderer::draw(std::vector<SoglGameObject> &gameObjects, glm::mat4 viewProjectionMatrix, glm::vec3 camPos){
-        geometryPass(gameObjects, viewProjectionMatrix, camPos);
-        lightingPass();
+    bool SoglRenderer::draw(std::vector<SoglGameObject> &gameObjects, CameraData camData, DirectionalLight dirLight){
+        glm::mat4 dirLightMatrix = dirLight.projectionMatrix * dirLight.viewMatrix;
+
+        geometryPass(gameObjects, camData);
+        shadowPass(gameObjects, dirLightMatrix);
+        lightingPass(camData, dirLightMatrix);
         
         return !soglWindow.updateAndPollWindow();
     }
 
-    void SoglRenderer::geometryPass(std::vector<SoglGameObject> &gameObjects, glm::mat4 viewProjectionMatrix, glm::vec3 camPos){
+    void SoglRenderer::geometryPass(std::vector<SoglGameObject> &gameObjects, CameraData camData){
         glBindFramebuffer(GL_FRAMEBUFFER, gBuffer);
         
         glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
@@ -128,22 +157,45 @@ namespace sogl
         
         // Draw calls to all the game objects
         for (SoglGameObject &gameObj : gameObjects){
-            gameObj.draw(viewProjectionMatrix, camPos);
+            gameObj.draw(camData);
         }
     }
 
-    void SoglRenderer::lightingPass(){
+    void SoglRenderer::shadowPass(std::vector<SoglGameObject> &gameObjects, glm::mat4 dirLightMatrix){
+        glViewport(0, 0, SHADOW_WIDTH, SHADOW_HEIGHT);
+        glBindFramebuffer(GL_FRAMEBUFFER, shadowBuffer);
+        glClear(GL_DEPTH_BUFFER_BIT);
+
+        // Draw shadow calls to all the game objects
+        glCullFace(GL_FRONT);
+        for (SoglGameObject &gameObj : gameObjects){
+            gameObj.drawShadow(dirLightMatrix);
+        }
+        glCullFace(GL_BACK);
+
+        // reset stuff
+        glBindFramebuffer(GL_FRAMEBUFFER, 0);
+        glViewport(0, 0, WIDTH, HEIGHT);
+    }
+
+    void SoglRenderer::lightingPass(CameraData camData, glm::mat4 dirLightMatrix){
         glBindFramebuffer(GL_FRAMEBUFFER, 0);
         glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
         SoglProgramManager::useProgram(lightingShader);
         glActiveTexture(GL_TEXTURE0);
-        glBindTexture(GL_TEXTURE_2D, gPosition);
+        glBindTexture(GL_TEXTURE_2D, gPositionView);
         glActiveTexture(GL_TEXTURE1);
         glBindTexture(GL_TEXTURE_2D, gNormal);
         glActiveTexture(GL_TEXTURE2);
         glBindTexture(GL_TEXTURE_2D, gAlbedoSpec);
+        glActiveTexture(GL_TEXTURE3);
+        glBindTexture(GL_TEXTURE_2D, shadowMap);
+
+        SoglProgramManager::setMat4("invViewMatrix", camData.invViewMatrix);
+        SoglProgramManager::setVec3("cameraPos", camData.camPos);
+        SoglProgramManager::setMat4("dirLightMatrix", dirLightMatrix);
 
         // draw the render quad
         glBindVertexArray(renderQuadVAO);

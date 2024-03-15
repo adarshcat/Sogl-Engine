@@ -25,7 +25,7 @@ namespace sogl
         std::cout << "App initialised" << std::endl;
     }
 
-    void SoglRenderer::initialiseLighting(DirectionalLight dirLight){
+    void SoglRenderer::initialiseLighting(DirectionalLight &dirLight){
         lightingShader = "lighting";
         SoglProgramManager::addProgram(lightingShader);
         SoglProgramManager::useProgram(lightingShader);
@@ -122,7 +122,7 @@ namespace sogl
 
         glGenTextures(1, &shadowMap);
         glBindTexture(GL_TEXTURE_2D, shadowMap);
-        glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT, 
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT32F, 
                     SHADOW_WIDTH, SHADOW_HEIGHT, 0, GL_DEPTH_COMPONENT, GL_FLOAT, NULL);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
@@ -142,7 +142,7 @@ namespace sogl
 
     // Renders onto glfw window, takes in all the renderable game objects and calls draw() on them
     bool SoglRenderer::draw(std::vector<SoglGameObject> &gameObjects, CameraData camData, DirectionalLight dirLight){
-        glm::mat4 dirLightMatrix = dirLight.projectionMatrix * dirLight.viewMatrix;
+        glm::mat4 dirLightMatrix = LightOperations::adjustShadowMap(dirLight, camData.frustumSlice1);//dirLight.projectionMatrix * dirLight.viewMatrix;
 
         geometryPass(gameObjects, camData);
         shadowPass(gameObjects, dirLightMatrix);
@@ -151,7 +151,7 @@ namespace sogl
         return !soglWindow.updateAndPollWindow();
     }
 
-    void SoglRenderer::geometryPass(std::vector<SoglGameObject> &gameObjects, CameraData camData){
+    void SoglRenderer::geometryPass(std::vector<SoglGameObject> &gameObjects, CameraData &camData){
         glBindFramebuffer(GL_FRAMEBUFFER, gBuffer);
         
         glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
@@ -163,7 +163,7 @@ namespace sogl
         }
     }
 
-    void SoglRenderer::shadowPass(std::vector<SoglGameObject> &gameObjects, glm::mat4 dirLightMatrix){
+    void SoglRenderer::shadowPass(std::vector<SoglGameObject> &gameObjects, glm::mat4 &dirLightMatrix){
         glViewport(0, 0, SHADOW_WIDTH, SHADOW_HEIGHT);
         glBindFramebuffer(GL_FRAMEBUFFER, shadowBuffer);
         glClear(GL_DEPTH_BUFFER_BIT);
@@ -178,7 +178,7 @@ namespace sogl
         glViewport(0, 0, WIDTH, HEIGHT);
     }
 
-    void SoglRenderer::lightingPass(CameraData camData, glm::mat4 dirLightMatrix){
+    void SoglRenderer::lightingPass(CameraData &camData, glm::mat4 &dirLightMatrix){
         glBindFramebuffer(GL_FRAMEBUFFER, 0);
         glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -203,7 +203,7 @@ namespace sogl
         glDrawArrays(GL_TRIANGLES, 0, 6);
     }
 
-    void SoglRenderer::updateDirectionalLight(DirectionalLight dirLight){
+    void SoglRenderer::updateDirectionalLight(DirectionalLight &dirLight){
         SoglProgramManager::useProgram(lightingShader);
         SoglProgramManager::setVec3("dirLight.color", dirLight.color);
         SoglProgramManager::setVec3("dirLight.direction", glm::normalize(dirLight.direction));

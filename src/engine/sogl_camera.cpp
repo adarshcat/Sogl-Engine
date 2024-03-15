@@ -14,14 +14,14 @@ namespace sogl
         );
 
         // Initialise simple projection matrix with fov of 45 degrees, near and far
-        projectionMatrix = glm::perspective(glm::radians(45.0f), (float) WIDTH / (float)HEIGHT, 0.1f, 100.0f);
+        projectionMatrix = glm::perspective(glm::radians(FOV), (float) WIDTH / (float)HEIGHT, NEAR_PLANE, FAR_PLANE);
     }
 
     glm::mat4 SoglCamera::getViewProjectionMatrix(){
         return projectionMatrix * viewMatrix;
     }
 
-    glm::mat4 SoglCamera::getViewMatrix(){
+    glm::mat4 &SoglCamera::getViewMatrix(){
         return viewMatrix;
     }
 
@@ -29,7 +29,40 @@ namespace sogl
         return glm::inverse(viewMatrix);
     }
 
-    void SoglCamera::setViewMatrix(glm::mat4 viewMat){
+    std::vector<glm::vec4> SoglCamera::getViewFrustum(glm::mat4 &viewProjMatrix){
+        const glm::mat4 invViewProjection = glm::inverse(viewProjMatrix);
+
+        std::vector<glm::vec4> frustumCorners;
+        for (unsigned int x = 0; x < 2; ++x){
+            for (unsigned int y = 0; y < 2; ++y){
+                for (unsigned int z = 0; z < 2; ++z){
+                    const glm::vec4 pt = 
+                        invViewProjection * glm::vec4(
+                            2.0f * x - 1.0f,
+                            2.0f * y - 1.0f,
+                            2.0f * z - 1.0f,
+                            1.0f);
+                    frustumCorners.push_back(pt / pt.w);
+                }
+            }
+        }
+
+        return frustumCorners;
+    }
+
+    std::vector<glm::vec4> SoglCamera::getViewFrustumSlice(const int div, const int offset){
+        const float SLICE_DEPTH = (FAR_PLANE - NEAR_PLANE) / div;
+
+        glm::mat4 slicedProjectionMatrix = glm::perspective(glm::radians(FOV), (float) WIDTH / (float)HEIGHT,
+            NEAR_PLANE + SLICE_DEPTH*offset, NEAR_PLANE + SLICE_DEPTH*(offset+1));
+        
+        glm::mat4 slicedViewProjMatrix = slicedProjectionMatrix * viewMatrix;
+
+        return getViewFrustum(slicedViewProjMatrix);
+    }
+
+
+    void SoglCamera::setViewMatrix(glm::mat4 &viewMat){
         viewMatrix = viewMat;
     }
 

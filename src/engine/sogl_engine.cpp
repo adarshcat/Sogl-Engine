@@ -13,18 +13,12 @@ namespace sogl
         cameraController{SoglCameraController(&soglCamera)}
     {
         // temporarily initialse the directional light here, will fix it later
-
-        float near_plane = 1.0f, far_plane = 10.5f;
-        const float width = 5.0f;
-        directionalLight.projectionMatrix = glm::ortho(-width, width, -width, width, near_plane, far_plane);
-        directionalLight.viewMatrix = glm::lookAt(glm::vec3(2.0f, 4.0f, -1.0f),  glm::vec3( 0.0f, 0.0f,  0.0f),
-            glm::vec3( 0.0f, 1.0f,  0.0f));
         
         directionalLight.color = glm::vec3(1.0);
-        directionalLight.direction = glm::normalize(glm::vec3(2.0f, 4.0f, -1.0f));
+        directionalLight.direction = glm::normalize(glm::vec3(2.0f, 2.0f, -1.0f));
         directionalLight.strength = 2.2f;
 
-        soglRenderer.initialiseLighting(directionalLight);   
+        soglRenderer.initialiseLighting(directionalLight);
     }
 
     void SoglEngine::run(){
@@ -44,7 +38,7 @@ namespace sogl
             float lastFixedLoopTime = currentTime - lastFixedTick;
             if (lastFixedLoopTime > fixedLoopInterval){
                 // fixed loop stuff goes here
-
+                std::cout << "FPS: " << int(1.0f/deltaTime) << std::endl;
                 lastFixedTick = currentTime;
             }
 
@@ -54,6 +48,7 @@ namespace sogl
             camData.viewMatrix = soglCamera.getViewMatrix();
             camData.invViewMatrix = soglCamera.getInvViewMatrix();
             camData.camPos = cameraController.cameraPos;
+            camData.frustumSlice1 = soglCamera.getViewFrustumSlice(3, 0);
             
             cameraController.processInput(soglWindow, deltaTime);
 

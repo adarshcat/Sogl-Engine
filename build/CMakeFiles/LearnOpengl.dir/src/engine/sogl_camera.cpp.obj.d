@@ -204,4 +204,30 @@ CMakeFiles/LearnOpengl.dir/src/engine/sogl_camera.cpp.obj: \
  C:/Users/adars/DOCUME~1/CPPPRO~1/FIRSTO~1/include/glm/gtc/../ext/matrix_clip_space.inl \
  C:/Users/adars/DOCUME~1/CPPPRO~1/FIRSTO~1/include/glm/gtc/../ext/matrix_transform.hpp \
  C:/Users/adars/DOCUME~1/CPPPRO~1/FIRSTO~1/include/glm/gtc/../ext/matrix_transform.inl \
- C:/Users/adars/DOCUME~1/CPPPRO~1/FIRSTO~1/include/glm/gtc/matrix_transform.inl
+ C:/Users/adars/DOCUME~1/CPPPRO~1/FIRSTO~1/include/glm/gtc/matrix_transform.inl \
+ C:/msys64/mingw64/include/c++/13.2.0/vector \
+ C:/msys64/mingw64/include/c++/13.2.0/bits/allocator.h \
+ C:/msys64/mingw64/include/c++/13.2.0/x86_64-w64-mingw32/bits/c++allocator.h \
+ C:/msys64/mingw64/include/c++/13.2.0/bits/new_allocator.h \
+ C:/msys64/mingw64/include/c++/13.2.0/new \
+ C:/msys64/mingw64/include/c++/13.2.0/bits/exception.h \
+ C:/msys64/mingw64/include/c++/13.2.0/bits/memoryfwd.h \
+ C:/msys64/mingw64/include/c++/13.2.0/bits/stl_construct.h \
+ C:/msys64/mingw64/include/c++/13.2.0/bits/stl_uninitialized.h \
+ C:/msys64/mingw64/include/c++/13.2.0/ext/alloc_traits.h \
+ C:/msys64/mingw64/include/c++/13.2.0/bits/alloc_traits.h \
+ C:/msys64/mingw64/include/c++/13.2.0/bits/stl_vector.h \
+ C:/msys64/mingw64/include/c++/13.2.0/initializer_list \
+ C:/msys64/mingw64/include/c++/13.2.0/bits/stl_bvector.h \
+ C:/msys64/mingw64/include/c++/13.2.0/bits/functional_hash.h \
+ C:/msys64/mingw64/include/c++/13.2.0/bits/hash_bytes.h \
+ C:/msys64/mingw64/include/c++/13.2.0/bits/refwrap.h \
+ C:/msys64/mingw64/include/c++/13.2.0/bits/invoke.h \
+ C:/msys64/mingw64/include/c++/13.2.0/bits/stl_function.h \
+ C:/msys64/mingw64/include/c++/13.2.0/backward/binders.h \
+ C:/msys64/mingw64/include/c++/13.2.0/bits/range_access.h \
+ C:/msys64/mingw64/include/c++/13.2.0/bits/vector.tcc \
+ C:/msys64/mingw64/include/c++/13.2.0/bits/memory_resource.h \
+ C:/msys64/mingw64/include/c++/13.2.0/bits/uses_allocator.h \
+ C:/msys64/mingw64/include/c++/13.2.0/bits/uses_allocator_args.h \
+ C:/msys64/mingw64/include/c++/13.2.0/tuple

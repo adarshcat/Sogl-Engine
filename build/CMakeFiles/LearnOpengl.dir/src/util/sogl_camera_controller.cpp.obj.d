@@ -206,12 +206,37 @@ CMakeFiles/LearnOpengl.dir/src/util/sogl_camera_controller.cpp.obj: \
  C:/Users/adars/DOCUME~1/CPPPRO~1/FIRSTO~1/include/glm/gtc/../ext/matrix_transform.inl \
  C:/Users/adars/DOCUME~1/CPPPRO~1/FIRSTO~1/include/glm/gtc/matrix_transform.inl \
  C:/Users/adars/DOCUME~1/CPPPRO~1/FIRSTO~1/src/engine/sogl_camera.hpp \
+ C:/msys64/mingw64/include/c++/13.2.0/vector \
+ C:/msys64/mingw64/include/c++/13.2.0/bits/allocator.h \
+ C:/msys64/mingw64/include/c++/13.2.0/x86_64-w64-mingw32/bits/c++allocator.h \
+ C:/msys64/mingw64/include/c++/13.2.0/bits/new_allocator.h \
+ C:/msys64/mingw64/include/c++/13.2.0/new \
+ C:/msys64/mingw64/include/c++/13.2.0/bits/exception.h \
+ C:/msys64/mingw64/include/c++/13.2.0/bits/memoryfwd.h \
+ C:/msys64/mingw64/include/c++/13.2.0/bits/stl_construct.h \
+ C:/msys64/mingw64/include/c++/13.2.0/bits/stl_uninitialized.h \
+ C:/msys64/mingw64/include/c++/13.2.0/ext/alloc_traits.h \
+ C:/msys64/mingw64/include/c++/13.2.0/bits/alloc_traits.h \
+ C:/msys64/mingw64/include/c++/13.2.0/bits/stl_vector.h \
+ C:/msys64/mingw64/include/c++/13.2.0/initializer_list \
+ C:/msys64/mingw64/include/c++/13.2.0/bits/stl_bvector.h \
+ C:/msys64/mingw64/include/c++/13.2.0/bits/functional_hash.h \
+ C:/msys64/mingw64/include/c++/13.2.0/bits/hash_bytes.h \
+ C:/msys64/mingw64/include/c++/13.2.0/bits/refwrap.h \
+ C:/msys64/mingw64/include/c++/13.2.0/bits/invoke.h \
+ C:/msys64/mingw64/include/c++/13.2.0/bits/stl_function.h \
+ C:/msys64/mingw64/include/c++/13.2.0/backward/binders.h \
+ C:/msys64/mingw64/include/c++/13.2.0/bits/range_access.h \
+ C:/msys64/mingw64/include/c++/13.2.0/bits/vector.tcc \
+ C:/msys64/mingw64/include/c++/13.2.0/bits/memory_resource.h \
+ C:/msys64/mingw64/include/c++/13.2.0/bits/uses_allocator.h \
+ C:/msys64/mingw64/include/c++/13.2.0/bits/uses_allocator_args.h \
+ C:/msys64/mingw64/include/c++/13.2.0/tuple \
  C:/Users/adars/DOCUME~1/CPPPRO~1/FIRSTO~1/src/renderer/sogl_window.hpp \
  C:/Users/adars/DOCUME~1/CPPPRO~1/FIRSTO~1/include/GLFW/glfw3.h \
  C:/msys64/mingw64/include/GL/gl.h \
  C:/msys64/mingw64/include/c++/13.2.0/string \
  C:/msys64/mingw64/include/c++/13.2.0/bits/stringfwd.h \
- C:/msys64/mingw64/include/c++/13.2.0/bits/memoryfwd.h \
  C:/msys64/mingw64/include/c++/13.2.0/bits/char_traits.h \
  C:/msys64/mingw64/include/c++/13.2.0/bits/postypes.h \
  C:/msys64/mingw64/include/c++/13.2.0/cwchar \
@@ -221,11 +246,6 @@ CMakeFiles/LearnOpengl.dir/src/util/sogl_camera_controller.cpp.obj: \
  C:/msys64/mingw64/include/_mingw_stat64.h \
  C:/msys64/mingw64/include/swprintf.inl \
  C:/msys64/mingw64/include/sec_api/wchar_s.h \
- C:/msys64/mingw64/include/c++/13.2.0/bits/allocator.h \
- C:/msys64/mingw64/include/c++/13.2.0/x86_64-w64-mingw32/bits/c++allocator.h \
- C:/msys64/mingw64/include/c++/13.2.0/bits/new_allocator.h \
- C:/msys64/mingw64/include/c++/13.2.0/new \
- C:/msys64/mingw64/include/c++/13.2.0/bits/exception.h \
  C:/msys64/mingw64/include/c++/13.2.0/bits/localefwd.h \
  C:/msys64/mingw64/include/c++/13.2.0/x86_64-w64-mingw32/bits/c++locale.h \
  C:/msys64/mingw64/include/c++/13.2.0/clocale \
@@ -236,26 +256,11 @@ CMakeFiles/LearnOpengl.dir/src/util/sogl_camera_controller.cpp.obj: \
  C:/msys64/mingw64/include/ctype.h \
  C:/msys64/mingw64/include/c++/13.2.0/bits/ostream_insert.h \
  C:/msys64/mingw64/include/c++/13.2.0/bits/cxxabi_forced.h \
- C:/msys64/mingw64/include/c++/13.2.0/bits/stl_function.h \
- C:/msys64/mingw64/include/c++/13.2.0/backward/binders.h \
- C:/msys64/mingw64/include/c++/13.2.0/bits/refwrap.h \
- C:/msys64/mingw64/include/c++/13.2.0/bits/invoke.h \
- C:/msys64/mingw64/include/c++/13.2.0/bits/range_access.h \
- C:/msys64/mingw64/include/c++/13.2.0/initializer_list \
  C:/msys64/mingw64/include/c++/13.2.0/bits/basic_string.h \
- C:/msys64/mingw64/include/c++/13.2.0/ext/alloc_traits.h \
- C:/msys64/mingw64/include/c++/13.2.0/bits/alloc_traits.h \
- C:/msys64/mingw64/include/c++/13.2.0/bits/stl_construct.h \
  C:/msys64/mingw64/include/c++/13.2.0/string_view \
- C:/msys64/mingw64/include/c++/13.2.0/bits/functional_hash.h \
- C:/msys64/mingw64/include/c++/13.2.0/bits/hash_bytes.h \
  C:/msys64/mingw64/include/c++/13.2.0/bits/string_view.tcc \
  C:/msys64/mingw64/include/c++/13.2.0/ext/string_conversions.h \
  C:/msys64/mingw64/include/c++/13.2.0/cstdio \
  C:/msys64/mingw64/include/c++/13.2.0/cerrno \
  C:/msys64/mingw64/include/c++/13.2.0/bits/charconv.h \
- C:/msys64/mingw64/include/c++/13.2.0/bits/basic_string.tcc \
- C:/msys64/mingw64/include/c++/13.2.0/bits/memory_resource.h \
- C:/msys64/mingw64/include/c++/13.2.0/bits/uses_allocator.h \
- C:/msys64/mingw64/include/c++/13.2.0/bits/uses_allocator_args.h \
- C:/msys64/mingw64/include/c++/13.2.0/tuple
+ C:/msys64/mingw64/include/c++/13.2.0/bits/basic_string.tcc

@@ -23,10 +23,10 @@ namespace sogl
     
     class SoglGameObject{
         public:
-        SoglGameObject(std::vector<Vertex> inVertices, std::vector<unsigned int> inIndices, std::string _shader, Material mat);
+        SoglGameObject(std::vector<Vertex> &inVertices, std::vector<unsigned int> &inIndices, std::string &_shader, Material &mat);
 
-        void draw(CameraData camData);
-        void drawShadow(glm::mat4 lightSpaceMatrix);
+        void draw(CameraData &camData);
+        void drawShadow(glm::mat4 &lightSpaceMatrix);
 
         void translate(glm::vec3 amnt);
         void rotate(glm::vec3 axis, float angle);

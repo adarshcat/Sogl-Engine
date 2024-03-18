@@ -277,13 +277,48 @@ CMakeFiles/LearnOpengl.dir/src/main.cpp.obj: \
  C:/msys64/mingw64/include/c++/13.2.0/bits/stl_multimap.h \
  C:/msys64/mingw64/include/c++/13.2.0/bits/erase_if.h \
  C:/Users/adars/DOCUME~1/CPPPRO~1/FIRSTO~1/src/engine/sogl_lights.hpp \
+ C:/msys64/mingw64/include/c++/13.2.0/memory \
+ C:/msys64/mingw64/include/c++/13.2.0/bits/stl_tempbuf.h \
+ C:/msys64/mingw64/include/c++/13.2.0/bits/stl_raw_storage_iter.h \
+ C:/msys64/mingw64/include/c++/13.2.0/bits/align.h \
+ C:/msys64/mingw64/include/c++/13.2.0/bits/unique_ptr.h \
+ C:/msys64/mingw64/include/c++/13.2.0/bits/shared_ptr.h \
+ C:/msys64/mingw64/include/c++/13.2.0/bits/shared_ptr_base.h \
+ C:/msys64/mingw64/include/c++/13.2.0/typeinfo \
+ C:/msys64/mingw64/include/c++/13.2.0/bits/allocated_ptr.h \
+ C:/msys64/mingw64/include/c++/13.2.0/ext/atomicity.h \
+ C:/msys64/mingw64/include/c++/13.2.0/x86_64-w64-mingw32/bits/gthr.h \
+ C:/msys64/mingw64/include/c++/13.2.0/x86_64-w64-mingw32/bits/gthr-default.h \
+ C:/msys64/mingw64/include/pthread.h \
+ C:/msys64/mingw64/include/sys/types.h \
+ C:/msys64/mingw64/include/process.h \
+ C:/msys64/mingw64/include/corecrt_startup.h \
+ C:/msys64/mingw64/include/signal.h \
+ C:/msys64/mingw64/include/pthread_signal.h \
+ C:/msys64/mingw64/include/time.h C:/msys64/mingw64/include/sys/timeb.h \
+ C:/msys64/mingw64/include/sec_api/sys/timeb_s.h \
+ C:/msys64/mingw64/include/_timeval.h \
+ C:/msys64/mingw64/include/pthread_time.h \
+ C:/msys64/mingw64/include/pthread_compat.h \
+ C:/msys64/mingw64/include/pthread_unistd.h \
+ C:/msys64/mingw64/include/c++/13.2.0/x86_64-w64-mingw32/bits/atomic_word.h \
+ C:/msys64/mingw64/include/c++/13.2.0/ext/concurrence.h \
+ C:/msys64/mingw64/include/c++/13.2.0/exception \
+ C:/msys64/mingw64/include/c++/13.2.0/bits/exception_ptr.h \
+ C:/msys64/mingw64/include/c++/13.2.0/bits/cxxabi_init_exception.h \
+ C:/msys64/mingw64/include/c++/13.2.0/bits/nested_exception.h \
+ C:/msys64/mingw64/include/c++/13.2.0/bits/shared_ptr_atomic.h \
+ C:/msys64/mingw64/include/c++/13.2.0/bits/atomic_base.h \
+ C:/msys64/mingw64/include/c++/13.2.0/bits/atomic_lockfree_defines.h \
+ C:/msys64/mingw64/include/c++/13.2.0/backward/auto_ptr.h \
+ C:/msys64/mingw64/include/c++/13.2.0/pstl/glue_memory_defs.h \
+ C:/msys64/mingw64/include/c++/13.2.0/pstl/execution_defs.h \
  C:/Users/adars/DOCUME~1/CPPPRO~1/FIRSTO~1/src/util/sogl_camera_controller.hpp \
  C:\Users\adars\Documents\Cpp\ Projects\FirstOpengl\src\util/sogl_model_loader.hpp \
  C:/Users/adars/DOCUME~1/CPPPRO~1/FIRSTO~1/include/assimp/Importer.hpp \
  C:/Users/adars/DOCUME~1/CPPPRO~1/FIRSTO~1/include/assimp/types.h \
  C:/msys64/mingw64/include/string.h \
  C:/msys64/mingw64/include/sec_api/string_s.h \
- C:/msys64/mingw64/include/sys/types.h \
  C:/Users/adars/DOCUME~1/CPPPRO~1/FIRSTO~1/include/assimp/defs.h \
  C:/Users/adars/DOCUME~1/CPPPRO~1/FIRSTO~1/include/assimp/config.h \
  C:/Users/adars/DOCUME~1/CPPPRO~1/FIRSTO~1/include/assimp/vector2.h \
@@ -302,17 +337,10 @@ CMakeFiles/LearnOpengl.dir/src/main.cpp.obj: \
  C:/msys64/mingw64/include/c++/13.2.0/bits/algorithmfwd.h \
  C:/msys64/mingw64/include/c++/13.2.0/bits/stl_heap.h \
  C:/msys64/mingw64/include/c++/13.2.0/bits/uniform_int_dist.h \
- C:/msys64/mingw64/include/c++/13.2.0/bits/stl_tempbuf.h \
  C:/msys64/mingw64/include/c++/13.2.0/pstl/glue_algorithm_defs.h \
- C:/msys64/mingw64/include/c++/13.2.0/pstl/execution_defs.h \
  C:/Users/adars/DOCUME~1/CPPPRO~1/FIRSTO~1/include/assimp/matrix4x4.inl \
  C:/Users/adars/DOCUME~1/CPPPRO~1/FIRSTO~1/include/assimp/MathFunctions.h \
  C:/Users/adars/DOCUME~1/CPPPRO~1/FIRSTO~1/include/assimp/quaternion.inl \
- C:/msys64/mingw64/include/c++/13.2.0/exception \
- C:/msys64/mingw64/include/c++/13.2.0/bits/exception_ptr.h \
- C:/msys64/mingw64/include/c++/13.2.0/bits/cxxabi_init_exception.h \
- C:/msys64/mingw64/include/c++/13.2.0/typeinfo \
- C:/msys64/mingw64/include/c++/13.2.0/bits/nested_exception.h \
  C:/Users/adars/DOCUME~1/CPPPRO~1/FIRSTO~1/include/assimp/scene.h \
  C:/Users/adars/DOCUME~1/CPPPRO~1/FIRSTO~1/include/assimp/texture.h \
  C:/Users/adars/DOCUME~1/CPPPRO~1/FIRSTO~1/include/assimp/./Compiler/pushpack1.h \
@@ -330,20 +358,6 @@ CMakeFiles/LearnOpengl.dir/src/main.cpp.obj: \
  C:/msys64/mingw64/include/c++/13.2.0/ostream \
  C:/msys64/mingw64/include/c++/13.2.0/ios \
  C:/msys64/mingw64/include/c++/13.2.0/bits/ios_base.h \
- C:/msys64/mingw64/include/c++/13.2.0/ext/atomicity.h \
- C:/msys64/mingw64/include/c++/13.2.0/x86_64-w64-mingw32/bits/gthr.h \
- C:/msys64/mingw64/include/c++/13.2.0/x86_64-w64-mingw32/bits/gthr-default.h \
- C:/msys64/mingw64/include/pthread.h C:/msys64/mingw64/include/process.h \
- C:/msys64/mingw64/include/corecrt_startup.h \
- C:/msys64/mingw64/include/signal.h \
- C:/msys64/mingw64/include/pthread_signal.h \
- C:/msys64/mingw64/include/time.h C:/msys64/mingw64/include/sys/timeb.h \
- C:/msys64/mingw64/include/sec_api/sys/timeb_s.h \
- C:/msys64/mingw64/include/_timeval.h \
- C:/msys64/mingw64/include/pthread_time.h \
- C:/msys64/mingw64/include/pthread_compat.h \
- C:/msys64/mingw64/include/pthread_unistd.h \
- C:/msys64/mingw64/include/c++/13.2.0/x86_64-w64-mingw32/bits/atomic_word.h \
  C:/msys64/mingw64/include/c++/13.2.0/bits/locale_classes.h \
  C:/msys64/mingw64/include/c++/13.2.0/bits/locale_classes.tcc \
  C:/msys64/mingw64/include/c++/13.2.0/system_error \

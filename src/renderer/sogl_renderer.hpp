@@ -11,6 +11,7 @@
 
 // std
 #include <vector>
+#include <memory>
 
 namespace sogl
 {
@@ -20,7 +21,7 @@ namespace sogl
         SoglRenderer(SoglWindow& wind, const int width, const int height);
 
         void initialiseLighting(DirectionalLight &dirLight);
-        bool draw(std::vector<SoglGameObject> &gameObjects, CameraData camData, DirectionalLight dirLight);
+        bool draw(std::vector<std::unique_ptr<SoglGameObject>> &gameObjects, CameraData camData, DirectionalLight dirLight);
 
         const int WIDTH;
         const int HEIGHT;
@@ -32,7 +33,7 @@ namespace sogl
         GLuint gBuffer;
         GLuint gPositionView, gNormal, gAlbedoSpec;
 
-        const unsigned int SHADOW_WIDTH = 1024, SHADOW_HEIGHT = 1024;
+        const unsigned int SHADOW_WIDTH = 1024*2, SHADOW_HEIGHT = 1024*2;
         GLuint shadowBuffer;
         GLuint shadowMap;
 
@@ -42,11 +43,12 @@ namespace sogl
         void initialiseRenderQuad();
         void initialiseShadowMap();
 
-        void geometryPass(std::vector<SoglGameObject> &gameObjects, CameraData &camData);
-        void shadowPass(std::vector<SoglGameObject> &gameObjects, glm::mat4 &lightSpaceMatrix);
+        void geometryPass(std::vector<std::unique_ptr<SoglGameObject>> &gameObjects, CameraData &camData);
+        void shadowPass(std::vector<std::unique_ptr<SoglGameObject>> &gameObjects, glm::mat4 &lightSpaceMatrix);
         void lightingPass(CameraData &camData, glm::mat4 &lightSpaceMatrix);
 
         void updateDirectionalLight(DirectionalLight &dirLight);
     };
+
 } // namespace sogl
 

@@ -423,11 +423,16 @@ CMakeFiles/LearnOpengl.dir/src/engine/sogl_engine.cpp.obj: C:/Users/adars/Docume
   C:/msys64/mingw64/include/_timeval.h \
   C:/msys64/mingw64/include/assert.h \
   C:/msys64/mingw64/include/c++/13.2.0/algorithm \
+  C:/msys64/mingw64/include/c++/13.2.0/backward/auto_ptr.h \
   C:/msys64/mingw64/include/c++/13.2.0/backward/binders.h \
   C:/msys64/mingw64/include/c++/13.2.0/bit \
   C:/msys64/mingw64/include/c++/13.2.0/bits/algorithmfwd.h \
+  C:/msys64/mingw64/include/c++/13.2.0/bits/align.h \
   C:/msys64/mingw64/include/c++/13.2.0/bits/alloc_traits.h \
+  C:/msys64/mingw64/include/c++/13.2.0/bits/allocated_ptr.h \
   C:/msys64/mingw64/include/c++/13.2.0/bits/allocator.h \
+  C:/msys64/mingw64/include/c++/13.2.0/bits/atomic_base.h \
+  C:/msys64/mingw64/include/c++/13.2.0/bits/atomic_lockfree_defines.h \
   C:/msys64/mingw64/include/c++/13.2.0/bits/basic_ios.h \
   C:/msys64/mingw64/include/c++/13.2.0/bits/basic_ios.tcc \
   C:/msys64/mingw64/include/c++/13.2.0/bits/basic_string.h \
@@ -467,6 +472,9 @@ CMakeFiles/LearnOpengl.dir/src/engine/sogl_engine.cpp.obj: C:/Users/adars/Docume
   C:/msys64/mingw64/include/c++/13.2.0/bits/range_access.h \
   C:/msys64/mingw64/include/c++/13.2.0/bits/refwrap.h \
   C:/msys64/mingw64/include/c++/13.2.0/bits/requires_hosted.h \
+  C:/msys64/mingw64/include/c++/13.2.0/bits/shared_ptr.h \
+  C:/msys64/mingw64/include/c++/13.2.0/bits/shared_ptr_atomic.h \
+  C:/msys64/mingw64/include/c++/13.2.0/bits/shared_ptr_base.h \
   C:/msys64/mingw64/include/c++/13.2.0/bits/specfun.h \
   C:/msys64/mingw64/include/c++/13.2.0/bits/std_abs.h \
   C:/msys64/mingw64/include/c++/13.2.0/bits/stl_algo.h \
@@ -481,6 +489,7 @@ CMakeFiles/LearnOpengl.dir/src/engine/sogl_engine.cpp.obj: C:/Users/adars/Docume
   C:/msys64/mingw64/include/c++/13.2.0/bits/stl_map.h \
   C:/msys64/mingw64/include/c++/13.2.0/bits/stl_multimap.h \
   C:/msys64/mingw64/include/c++/13.2.0/bits/stl_pair.h \
+  C:/msys64/mingw64/include/c++/13.2.0/bits/stl_raw_storage_iter.h \
   C:/msys64/mingw64/include/c++/13.2.0/bits/stl_tempbuf.h \
   C:/msys64/mingw64/include/c++/13.2.0/bits/stl_tree.h \
   C:/msys64/mingw64/include/c++/13.2.0/bits/stl_uninitialized.h \
@@ -490,6 +499,7 @@ CMakeFiles/LearnOpengl.dir/src/engine/sogl_engine.cpp.obj: C:/Users/adars/Docume
   C:/msys64/mingw64/include/c++/13.2.0/bits/string_view.tcc \
   C:/msys64/mingw64/include/c++/13.2.0/bits/stringfwd.h \
   C:/msys64/mingw64/include/c++/13.2.0/bits/uniform_int_dist.h \
+  C:/msys64/mingw64/include/c++/13.2.0/bits/unique_ptr.h \
   C:/msys64/mingw64/include/c++/13.2.0/bits/uses_allocator.h \
   C:/msys64/mingw64/include/c++/13.2.0/bits/uses_allocator_args.h \
   C:/msys64/mingw64/include/c++/13.2.0/bits/utility.h \
@@ -512,6 +522,7 @@ CMakeFiles/LearnOpengl.dir/src/engine/sogl_engine.cpp.obj: C:/Users/adars/Docume
   C:/msys64/mingw64/include/c++/13.2.0/ext/aligned_buffer.h \
   C:/msys64/mingw64/include/c++/13.2.0/ext/alloc_traits.h \
   C:/msys64/mingw64/include/c++/13.2.0/ext/atomicity.h \
+  C:/msys64/mingw64/include/c++/13.2.0/ext/concurrence.h \
   C:/msys64/mingw64/include/c++/13.2.0/ext/numeric_traits.h \
   C:/msys64/mingw64/include/c++/13.2.0/ext/string_conversions.h \
   C:/msys64/mingw64/include/c++/13.2.0/ext/type_traits.h \
@@ -522,10 +533,12 @@ CMakeFiles/LearnOpengl.dir/src/engine/sogl_engine.cpp.obj: C:/Users/adars/Docume
   C:/msys64/mingw64/include/c++/13.2.0/istream \
   C:/msys64/mingw64/include/c++/13.2.0/limits \
   C:/msys64/mingw64/include/c++/13.2.0/map \
+  C:/msys64/mingw64/include/c++/13.2.0/memory \
   C:/msys64/mingw64/include/c++/13.2.0/new \
   C:/msys64/mingw64/include/c++/13.2.0/ostream \
   C:/msys64/mingw64/include/c++/13.2.0/pstl/execution_defs.h \
   C:/msys64/mingw64/include/c++/13.2.0/pstl/glue_algorithm_defs.h \
+  C:/msys64/mingw64/include/c++/13.2.0/pstl/glue_memory_defs.h \
   C:/msys64/mingw64/include/c++/13.2.0/pstl/pstl_config.h \
   C:/msys64/mingw64/include/c++/13.2.0/stdexcept \
   C:/msys64/mingw64/include/c++/13.2.0/stdlib.h \
@@ -1111,11 +1124,16 @@ CMakeFiles/LearnOpengl.dir/src/main.cpp.obj: C:/Users/adars/Documents/Cpp\ Proje
   C:/msys64/mingw64/include/_timeval.h \
   C:/msys64/mingw64/include/assert.h \
   C:/msys64/mingw64/include/c++/13.2.0/algorithm \
+  C:/msys64/mingw64/include/c++/13.2.0/backward/auto_ptr.h \
   C:/msys64/mingw64/include/c++/13.2.0/backward/binders.h \
   C:/msys64/mingw64/include/c++/13.2.0/bit \
   C:/msys64/mingw64/include/c++/13.2.0/bits/algorithmfwd.h \
+  C:/msys64/mingw64/include/c++/13.2.0/bits/align.h \
   C:/msys64/mingw64/include/c++/13.2.0/bits/alloc_traits.h \
+  C:/msys64/mingw64/include/c++/13.2.0/bits/allocated_ptr.h \
   C:/msys64/mingw64/include/c++/13.2.0/bits/allocator.h \
+  C:/msys64/mingw64/include/c++/13.2.0/bits/atomic_base.h \
+  C:/msys64/mingw64/include/c++/13.2.0/bits/atomic_lockfree_defines.h \
   C:/msys64/mingw64/include/c++/13.2.0/bits/basic_ios.h \
   C:/msys64/mingw64/include/c++/13.2.0/bits/basic_ios.tcc \
   C:/msys64/mingw64/include/c++/13.2.0/bits/basic_string.h \
@@ -1155,6 +1173,9 @@ CMakeFiles/LearnOpengl.dir/src/main.cpp.obj: C:/Users/adars/Documents/Cpp\ Proje
   C:/msys64/mingw64/include/c++/13.2.0/bits/range_access.h \
   C:/msys64/mingw64/include/c++/13.2.0/bits/refwrap.h \
   C:/msys64/mingw64/include/c++/13.2.0/bits/requires_hosted.h \
+  C:/msys64/mingw64/include/c++/13.2.0/bits/shared_ptr.h \
+  C:/msys64/mingw64/include/c++/13.2.0/bits/shared_ptr_atomic.h \
+  C:/msys64/mingw64/include/c++/13.2.0/bits/shared_ptr_base.h \
   C:/msys64/mingw64/include/c++/13.2.0/bits/specfun.h \
   C:/msys64/mingw64/include/c++/13.2.0/bits/std_abs.h \
   C:/msys64/mingw64/include/c++/13.2.0/bits/stl_algo.h \
@@ -1169,6 +1190,7 @@ CMakeFiles/LearnOpengl.dir/src/main.cpp.obj: C:/Users/adars/Documents/Cpp\ Proje
   C:/msys64/mingw64/include/c++/13.2.0/bits/stl_map.h \
   C:/msys64/mingw64/include/c++/13.2.0/bits/stl_multimap.h \
   C:/msys64/mingw64/include/c++/13.2.0/bits/stl_pair.h \
+  C:/msys64/mingw64/include/c++/13.2.0/bits/stl_raw_storage_iter.h \
   C:/msys64/mingw64/include/c++/13.2.0/bits/stl_tempbuf.h \
   C:/msys64/mingw64/include/c++/13.2.0/bits/stl_tree.h \
   C:/msys64/mingw64/include/c++/13.2.0/bits/stl_uninitialized.h \
@@ -1178,6 +1200,7 @@ CMakeFiles/LearnOpengl.dir/src/main.cpp.obj: C:/Users/adars/Documents/Cpp\ Proje
   C:/msys64/mingw64/include/c++/13.2.0/bits/string_view.tcc \
   C:/msys64/mingw64/include/c++/13.2.0/bits/stringfwd.h \
   C:/msys64/mingw64/include/c++/13.2.0/bits/uniform_int_dist.h \
+  C:/msys64/mingw64/include/c++/13.2.0/bits/unique_ptr.h \
   C:/msys64/mingw64/include/c++/13.2.0/bits/uses_allocator.h \
   C:/msys64/mingw64/include/c++/13.2.0/bits/uses_allocator_args.h \
   C:/msys64/mingw64/include/c++/13.2.0/bits/utility.h \
@@ -1200,6 +1223,7 @@ CMakeFiles/LearnOpengl.dir/src/main.cpp.obj: C:/Users/adars/Documents/Cpp\ Proje
   C:/msys64/mingw64/include/c++/13.2.0/ext/aligned_buffer.h \
   C:/msys64/mingw64/include/c++/13.2.0/ext/alloc_traits.h \
   C:/msys64/mingw64/include/c++/13.2.0/ext/atomicity.h \
+  C:/msys64/mingw64/include/c++/13.2.0/ext/concurrence.h \
   C:/msys64/mingw64/include/c++/13.2.0/ext/numeric_traits.h \
   C:/msys64/mingw64/include/c++/13.2.0/ext/string_conversions.h \
   C:/msys64/mingw64/include/c++/13.2.0/ext/type_traits.h \
@@ -1210,10 +1234,12 @@ CMakeFiles/LearnOpengl.dir/src/main.cpp.obj: C:/Users/adars/Documents/Cpp\ Proje
   C:/msys64/mingw64/include/c++/13.2.0/istream \
   C:/msys64/mingw64/include/c++/13.2.0/limits \
   C:/msys64/mingw64/include/c++/13.2.0/map \
+  C:/msys64/mingw64/include/c++/13.2.0/memory \
   C:/msys64/mingw64/include/c++/13.2.0/new \
   C:/msys64/mingw64/include/c++/13.2.0/ostream \
   C:/msys64/mingw64/include/c++/13.2.0/pstl/execution_defs.h \
   C:/msys64/mingw64/include/c++/13.2.0/pstl/glue_algorithm_defs.h \
+  C:/msys64/mingw64/include/c++/13.2.0/pstl/glue_memory_defs.h \
   C:/msys64/mingw64/include/c++/13.2.0/pstl/pstl_config.h \
   C:/msys64/mingw64/include/c++/13.2.0/stdexcept \
   C:/msys64/mingw64/include/c++/13.2.0/stdlib.h \
@@ -1448,10 +1474,15 @@ CMakeFiles/LearnOpengl.dir/src/renderer/sogl_renderer.cpp.obj: C:/Users/adars/Do
   C:/msys64/mingw64/include/_mingw_stat64.h \
   C:/msys64/mingw64/include/_timeval.h \
   C:/msys64/mingw64/include/assert.h \
+  C:/msys64/mingw64/include/c++/13.2.0/backward/auto_ptr.h \
   C:/msys64/mingw64/include/c++/13.2.0/backward/binders.h \
   C:/msys64/mingw64/include/c++/13.2.0/bit \
+  C:/msys64/mingw64/include/c++/13.2.0/bits/align.h \
   C:/msys64/mingw64/include/c++/13.2.0/bits/alloc_traits.h \
+  C:/msys64/mingw64/include/c++/13.2.0/bits/allocated_ptr.h \
   C:/msys64/mingw64/include/c++/13.2.0/bits/allocator.h \
+  C:/msys64/mingw64/include/c++/13.2.0/bits/atomic_base.h \
+  C:/msys64/mingw64/include/c++/13.2.0/bits/atomic_lockfree_defines.h \
   C:/msys64/mingw64/include/c++/13.2.0/bits/basic_ios.h \
   C:/msys64/mingw64/include/c++/13.2.0/bits/basic_ios.tcc \
   C:/msys64/mingw64/include/c++/13.2.0/bits/basic_string.h \
@@ -1491,6 +1522,9 @@ CMakeFiles/LearnOpengl.dir/src/renderer/sogl_renderer.cpp.obj: C:/Users/adars/Do
   C:/msys64/mingw64/include/c++/13.2.0/bits/range_access.h \
   C:/msys64/mingw64/include/c++/13.2.0/bits/refwrap.h \
   C:/msys64/mingw64/include/c++/13.2.0/bits/requires_hosted.h \
+  C:/msys64/mingw64/include/c++/13.2.0/bits/shared_ptr.h \
+  C:/msys64/mingw64/include/c++/13.2.0/bits/shared_ptr_atomic.h \
+  C:/msys64/mingw64/include/c++/13.2.0/bits/shared_ptr_base.h \
   C:/msys64/mingw64/include/c++/13.2.0/bits/specfun.h \
   C:/msys64/mingw64/include/c++/13.2.0/bits/std_abs.h \
   C:/msys64/mingw64/include/c++/13.2.0/bits/stl_algobase.h \
@@ -1503,6 +1537,8 @@ CMakeFiles/LearnOpengl.dir/src/renderer/sogl_renderer.cpp.obj: C:/Users/adars/Do
   C:/msys64/mingw64/include/c++/13.2.0/bits/stl_map.h \
   C:/msys64/mingw64/include/c++/13.2.0/bits/stl_multimap.h \
   C:/msys64/mingw64/include/c++/13.2.0/bits/stl_pair.h \
+  C:/msys64/mingw64/include/c++/13.2.0/bits/stl_raw_storage_iter.h \
+  C:/msys64/mingw64/include/c++/13.2.0/bits/stl_tempbuf.h \
   C:/msys64/mingw64/include/c++/13.2.0/bits/stl_tree.h \
   C:/msys64/mingw64/include/c++/13.2.0/bits/stl_uninitialized.h \
   C:/msys64/mingw64/include/c++/13.2.0/bits/stl_vector.h \
@@ -1510,6 +1546,7 @@ CMakeFiles/LearnOpengl.dir/src/renderer/sogl_renderer.cpp.obj: C:/Users/adars/Do
   C:/msys64/mingw64/include/c++/13.2.0/bits/streambuf_iterator.h \
   C:/msys64/mingw64/include/c++/13.2.0/bits/string_view.tcc \
   C:/msys64/mingw64/include/c++/13.2.0/bits/stringfwd.h \
+  C:/msys64/mingw64/include/c++/13.2.0/bits/unique_ptr.h \
   C:/msys64/mingw64/include/c++/13.2.0/bits/uses_allocator.h \
   C:/msys64/mingw64/include/c++/13.2.0/bits/uses_allocator_args.h \
   C:/msys64/mingw64/include/c++/13.2.0/bits/utility.h \
@@ -1531,6 +1568,7 @@ CMakeFiles/LearnOpengl.dir/src/renderer/sogl_renderer.cpp.obj: C:/Users/adars/Do
   C:/msys64/mingw64/include/c++/13.2.0/ext/aligned_buffer.h \
   C:/msys64/mingw64/include/c++/13.2.0/ext/alloc_traits.h \
   C:/msys64/mingw64/include/c++/13.2.0/ext/atomicity.h \
+  C:/msys64/mingw64/include/c++/13.2.0/ext/concurrence.h \
   C:/msys64/mingw64/include/c++/13.2.0/ext/numeric_traits.h \
   C:/msys64/mingw64/include/c++/13.2.0/ext/string_conversions.h \
   C:/msys64/mingw64/include/c++/13.2.0/ext/type_traits.h \
@@ -1541,8 +1579,11 @@ CMakeFiles/LearnOpengl.dir/src/renderer/sogl_renderer.cpp.obj: C:/Users/adars/Do
   C:/msys64/mingw64/include/c++/13.2.0/istream \
   C:/msys64/mingw64/include/c++/13.2.0/limits \
   C:/msys64/mingw64/include/c++/13.2.0/map \
+  C:/msys64/mingw64/include/c++/13.2.0/memory \
   C:/msys64/mingw64/include/c++/13.2.0/new \
   C:/msys64/mingw64/include/c++/13.2.0/ostream \
+  C:/msys64/mingw64/include/c++/13.2.0/pstl/execution_defs.h \
+  C:/msys64/mingw64/include/c++/13.2.0/pstl/glue_memory_defs.h \
   C:/msys64/mingw64/include/c++/13.2.0/pstl/pstl_config.h \
   C:/msys64/mingw64/include/c++/13.2.0/stdexcept \
   C:/msys64/mingw64/include/c++/13.2.0/stdlib.h \
@@ -2501,11 +2542,16 @@ CMakeFiles/LearnOpengl.dir/src/util/sogl_model_loader.cpp.obj: C:/Users/adars/Do
   C:/msys64/mingw64/include/_timeval.h \
   C:/msys64/mingw64/include/assert.h \
   C:/msys64/mingw64/include/c++/13.2.0/algorithm \
+  C:/msys64/mingw64/include/c++/13.2.0/backward/auto_ptr.h \
   C:/msys64/mingw64/include/c++/13.2.0/backward/binders.h \
   C:/msys64/mingw64/include/c++/13.2.0/bit \
   C:/msys64/mingw64/include/c++/13.2.0/bits/algorithmfwd.h \
+  C:/msys64/mingw64/include/c++/13.2.0/bits/align.h \
   C:/msys64/mingw64/include/c++/13.2.0/bits/alloc_traits.h \
+  C:/msys64/mingw64/include/c++/13.2.0/bits/allocated_ptr.h \
   C:/msys64/mingw64/include/c++/13.2.0/bits/allocator.h \
+  C:/msys64/mingw64/include/c++/13.2.0/bits/atomic_base.h \
+  C:/msys64/mingw64/include/c++/13.2.0/bits/atomic_lockfree_defines.h \
   C:/msys64/mingw64/include/c++/13.2.0/bits/basic_ios.h \
   C:/msys64/mingw64/include/c++/13.2.0/bits/basic_ios.tcc \
   C:/msys64/mingw64/include/c++/13.2.0/bits/basic_string.h \
@@ -2543,6 +2589,9 @@ CMakeFiles/LearnOpengl.dir/src/util/sogl_model_loader.cpp.obj: C:/Users/adars/Do
   C:/msys64/mingw64/include/c++/13.2.0/bits/range_access.h \
   C:/msys64/mingw64/include/c++/13.2.0/bits/refwrap.h \
   C:/msys64/mingw64/include/c++/13.2.0/bits/requires_hosted.h \
+  C:/msys64/mingw64/include/c++/13.2.0/bits/shared_ptr.h \
+  C:/msys64/mingw64/include/c++/13.2.0/bits/shared_ptr_atomic.h \
+  C:/msys64/mingw64/include/c++/13.2.0/bits/shared_ptr_base.h \
   C:/msys64/mingw64/include/c++/13.2.0/bits/specfun.h \
   C:/msys64/mingw64/include/c++/13.2.0/bits/std_abs.h \
   C:/msys64/mingw64/include/c++/13.2.0/bits/stl_algo.h \
@@ -2555,6 +2604,7 @@ CMakeFiles/LearnOpengl.dir/src/util/sogl_model_loader.cpp.obj: C:/Users/adars/Do
   C:/msys64/mingw64/include/c++/13.2.0/bits/stl_iterator_base_funcs.h \
   C:/msys64/mingw64/include/c++/13.2.0/bits/stl_iterator_base_types.h \
   C:/msys64/mingw64/include/c++/13.2.0/bits/stl_pair.h \
+  C:/msys64/mingw64/include/c++/13.2.0/bits/stl_raw_storage_iter.h \
   C:/msys64/mingw64/include/c++/13.2.0/bits/stl_tempbuf.h \
   C:/msys64/mingw64/include/c++/13.2.0/bits/stl_uninitialized.h \
   C:/msys64/mingw64/include/c++/13.2.0/bits/stl_vector.h \
@@ -2563,6 +2613,7 @@ CMakeFiles/LearnOpengl.dir/src/util/sogl_model_loader.cpp.obj: C:/Users/adars/Do
   C:/msys64/mingw64/include/c++/13.2.0/bits/string_view.tcc \
   C:/msys64/mingw64/include/c++/13.2.0/bits/stringfwd.h \
   C:/msys64/mingw64/include/c++/13.2.0/bits/uniform_int_dist.h \
+  C:/msys64/mingw64/include/c++/13.2.0/bits/unique_ptr.h \
   C:/msys64/mingw64/include/c++/13.2.0/bits/uses_allocator.h \
   C:/msys64/mingw64/include/c++/13.2.0/bits/uses_allocator_args.h \
   C:/msys64/mingw64/include/c++/13.2.0/bits/utility.h \
@@ -2582,8 +2633,10 @@ CMakeFiles/LearnOpengl.dir/src/util/sogl_model_loader.cpp.obj: C:/Users/adars/Do
   C:/msys64/mingw64/include/c++/13.2.0/debug/assertions.h \
   C:/msys64/mingw64/include/c++/13.2.0/debug/debug.h \
   C:/msys64/mingw64/include/c++/13.2.0/exception \
+  C:/msys64/mingw64/include/c++/13.2.0/ext/aligned_buffer.h \
   C:/msys64/mingw64/include/c++/13.2.0/ext/alloc_traits.h \
   C:/msys64/mingw64/include/c++/13.2.0/ext/atomicity.h \
+  C:/msys64/mingw64/include/c++/13.2.0/ext/concurrence.h \
   C:/msys64/mingw64/include/c++/13.2.0/ext/numeric_traits.h \
   C:/msys64/mingw64/include/c++/13.2.0/ext/string_conversions.h \
   C:/msys64/mingw64/include/c++/13.2.0/ext/type_traits.h \
@@ -2593,10 +2646,12 @@ CMakeFiles/LearnOpengl.dir/src/util/sogl_model_loader.cpp.obj: C:/Users/adars/Do
   C:/msys64/mingw64/include/c++/13.2.0/iostream \
   C:/msys64/mingw64/include/c++/13.2.0/istream \
   C:/msys64/mingw64/include/c++/13.2.0/limits \
+  C:/msys64/mingw64/include/c++/13.2.0/memory \
   C:/msys64/mingw64/include/c++/13.2.0/new \
   C:/msys64/mingw64/include/c++/13.2.0/ostream \
   C:/msys64/mingw64/include/c++/13.2.0/pstl/execution_defs.h \
   C:/msys64/mingw64/include/c++/13.2.0/pstl/glue_algorithm_defs.h \
+  C:/msys64/mingw64/include/c++/13.2.0/pstl/glue_memory_defs.h \
   C:/msys64/mingw64/include/c++/13.2.0/pstl/pstl_config.h \
   C:/msys64/mingw64/include/c++/13.2.0/stdexcept \
   C:/msys64/mingw64/include/c++/13.2.0/stdlib.h \
@@ -2855,6 +2910,8 @@ C:/Users/adars/Documents/Cpp\ Projects/FirstOpengl/include/glm/detail/type_mat3x
 
 C:/msys64/mingw64/include/c++/13.2.0/x86_64-w64-mingw32/bits/gthr-default.h:
 
+C:/msys64/mingw64/include/c++/13.2.0/pstl/glue_memory_defs.h:
+
 C:/msys64/mingw64/include/c++/13.2.0/bits/stl_vector.h:
 
 C:/Users/adars/Documents/Cpp\ Projects/FirstOpengl/include/glm/detail/type_mat4x2.inl:
@@ -3009,6 +3066,8 @@ C:/Users/adars/Documents/Cpp\ Projects/FirstOpengl/include/glm/ext/vector_float3
 
 C:/Users/adars/Documents/Cpp\ Projects/FirstOpengl/include/glm/ext/vector_float4.hpp:
 
+C:/msys64/mingw64/include/c++/13.2.0/bits/shared_ptr.h:
+
 C:/msys64/mingw64/include/c++/13.2.0/bits/basic_ios.h:
 
 C:/msys64/mingw64/include/limits.h:
@@ -3030,6 +3089,8 @@ C:/Users/adars/Documents/Cpp\ Projects/FirstOpengl/include/GL/glew.h:
 C:/Users/adars/Documents/Cpp\ Projects/FirstOpengl/include/glm/ext/vector_int3.hpp:
 
 C:/Users/adars/Documents/Cpp\ Projects/FirstOpengl/include/glm/ext/vector_int3_sized.hpp:
+
+C:/msys64/mingw64/include/c++/13.2.0/ext/concurrence.h:
 
 C:/Users/adars/Documents/Cpp\ Projects/FirstOpengl/include/glm/ext/vector_int4.hpp:
 
@@ -3054,6 +3115,8 @@ C:/Users/adars/Documents/Cpp\ Projects/FirstOpengl/include/glm/mat3x4.hpp:
 C:/msys64/mingw64/include/c++/13.2.0/cstdlib:
 
 C:/Users/adars/Documents/Cpp\ Projects/FirstOpengl/include/glm/matrix.hpp:
+
+C:/msys64/mingw64/include/c++/13.2.0/bits/align.h:
 
 C:/msys64/mingw64/include/c++/13.2.0/x86_64-w64-mingw32/bits/c++config.h:
 
@@ -3287,6 +3350,8 @@ C:/Users/adars/Documents/Cpp\ Projects/FirstOpengl/include/assimp/quaternion.inl
 
 C:/Users/adars/Documents/Cpp\ Projects/FirstOpengl/include/assimp/scene.h:
 
+C:/msys64/mingw64/include/c++/13.2.0/bits/stl_raw_storage_iter.h:
+
 C:/Users/adars/Documents/Cpp\ Projects/FirstOpengl/include/assimp/texture.h:
 
 C:/msys64/mingw64/include/c++/13.2.0/bits/streambuf.tcc:
@@ -3294,6 +3359,8 @@ C:/msys64/mingw64/include/c++/13.2.0/bits/streambuf.tcc:
 C:/msys64/mingw64/include/c++/13.2.0/bits/cxxabi_forced.h:
 
 C:/Users/adars/Documents/Cpp\ Projects/FirstOpengl/include/assimp/types.h:
+
+C:/msys64/mingw64/include/c++/13.2.0/backward/auto_ptr.h:
 
 C:/Users/adars/Documents/Cpp\ Projects/FirstOpengl/include/assimp/vector2.h:
 
@@ -3325,6 +3392,14 @@ C:/msys64/mingw64/include/_timeval.h:
 
 C:/msys64/mingw64/include/c++/13.2.0/bits/algorithmfwd.h:
 
+C:/msys64/mingw64/include/c++/13.2.0/bits/allocated_ptr.h:
+
+C:/msys64/mingw64/include/c++/13.2.0/x86_64-w64-mingw32/bits/ctype_inline.h:
+
+C:/msys64/mingw64/include/c++/13.2.0/bits/atomic_base.h:
+
+C:/msys64/mingw64/include/c++/13.2.0/bits/atomic_lockfree_defines.h:
+
 C:/msys64/mingw64/include/c++/13.2.0/bits/basic_ios.tcc:
 
 C:/msys64/mingw64/include/c++/13.2.0/bits/basic_string.h:
@@ -3351,6 +3426,10 @@ C:/msys64/mingw64/include/c++/13.2.0/bits/ostream.tcc:
 
 C:/msys64/mingw64/include/c++/13.2.0/bits/postypes.h:
 
+C:/msys64/mingw64/include/c++/13.2.0/bits/shared_ptr_atomic.h:
+
+C:/msys64/mingw64/include/c++/13.2.0/bits/shared_ptr_base.h:
+
 C:/msys64/mingw64/include/c++/13.2.0/bits/stl_algo.h:
 
 C:/msys64/mingw64/include/c++/13.2.0/bits/stl_heap.h:
@@ -3366,6 +3445,8 @@ C:/msys64/mingw64/include/c++/13.2.0/bits/string_view.tcc:
 C:/msys64/mingw64/include/c++/13.2.0/bits/stringfwd.h:
 
 C:/msys64/mingw64/include/c++/13.2.0/bits/uniform_int_dist.h:
+
+C:/msys64/mingw64/include/c++/13.2.0/bits/unique_ptr.h:
 
 C:/msys64/mingw64/include/c++/13.2.0/cctype:
 
@@ -3385,6 +3466,8 @@ C:/msys64/mingw64/include/process.h:
 
 C:/msys64/mingw64/include/c++/13.2.0/iostream:
 
+C:/msys64/mingw64/include/c++/13.2.0/memory:
+
 C:/msys64/mingw64/include/corecrt_startup.h:
 
 C:/msys64/mingw64/include/c++/13.2.0/pstl/execution_defs.h:
@@ -3392,8 +3475,6 @@ C:/msys64/mingw64/include/c++/13.2.0/pstl/execution_defs.h:
 C:/msys64/mingw64/include/c++/13.2.0/x86_64-w64-mingw32/bits/c++locale.h:
 
 C:/msys64/mingw64/include/c++/13.2.0/x86_64-w64-mingw32/bits/ctype_base.h:
-
-C:/msys64/mingw64/include/c++/13.2.0/x86_64-w64-mingw32/bits/ctype_inline.h:
 
 C:/msys64/mingw64/include/c++/13.2.0/x86_64-w64-mingw32/bits/gthr.h:
 

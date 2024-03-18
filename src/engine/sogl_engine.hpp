@@ -6,6 +6,7 @@
 
 // std
 #include <vector>
+#include <memory>
 
 namespace sogl
 {
@@ -16,8 +17,8 @@ namespace sogl
 
         void run();
 
-        void addGameObject(SoglGameObject &_gameObj);
-        void addGameObjects(std::vector<SoglGameObject> &_gameObjs);
+        void addGameObject(std::unique_ptr<SoglGameObject> &_gameObj);
+        void addGameObjects(std::vector<std::unique_ptr<SoglGameObject>> _gameObjs);
 
         DirectionalLight directionalLight;
         
@@ -30,6 +31,6 @@ namespace sogl
         SoglCamera soglCamera;
         SoglCameraController cameraController;
 
-        std::vector<SoglGameObject> gameObjects;
+        std::vector<std::unique_ptr<SoglGameObject>> gameObjects;
     };
 } // namespace sogl

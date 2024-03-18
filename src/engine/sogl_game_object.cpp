@@ -16,10 +16,13 @@ namespace sogl
         initialiseStorageBuffer();
     }
 
-    void SoglGameObject::initialiseStorageBuffer(){
-        GLuint vertexBuffer;
-        GLuint elementBuffer;
+    SoglGameObject::~SoglGameObject(){
+        glDeleteBuffers(1, &vertexBuffer);
+        glDeleteBuffers(1, &elementBuffer);
+        glDeleteVertexArrays(1, &vertexArrayObject);
+    }
 
+    void SoglGameObject::initialiseStorageBuffer(){
         glGenVertexArrays(1, &vertexArrayObject);
         glGenBuffers(1, &vertexBuffer);
         glGenBuffers(1, &elementBuffer);

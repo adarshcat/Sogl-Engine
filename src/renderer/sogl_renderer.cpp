@@ -141,7 +141,7 @@ namespace sogl
     }
 
     // Renders onto glfw window, takes in all the renderable game objects and calls draw() on them
-    bool SoglRenderer::draw(std::vector<SoglGameObject> &gameObjects, CameraData camData, DirectionalLight dirLight){
+    bool SoglRenderer::draw(std::vector<std::unique_ptr<SoglGameObject>> &gameObjects, CameraData camData, DirectionalLight dirLight){
         glm::mat4 dirLightMatrix = LightOperations::adjustShadowMap(dirLight, camData.frustumSlice1);//dirLight.projectionMatrix * dirLight.viewMatrix;
 
         geometryPass(gameObjects, camData);
@@ -151,27 +151,29 @@ namespace sogl
         return !soglWindow.updateAndPollWindow();
     }
 
-    void SoglRenderer::geometryPass(std::vector<SoglGameObject> &gameObjects, CameraData &camData){
+    void SoglRenderer::geometryPass(std::vector<std::unique_ptr<SoglGameObject>> &gameObjects, CameraData &camData){
         glBindFramebuffer(GL_FRAMEBUFFER, gBuffer);
         
         glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         
         // Draw calls to all the game objects
-        for (SoglGameObject &gameObj : gameObjects){
-            gameObj.draw(camData);
+        for (std::unique_ptr<SoglGameObject> &gameObj : gameObjects){
+            gameObj->draw(camData);
         }
     }
 
-    void SoglRenderer::shadowPass(std::vector<SoglGameObject> &gameObjects, glm::mat4 &dirLightMatrix){
+    void SoglRenderer::shadowPass(std::vector<std::unique_ptr<SoglGameObject>> &gameObjects, glm::mat4 &dirLightMatrix){
         glViewport(0, 0, SHADOW_WIDTH, SHADOW_HEIGHT);
         glBindFramebuffer(GL_FRAMEBUFFER, shadowBuffer);
         glClear(GL_DEPTH_BUFFER_BIT);
 
+        //glCullFace(GL_FRONT);
         // Draw shadow calls to all the game objects
-        for (SoglGameObject &gameObj : gameObjects){
-            gameObj.drawShadow(dirLightMatrix);
+        for (std::unique_ptr<SoglGameObject> &gameObj : gameObjects){
+            gameObj->drawShadow(dirLightMatrix);
         }
+        //glCullFace(GL_BACK);
 
         // reset stuff
         glBindFramebuffer(GL_FRAMEBUFFER, 0);

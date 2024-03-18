@@ -24,6 +24,7 @@ namespace sogl
     class SoglGameObject{
         public:
         SoglGameObject(std::vector<Vertex> &inVertices, std::vector<unsigned int> &inIndices, std::string &_shader, Material &mat);
+        ~SoglGameObject();
 
         void draw(CameraData &camData);
         void drawShadow(glm::mat4 &lightSpaceMatrix);
@@ -43,7 +44,10 @@ namespace sogl
         // All the geometry stuff
         std::vector<Vertex> vertices;
         std::vector<unsigned int> indices;
+
         GLuint vertexArrayObject;
+        GLuint vertexBuffer;
+        GLuint elementBuffer;
 
         std::string shader;
 

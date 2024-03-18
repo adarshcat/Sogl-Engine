@@ -28,20 +28,20 @@ float shadowCalculation(vec4 fragPosLightSpace, vec3 normal){
     float closestDepth = texture(dirLight.shadowMap, projCoords.xy).r;
     float currentDepth = projCoords.z;
 
-    float bias = max(0.01 * (1.0 - dot(normal, dirLight.direction)), 0.005);
+    float bias = max(0.002 * (1.0 - dot(normal, dirLight.direction)), 0.001);
 
     // shadow caculation with PCF
     float shadow = 0.0;
     vec2 texelSize = 1.0 / textureSize(dirLight.shadowMap, 0);
-    for(int x = -1; x <= 1; ++x)
+    for(int x = -2; x <= 2; ++x)
     {
-        for(int y = -1; y <= 1; ++y)
+        for(int y = -2; y <= 2; ++y)
         {
             float pcfDepth = texture(dirLight.shadowMap, projCoords.xy + vec2(x, y) * texelSize).r; 
             shadow += (currentDepth - bias) > pcfDepth ? 1.0 : 0.0;   
         }    
     }
-    shadow /= 9.0;
+    shadow /= 25.0;
 
     if(projCoords.z > 1.0)
         shadow = 0.0;
@@ -49,11 +49,21 @@ float shadowCalculation(vec4 fragPosLightSpace, vec3 normal){
     return shadow;
 }
 
+vec3 renderSky(){
+    vec3 camDirWorld = normalize((invViewMatrix * vec4((texCoord - vec2(0.5))*2.0, -1, 1)).xyz - cameraPos);
+
+    float elevation = 1.0 - max(dot(camDirWorld, vec3(0, 1, 0)), 0.0);
+    elevation = pow(elevation, 1.5);
+
+    return mix(vec3(0, 0.9, 1.0), vec3(0.4, 1, 1), elevation);
+}
+
 void main(){
     // Retrieve the values from g buffer
     vec3 worldNormal = texture(gNormal, texCoord).rgb;
     if (length(worldNormal) == 0.0){
-        discard;
+        FragColor = renderSky();
+        return;
     }
 
     vec3 viewPos = texture(gPositionView, texCoord).rgb;
@@ -61,8 +71,8 @@ void main(){
     vec3 albedo = texture(gAlbedoSpec, texCoord).rgb;
 
     // phong lighting, start with ambient
-    float ambientStrength = 0.2;
-    vec3 ambient = ambientStrength * dirLight.color;
+    float ambientStrength = 0.3;
+    vec3 ambient = ambientStrength * vec3(0.85, 1.0, 1.0);
 
     // calculate diffuse
     vec3 diffuse = max(dot(worldNormal, dirLight.direction), 0.0) * dirLight.color * dirLight.strength;

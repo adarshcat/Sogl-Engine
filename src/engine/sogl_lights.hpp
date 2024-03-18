@@ -7,9 +7,9 @@ namespace sogl
     struct DirectionalLight{
         glm::mat4 viewProjectionMatrix;
 
-        glm::vec3 color;
-        glm::vec3 direction;
-        float strength;
+        glm::vec3 color = glm::vec3(1.0, 0.886, 0.576);
+        glm::vec3 direction = glm::normalize(glm::vec3(2.0f, 1.0f, -1.0f));
+        float strength = 2.2f;
     };
 
     namespace LightOperations

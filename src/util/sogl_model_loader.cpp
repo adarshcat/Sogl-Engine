@@ -6,9 +6,9 @@ namespace sogl
     std::string SoglModelLoader::modelRoot = "assets/models/";
     std::string SoglModelLoader::defaultShader = "default";
     
-    std::vector<SoglGameObject> SoglModelLoader::loadModel(std::string relativePath){
+    std::vector<std::unique_ptr<SoglGameObject>> SoglModelLoader::loadModel(std::string relativePath){
         std::string path = modelRoot + relativePath;
-        std::vector<SoglGameObject> loadedGameObjects;
+        std::vector<std::unique_ptr<SoglGameObject>> loadedGameObjects;
 
         Assimp::Importer import;
         const aiScene *scene = import.ReadFile(path, aiProcess_Triangulate | aiProcess_FlipUVs);	
@@ -23,7 +23,7 @@ namespace sogl
         return loadedGameObjects;
     }
 
-    void SoglModelLoader::processNode(aiNode *node, const aiScene *scene, std::vector<SoglGameObject> &loadedGameObjects){
+    void SoglModelLoader::processNode(aiNode *node, const aiScene *scene, std::vector<std::unique_ptr<SoglGameObject>> &loadedGameObjects){
         for(unsigned int i = 0; i < node->mNumMeshes; i++) {
             aiMesh *mesh = scene->mMeshes[node->mMeshes[i]]; 
             loadedGameObjects.push_back(processMesh(mesh, scene));
@@ -34,7 +34,7 @@ namespace sogl
         }
     }
 
-    SoglGameObject SoglModelLoader::processMesh(aiMesh *mesh, const aiScene *scene) {
+    std::unique_ptr<SoglGameObject> SoglModelLoader::processMesh(aiMesh *mesh, const aiScene *scene) {
         std::vector<Vertex> vertices;
         std::vector<GLuint> indices;
         //std::vector<Texture> textures;
@@ -80,6 +80,6 @@ namespace sogl
         Material mat;
         mat.albedo = glm::vec3(1.0);
 
-        return SoglGameObject(vertices, indices, defaultShader, mat);
+        return std::unique_ptr<SoglGameObject>(new SoglGameObject(vertices, indices, defaultShader, mat));
     }  
 } // namespace sogl

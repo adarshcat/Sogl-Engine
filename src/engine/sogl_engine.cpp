@@ -12,12 +12,6 @@ namespace sogl
         soglRenderer(soglWindow, RENDER_WIDTH, RENDER_HEIGHT),
         cameraController{SoglCameraController(&soglCamera)}
     {
-        // temporarily initialse the directional light here, will fix it later
-        
-        directionalLight.color = glm::vec3(1.0);
-        directionalLight.direction = glm::normalize(glm::vec3(2.0f, 2.0f, -1.0f));
-        directionalLight.strength = 2.2f;
-
         soglRenderer.initialiseLighting(directionalLight);
     }
 
@@ -52,7 +46,7 @@ namespace sogl
             
             cameraController.processInput(soglWindow, deltaTime);
 
-            gameObjects[0].rotate(glm::vec3(0, 1, 0), 0.001f);
+            gameObjects[0]->rotate(glm::vec3(0, 1, 0), 0.001f);
 
             windowShouldClose = soglRenderer.draw(gameObjects, camData, directionalLight);
         }
@@ -60,11 +54,14 @@ namespace sogl
     }
 
 
-    void SoglEngine::addGameObject(SoglGameObject &_gameObj){
-        gameObjects.push_back(_gameObj);
+    void SoglEngine::addGameObject(std::unique_ptr<SoglGameObject> &_gameObj){
+        gameObjects.push_back(std::move(_gameObj));
     }
 
-    void SoglEngine::addGameObjects(std::vector<SoglGameObject> &_gameObjs){
-        gameObjects.insert(gameObjects.end(), _gameObjs.begin(), _gameObjs.end());
+    void SoglEngine::addGameObjects(std::vector<std::unique_ptr<SoglGameObject>> _gameObjs){
+        for (std::unique_ptr<SoglGameObject> &gameObj : _gameObjs){
+            gameObjects.push_back(std::move(gameObj));
+        }
+        //gameObjects.insert(gameObjects.end(), _gameObjs.begin(), _gameObjs.end());
     }
 } // namespace sogl

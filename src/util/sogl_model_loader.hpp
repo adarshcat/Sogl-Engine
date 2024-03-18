@@ -10,6 +10,7 @@
 #include <vector>
 #include <string>
 #include <iostream>
+#include <memory>
 
 namespace sogl
 {
@@ -19,8 +20,8 @@ namespace sogl
         static std::string modelRoot;
         static std::string defaultShader;
         
-        static std::vector<SoglGameObject> loadModel(std::string relativePath);
-        static void processNode(aiNode *node, const aiScene *scene, std::vector<SoglGameObject> &loadedGameObjects);
-        static SoglGameObject processMesh(aiMesh *mesh, const aiScene *scene);
+        static std::vector<std::unique_ptr<SoglGameObject>> loadModel(std::string relativePath);
+        static void processNode(aiNode *node, const aiScene *scene, std::vector<std::unique_ptr<SoglGameObject>> &loadedGameObjects);
+        static std::unique_ptr<SoglGameObject> processMesh(aiMesh *mesh, const aiScene *scene);
     };
 } // namespace sogl

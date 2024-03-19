@@ -314,11 +314,20 @@ CMakeFiles/LearnOpengl.dir/src/engine/sogl_engine.cpp.obj: \
  C:/msys64/mingw64/include/c++/13.2.0/pstl/glue_memory_defs.h \
  C:/msys64/mingw64/include/c++/13.2.0/pstl/execution_defs.h \
  C:/Users/adars/DOCUME~1/CPPPRO~1/FIRSTO~1/src/util/sogl_camera_controller.hpp \
+ C:/Users/adars/DOCUME~1/CPPPRO~1/FIRSTO~1/src/util/imgui/imgui.h \
+ C:/Users/adars/DOCUME~1/CPPPRO~1/FIRSTO~1/src/util/imgui/imconfig.h \
+ C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/13.2.0/include/float.h \
+ C:/msys64/mingw64/include/float.h \
+ C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/13.2.0/include/stdarg.h \
+ C:/msys64/mingw64/include/stdarg.h \
+ C:/msys64/mingw64/include/_mingw_stdarg.h \
+ C:/msys64/mingw64/include/string.h \
+ C:/msys64/mingw64/include/sec_api/string_s.h \
+ C:/Users/adars/DOCUME~1/CPPPRO~1/FIRSTO~1/src/util/imgui/backends/imgui_impl_glfw.h \
+ C:/Users/adars/DOCUME~1/CPPPRO~1/FIRSTO~1/src/util/imgui/backends/imgui_impl_opengl3.h \
  C:/Users/adars/DOCUME~1/CPPPRO~1/FIRSTO~1/src/util/sogl_model_loader.hpp \
  C:/Users/adars/DOCUME~1/CPPPRO~1/FIRSTO~1/include/assimp/Importer.hpp \
  C:/Users/adars/DOCUME~1/CPPPRO~1/FIRSTO~1/include/assimp/types.h \
- C:/msys64/mingw64/include/string.h \
- C:/msys64/mingw64/include/sec_api/string_s.h \
  C:/Users/adars/DOCUME~1/CPPPRO~1/FIRSTO~1/include/assimp/defs.h \
  C:/Users/adars/DOCUME~1/CPPPRO~1/FIRSTO~1/include/assimp/config.h \
  C:/Users/adars/DOCUME~1/CPPPRO~1/FIRSTO~1/include/assimp/vector2.h \

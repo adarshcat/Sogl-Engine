@@ -6,17 +6,21 @@ enable_testing()
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O1")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O4") # -g -Wall -Wformat
 set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -flto")
 
 include_directories(
         include
         src
+        src/util/imgui
+        src/util/imgui/backends
 )
 
-file(GLOB SOURCES src/engine/*.cpp src/renderer/*.cpp src/util/*.cpp src/util/shaders/*.cpp src/*.cpp)
+file(GLOB SOURCES src/engine/*.cpp src/renderer/*.cpp src/util/*.cpp src/util/shaders/*.cpp src/util/imgui/*.cpp src/util/imgui/backends/*.cpp src/*.cpp)
 
 add_executable(LearnOpengl ${SOURCES})
+
+target_compile_definitions(LearnOpengl PUBLIC IMGUI_IMPL_OPENGL_LOADER_GLEW)
 
 target_link_libraries(LearnOpengl PRIVATE
     opengl32

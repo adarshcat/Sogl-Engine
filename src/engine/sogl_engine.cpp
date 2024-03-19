@@ -3,6 +3,8 @@
 #include "util/sogl_model_loader.hpp"
 #include "engine/sogl_game_object.hpp"
 
+#define DEBUG
+
 namespace sogl
 {
     
@@ -13,10 +15,13 @@ namespace sogl
         cameraController{SoglCameraController(&soglCamera)}
     {
         soglRenderer.initialiseLighting(directionalLight);
+
+        #ifdef DEBUG
+        initialiseImguiDebug();
+        #endif
     }
 
     void SoglEngine::run(){
-        bool windowShouldClose = false;
         float deltaTime = 0.0;
         float lastTick = 0.0;
         float lastFixedTick = 0.0;
@@ -36,6 +41,7 @@ namespace sogl
                 lastFixedTick = currentTime;
             }
 
+
             // construct camera data for renderer
             CameraData camData;
             camData.viewProjectionMatrix = soglCamera.getViewProjectionMatrix();
@@ -45,12 +51,34 @@ namespace sogl
             camData.frustumSlice1 = soglCamera.getViewFrustumSlice(3, 0);
             
             cameraController.processInput(soglWindow, deltaTime);
+            cameraController.process(deltaTime);
 
             gameObjects[0]->rotate(glm::vec3(0, 1, 0), 0.001f);
+            
+            soglRenderer.draw(gameObjects, camData, directionalLight);
 
-            windowShouldClose = soglRenderer.draw(gameObjects, camData, directionalLight);
+
+#ifdef DEBUG
+            ImGui_ImplOpenGL3_NewFrame();
+            ImGui_ImplGlfw_NewFrame();
+            ImGui::NewFrame();
+
+            ImGui::Begin("Demo window");
+            ImGui::Button("Hello!");
+            ImGui::End();
+
+            ImGui::Render();
+            ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+#endif
+
         }
-        while(!windowShouldClose);
+        while(soglWindow.updateAndPollWindow());
+
+#ifdef DEBUG
+        ImGui_ImplOpenGL3_Shutdown();
+        ImGui_ImplGlfw_Shutdown();
+        ImGui::DestroyContext();
+#endif
     }
 
 
@@ -62,6 +90,20 @@ namespace sogl
         for (std::unique_ptr<SoglGameObject> &gameObj : _gameObjs){
             gameObjects.push_back(std::move(gameObj));
         }
-        //gameObjects.insert(gameObjects.end(), _gameObjs.begin(), _gameObjs.end());
     }
+
+
+    // DEBUG
+    #ifdef DEBUG
+    void SoglEngine::initialiseImguiDebug(){
+        IMGUI_CHECKVERSION();
+        ImGui::CreateContext();
+        ImGuiIO& io = ImGui::GetIO(); (void)io;
+        io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;     // Enable Keyboard Controls
+
+        ImGui::StyleColorsDark();
+        ImGui_ImplGlfw_InitForOpenGL(soglWindow.window, true);
+        ImGui_ImplOpenGL3_Init("#version 330");
+    }
+    #endif
 } // namespace sogl

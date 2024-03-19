@@ -326,6 +326,9 @@ MEMORYCHECK_SUPPRESSIONS_FILE:FILEPATH=
 //Name of the computer/site where compile is being run
 SITE:STRING=adarsh
 
+//The directory containing a CMake configuration file for imgui.
+imgui_DIR:PATH=imgui_DIR-NOTFOUND
+
 
 ########################
 # INTERNAL cache entries

@@ -4,6 +4,10 @@
 #include "util/shaders/sogl_program_manager.hpp"
 #include "util/sogl_camera_controller.hpp"
 
+#include "imgui.h"
+#include "imgui_impl_glfw.h"
+#include "imgui_impl_opengl3.h"
+
 // std
 #include <vector>
 #include <memory>
@@ -26,11 +30,14 @@ namespace sogl
         const int RENDER_WIDTH = 1024;
         const int RENDER_HEIGHT = 768;
 
+        void initialiseImguiDebug();
+
         SoglWindow soglWindow;
         SoglRenderer soglRenderer;
         SoglCamera soglCamera;
         SoglCameraController cameraController;
 
         std::vector<std::unique_ptr<SoglGameObject>> gameObjects;
+
     };
 } // namespace sogl

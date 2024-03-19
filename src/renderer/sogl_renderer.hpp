@@ -19,9 +19,10 @@ namespace sogl
     class SoglRenderer{
         public:
         SoglRenderer(SoglWindow& wind, const int width, const int height);
+        ~SoglRenderer();
 
         void initialiseLighting(DirectionalLight &dirLight);
-        bool draw(std::vector<std::unique_ptr<SoglGameObject>> &gameObjects, CameraData camData, DirectionalLight dirLight);
+        void draw(std::vector<std::unique_ptr<SoglGameObject>> &gameObjects, CameraData camData, DirectionalLight dirLight);
 
         const int WIDTH;
         const int HEIGHT;
@@ -30,13 +31,17 @@ namespace sogl
         SoglWindow& soglWindow;
         std::string lightingShader;
 
+        //g-buffer
         GLuint gBuffer;
-        GLuint gPositionView, gNormal, gAlbedoSpec;
+        GLuint gPositionView, gNormal, gAlbedoSpec, gDepth;
 
+        //shadow
         const unsigned int SHADOW_WIDTH = 1024*2, SHADOW_HEIGHT = 1024*2;
         GLuint shadowBuffer;
         GLuint shadowMap;
 
+        //render quad
+        GLuint quadVertexBuffer;
         GLuint renderQuadVAO;
 
         void initialiseGBuffer();

@@ -25,6 +25,23 @@ namespace sogl
         std::cout << "App initialised" << std::endl;
     }
 
+    SoglRenderer::~SoglRenderer(){
+        // Delete the G-Buffer
+        glDeleteFramebuffers(1, &gBuffer);
+        glDeleteTextures(1, &gPositionView);
+        glDeleteTextures(1, &gNormal);
+        glDeleteTextures(1, &gAlbedoSpec);
+        glDeleteRenderbuffers(1, &gDepth);
+
+        // Delete the render quad
+        glDeleteVertexArrays(1, &renderQuadVAO);
+        glDeleteBuffers(1, &quadVertexBuffer);
+
+        // Delete directional shadow map buffers
+        glDeleteFramebuffers(1, &shadowBuffer);
+        glDeleteTextures(1, &shadowMap);
+    }
+
     void SoglRenderer::initialiseLighting(DirectionalLight &dirLight){
         lightingShader = "lighting";
         SoglProgramManager::addProgram(lightingShader);
@@ -82,23 +99,20 @@ namespace sogl
         glDrawBuffers(3, attachments);
 
         // attach basic depth buffer
-        GLuint rboDepth;
-        glGenRenderbuffers(1, &rboDepth);
-        glBindRenderbuffer(GL_RENDERBUFFER, rboDepth);
+        glGenRenderbuffers(1, &gDepth);
+        glBindRenderbuffer(GL_RENDERBUFFER, gDepth);
         glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT, WIDTH, HEIGHT);
-        glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, rboDepth);
+        glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, gDepth);
 
         glBindFramebuffer(GL_FRAMEBUFFER, 0);
     }
 
     void SoglRenderer::initialiseRenderQuad(){
-        GLuint vertexBuffer;
-
         glGenVertexArrays(1, &renderQuadVAO);
-        glGenBuffers(1, &vertexBuffer);
+        glGenBuffers(1, &quadVertexBuffer);
 
         glBindVertexArray(renderQuadVAO);
-        glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
+        glBindBuffer(GL_ARRAY_BUFFER, quadVertexBuffer);
 
         const GLfloat quad[] = {
             -1.0, -1.0, 0.0,
@@ -111,7 +125,7 @@ namespace sogl
         };
 
         glBufferData(GL_ARRAY_BUFFER, sizeof(quad), &quad[0], GL_STATIC_DRAW);
-        glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
+        glBindBuffer(GL_ARRAY_BUFFER, quadVertexBuffer);
         glEnableVertexAttribArray(0);
         glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
         glBindVertexArray(0);
@@ -119,9 +133,11 @@ namespace sogl
 
     void SoglRenderer::initialiseShadowMap(){
         glGenFramebuffers(1, &shadowBuffer);
-
         glGenTextures(1, &shadowMap);
+
         glBindTexture(GL_TEXTURE_2D, shadowMap);
+
+        // shadow texture settings
         glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT32F, 
                     SHADOW_WIDTH, SHADOW_HEIGHT, 0, GL_DEPTH_COMPONENT, GL_FLOAT, NULL);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
@@ -140,15 +156,19 @@ namespace sogl
         glBindFramebuffer(GL_FRAMEBUFFER, 0);
     }
 
+
     // Renders onto glfw window, takes in all the renderable game objects and calls draw() on them
-    bool SoglRenderer::draw(std::vector<std::unique_ptr<SoglGameObject>> &gameObjects, CameraData camData, DirectionalLight dirLight){
+    void SoglRenderer::draw(std::vector<std::unique_ptr<SoglGameObject>> &gameObjects, CameraData camData, DirectionalLight dirLight){
         glm::mat4 dirLightMatrix = LightOperations::adjustShadowMap(dirLight, camData.frustumSlice1);//dirLight.projectionMatrix * dirLight.viewMatrix;
 
+        glEnable(GL_DEPTH_TEST);
         geometryPass(gameObjects, camData);
         shadowPass(gameObjects, dirLightMatrix);
+
+        glDisable(GL_DEPTH_TEST);
         lightingPass(camData, dirLightMatrix);
         
-        return !soglWindow.updateAndPollWindow();
+        
     }
 
     void SoglRenderer::geometryPass(std::vector<std::unique_ptr<SoglGameObject>> &gameObjects, CameraData &camData){
@@ -183,9 +203,11 @@ namespace sogl
     void SoglRenderer::lightingPass(CameraData &camData, glm::mat4 &dirLightMatrix){
         glBindFramebuffer(GL_FRAMEBUFFER, 0);
         glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+        glClear(GL_COLOR_BUFFER_BIT);
 
         SoglProgramManager::useProgram(lightingShader);
+
+        // bind the g-buffer to lighting shader program
         glActiveTexture(GL_TEXTURE0);
         glBindTexture(GL_TEXTURE_2D, gPositionView);
         glActiveTexture(GL_TEXTURE1);
@@ -204,6 +226,7 @@ namespace sogl
         glBindVertexArray(renderQuadVAO);
         glDrawArrays(GL_TRIANGLES, 0, 6);
     }
+
 
     void SoglRenderer::updateDirectionalLight(DirectionalLight &dirLight){
         SoglProgramManager::useProgram(lightingShader);

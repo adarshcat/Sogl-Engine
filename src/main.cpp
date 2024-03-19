@@ -1,4 +1,3 @@
-
 #include "engine/sogl_engine.hpp"
 #include "engine/sogl_game_object.hpp"
 #include "util/sogl_model_loader.hpp"

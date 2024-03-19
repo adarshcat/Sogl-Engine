@@ -42,16 +42,22 @@ namespace sogl
         glDeleteTextures(1, &shadowMap);
     }
 
-    void SoglRenderer::initialiseLighting(DirectionalLight &dirLight){
-        lightingShader = "lighting";
-        SoglProgramManager::addProgram(lightingShader);
+    void SoglRenderer::updateLighting(){
+        std::string lightingParams = "";
+
+        if (shadowEnabled) lightingParams += "SHADOW_ENABLED ";
+        if (lightingParams.size() > 0) lightingParams = lightingParams.substr(0, lightingParams.size()-1);
+
+        SoglProgramManager::recompileProgram(lightingShader, lightingParams);
         SoglProgramManager::useProgram(lightingShader);
         SoglProgramManager::bindImage("gPositionView", 0);
         SoglProgramManager::bindImage("gNormal", 1);
         SoglProgramManager::bindImage("gAlbedoSpec", 2);
         SoglProgramManager::bindImage("dirLight.shadowMap", 3);
+    }
 
-        updateDirectionalLight(dirLight);
+    void SoglRenderer::initialiseRenderer(){
+        updateLighting();
         
         glEnable(GL_DEPTH_TEST);
         glDepthFunc(GL_LESS);
@@ -167,8 +173,6 @@ namespace sogl
 
         glDisable(GL_DEPTH_TEST);
         lightingPass(camData, dirLightMatrix);
-        
-        
     }
 
     void SoglRenderer::geometryPass(std::vector<std::unique_ptr<SoglGameObject>> &gameObjects, CameraData &camData){
@@ -233,5 +237,13 @@ namespace sogl
         SoglProgramManager::setVec3("dirLight.color", dirLight.color);
         SoglProgramManager::setVec3("dirLight.direction", glm::normalize(dirLight.direction));
         SoglProgramManager::setFloat("dirLight.strength", dirLight.strength);
+    }
+
+    void SoglRenderer::toggleShadows(const bool state, DirectionalLight &dirLight){
+        if (shadowEnabled == state) return;
+
+        shadowEnabled = state;
+        updateLighting();
+        updateDirectionalLight(dirLight);
     }
 } // namespace sogl

@@ -12,6 +12,8 @@
 #include <vector>
 #include <memory>
 
+#define DEBUG
+
 namespace sogl
 {
     
@@ -39,5 +41,10 @@ namespace sogl
 
         std::vector<std::unique_ptr<SoglGameObject>> gameObjects;
 
+        #ifdef DEBUG
+        bool model0rot = true;
+        bool shadows = true;
+        float monkeyCol[3]{1.0f, 1.0f, 1.0f};
+        #endif
     };
 } // namespace sogl

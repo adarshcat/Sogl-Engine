@@ -12,7 +12,7 @@ namespace sogl
     std::map <std::string, GLuint> SoglProgramManager::activePrograms;
     GLuint SoglProgramManager::currentProgramId = 0;
 
-    GLuint SoglProgramManager::addProgram(std::string programName){
+    GLuint SoglProgramManager::addProgram(std::string programName, std::string shaderParams){
         for (auto &[key, value]: activePrograms){
             if (std::strcmp(key.c_str(), programName.c_str()) == 0){
                 return value;
@@ -22,21 +22,48 @@ namespace sogl
         std::string vertexPath = programPath + programName + ".vert";
         std::string fragmentPath = programPath + programName + ".frag";
 
-        GLuint programID = sogl::LoadShaders(vertexPath.c_str(), fragmentPath.c_str());
+        GLuint programID = sogl::LoadShaders(vertexPath.c_str(), fragmentPath.c_str(), shaderParams);
         activePrograms.insert({programName, programID});
 
+        currentProgram = "";
+        currentProgramId = -1;
+
         return programID;
+    }
+
+    GLuint SoglProgramManager::addProgram(std::string programName){
+        return addProgram(programName, "");
+    }
+
+    GLuint SoglProgramManager::recompileProgram(std::string programName, std::string shaderParams){
+        // Check if the program is present
+        bool present = false;
+        for (auto &[key, value]: activePrograms){
+            if (std::strcmp(key.c_str(), programName.c_str()) == 0){
+                present = true;
+            }
+        }
+
+        // If not present, just add it
+        if (!present)
+            return addProgram(programName, shaderParams);
+
+        // free old program id from gpu, erase reference from activePrograms map
+        glDeleteProgram(activePrograms[programName]);
+        activePrograms.erase(programName);
+
+        return addProgram(programName, shaderParams);
     }
     
     void SoglProgramManager::useProgram(std::string programName){
         if (currentProgram == programName) return;
 
-        //std::cout << "Using a different program" << std::endl;
         glUseProgram(activePrograms[programName]);
         currentProgram = programName;
         currentProgramId = activePrograms[programName];
     }
 
+    // helper functions to change active program's uniforms
     void SoglProgramManager::setVec3(const std::string uniformName, glm::vec3 value){
         glUniform3f(glGetUniformLocation(currentProgramId, uniformName.c_str()), value.x, value.y, value.z);
     }

@@ -29,10 +29,12 @@ namespace sogl
     }
 
     void SoglCameraController::processInput(SoglWindow &window, const float deltaTime){
-        if (glfwGetKey(window.window, GLFW_KEY_M) == GLFW_PRESS){
+        // Enable/Disable camera controller if 'M' key is pressed
+        if (glfwGetKey(window.window, GLFW_KEY_M) == GLFW_PRESS && (glfwGetTime() - lastControllerToggle) > 0.1f){
             inputEnabled = !inputEnabled;
             if (inputEnabled)
                 glfwSetCursorPos(window.window, window.WIDTH/2, window.HEIGHT/2);
+            lastControllerToggle = glfwGetTime();
         }
 
         if (!inputEnabled) return;

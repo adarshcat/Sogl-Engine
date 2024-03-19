@@ -14,7 +14,8 @@ namespace sogl
         soglRenderer(soglWindow, RENDER_WIDTH, RENDER_HEIGHT),
         cameraController{SoglCameraController(&soglCamera)}
     {
-        soglRenderer.initialiseLighting(directionalLight);
+        soglRenderer.initialiseRenderer();
+        soglRenderer.updateDirectionalLight(directionalLight);
 
         #ifdef DEBUG
         initialiseImguiDebug();
@@ -37,7 +38,8 @@ namespace sogl
             float lastFixedLoopTime = currentTime - lastFixedTick;
             if (lastFixedLoopTime > fixedLoopInterval){
                 // fixed loop stuff goes here
-                std::cout << "FPS: " << int(1.0f/deltaTime) << std::endl;
+                //std::cout << "FPS: " << int(1.0f/deltaTime) << std::endl;
+
                 lastFixedTick = currentTime;
             }
 
@@ -52,8 +54,6 @@ namespace sogl
             
             cameraController.processInput(soglWindow, deltaTime);
             cameraController.process(deltaTime);
-
-            gameObjects[0]->rotate(glm::vec3(0, 1, 0), 0.001f);
             
             soglRenderer.draw(gameObjects, camData, directionalLight);
 
@@ -63,8 +63,18 @@ namespace sogl
             ImGui_ImplGlfw_NewFrame();
             ImGui::NewFrame();
 
-            ImGui::Begin("Demo window");
-            ImGui::Button("Hello!");
+            ImGui::Begin("Debug");
+
+            ImGui::Checkbox("Rotating", &model0rot);
+            if (model0rot)
+                gameObjects[0]->rotate(glm::vec3(0, 1, 0), 0.001f);
+            
+            ImGui::ColorEdit3("monkeyColor", monkeyCol);
+            gameObjects[0]->material.albedo = glm::vec3(monkeyCol[0], monkeyCol[1], monkeyCol[2]);
+
+            ImGui::Checkbox("Shadows", &shadows);
+            soglRenderer.toggleShadows(shadows, directionalLight);
+            
             ImGui::End();
 
             ImGui::Render();
@@ -75,6 +85,7 @@ namespace sogl
         while(soglWindow.updateAndPollWindow());
 
 #ifdef DEBUG
+        // Free imgui stuff if debug enabled
         ImGui_ImplOpenGL3_Shutdown();
         ImGui_ImplGlfw_Shutdown();
         ImGui::DestroyContext();

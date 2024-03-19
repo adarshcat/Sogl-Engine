@@ -21,6 +21,7 @@ struct DirectionalLight {
 
 uniform DirectionalLight dirLight;
 
+#ifdef SHADOW_ENABLED
 float shadowCalculation(vec4 fragPosLightSpace, vec3 normal){
     vec3 projCoords = fragPosLightSpace.xyz / fragPosLightSpace.w;
     projCoords = projCoords * 0.5 + 0.5;
@@ -48,6 +49,8 @@ float shadowCalculation(vec4 fragPosLightSpace, vec3 normal){
     
     return shadow;
 }
+#endif
+
 
 vec3 renderSky(){
     vec3 camDirWorld = normalize((invViewMatrix * vec4((texCoord - vec2(0.5))*2.0, -1, 1)).xyz - cameraPos);
@@ -85,11 +88,15 @@ void main(){
     float spec = pow(max(dot(viewDir, reflectDir), 0.0), 128);
     vec3 specular = specularStrength * spec * dirLight.color;
 
+#ifdef SHADOW_ENABLED
     // calculate shadows
     vec4 fragPosLightSpace = dirLight.transformMatrix * vec4(worldPos, 1.0);
     float shadow = shadowCalculation(fragPosLightSpace, worldNormal);
     
     vec3 lighting = (ambient + (1.0 - shadow) * (diffuse + specular)) * albedo;
+#else
+    vec3 lighting = (ambient + (diffuse + specular)) * albedo;
+#endif
 
     // output color with rienhard tonemapping
     FragColor = lighting/(lighting+1.0f);

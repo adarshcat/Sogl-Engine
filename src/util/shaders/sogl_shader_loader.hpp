@@ -3,13 +3,41 @@
 #include <GL/glew.h>
 
 // std
+#include <iostream>
 #include <string>
 #include <fstream>
 #include <sstream>
 #include <vector>
 
 namespace sogl{
-	static GLuint LoadShaders(const char * vertex_file_path,const char * fragment_file_path){
+	static void insertShaderParams(std::string &dest, std::string params){
+		if (params.size() == 0) return;
+
+		// Find the insert location (just after #version....)
+		int pointer = 0;
+		while (pointer < dest.size() && dest.at(pointer) != '\n'){
+			pointer++;
+		}
+		int insertionPosition = pointer+1;
+
+		// actual insertion process
+		std::string toInsert = "#define ";
+
+		pointer = 0;
+		while (pointer < params.size()){
+			char currentChar = params.at(pointer);
+			if (currentChar == ' '){
+				toInsert += "\n#define ";
+			} else{
+				toInsert += currentChar;
+			}
+			pointer++;
+		}
+
+		dest.insert(insertionPosition, toInsert);
+	}
+
+	static GLuint LoadShaders(const char* vertex_file_path, const char* fragment_file_path, std::string shaderParams){
 		// Create the shaders
 		GLuint VertexShaderID = glCreateShader(GL_VERTEX_SHADER);
 		GLuint FragmentShaderID = glCreateShader(GL_FRAGMENT_SHADER);
@@ -21,6 +49,10 @@ namespace sogl{
 			std::stringstream sstr;
 			sstr << VertexShaderStream.rdbuf();
 			VertexShaderCode = sstr.str();
+
+			// insert the parameters provided
+			insertShaderParams(VertexShaderCode, shaderParams);
+
 			VertexShaderStream.close();
 		}else{
 			printf("Impossible to open %s. Are you in the right directory ? Don't forget to read the FAQ !\n", vertex_file_path);
@@ -35,7 +67,15 @@ namespace sogl{
 			std::stringstream sstr;
 			sstr << FragmentShaderStream.rdbuf();
 			FragmentShaderCode = sstr.str();
+
+			// insert the parameters provided
+			insertShaderParams(FragmentShaderCode, shaderParams);
+
 			FragmentShaderStream.close();
+		}else{
+			printf("Impossible to open %s. Are you in the right directory ? Don't forget to read the FAQ !\n", fragment_file_path);
+			getchar();
+			return 0;
 		}
 
 		GLint Result = GL_FALSE;

@@ -21,15 +21,19 @@ namespace sogl
         SoglRenderer(SoglWindow& wind, const int width, const int height);
         ~SoglRenderer();
 
-        void initialiseLighting(DirectionalLight &dirLight);
+        void initialiseRenderer();
+        void updateDirectionalLight(DirectionalLight &dirLight);
         void draw(std::vector<std::unique_ptr<SoglGameObject>> &gameObjects, CameraData camData, DirectionalLight dirLight);
+
+        // changed renderer settings
+        void toggleShadows(const bool state, DirectionalLight &dirLight);
 
         const int WIDTH;
         const int HEIGHT;
 
         private:
         SoglWindow& soglWindow;
-        std::string lightingShader;
+        std::string lightingShader = "lighting";
 
         //g-buffer
         GLuint gBuffer;
@@ -44,6 +48,11 @@ namespace sogl
         GLuint quadVertexBuffer;
         GLuint renderQuadVAO;
 
+        // renderer settings
+        bool shadowEnabled = true;
+        bool ssaoEnabled = true;
+        void updateLighting();
+
         void initialiseGBuffer();
         void initialiseRenderQuad();
         void initialiseShadowMap();
@@ -51,8 +60,6 @@ namespace sogl
         void geometryPass(std::vector<std::unique_ptr<SoglGameObject>> &gameObjects, CameraData &camData);
         void shadowPass(std::vector<std::unique_ptr<SoglGameObject>> &gameObjects, glm::mat4 &lightSpaceMatrix);
         void lightingPass(CameraData &camData, glm::mat4 &lightSpaceMatrix);
-
-        void updateDirectionalLight(DirectionalLight &dirLight);
     };
 
 } // namespace sogl

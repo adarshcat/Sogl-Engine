@@ -10,6 +10,7 @@ namespace sogl
         glm::mat4 viewMatrix;
         glm::mat4 invViewMatrix;
         glm::mat4 viewProjectionMatrix;
+        glm::mat4 projectionMatrix;
         std::vector<glm::vec4> frustumSlice1;
         glm::vec3 camPos;
     };
@@ -20,6 +21,7 @@ namespace sogl
 
         glm::mat4 getViewProjectionMatrix();
         glm::mat4 &getViewMatrix();
+        glm::mat4 &getProjectionMatrix();
         glm::mat4 getInvViewMatrix();
 
         std::vector<glm::vec4> getViewFrustum(glm::mat4 &viewProjMatrix);

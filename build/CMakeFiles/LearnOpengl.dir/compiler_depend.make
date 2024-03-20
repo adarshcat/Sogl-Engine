@@ -288,6 +288,7 @@ CMakeFiles/LearnOpengl.dir/src/engine/sogl_engine.cpp.obj: C:/Users/adars/Docume
   C:/Users/adars/Documents/Cpp\ Projects/FirstOpengl/src/util/imgui/imgui.h \
   C:/Users/adars/Documents/Cpp\ Projects/FirstOpengl/src/util/shaders/sogl_program_manager.hpp \
   C:/Users/adars/Documents/Cpp\ Projects/FirstOpengl/src/util/sogl_camera_controller.hpp \
+  C:/Users/adars/Documents/Cpp\ Projects/FirstOpengl/src/util/sogl_helper.hpp \
   C:/Users/adars/Documents/Cpp\ Projects/FirstOpengl/src/util/sogl_model_loader.hpp \
   C:/Users/adars/Documents/Cpp\ Projects/FirstOpengl/include/glm/common.hpp \
   C:/Users/adars/Documents/Cpp\ Projects/FirstOpengl/include/glm/detail/_fixes.hpp \
@@ -474,6 +475,8 @@ CMakeFiles/LearnOpengl.dir/src/engine/sogl_engine.cpp.obj: C:/Users/adars/Docume
   C:/msys64/mingw64/include/c++/13.2.0/bits/postypes.h \
   C:/msys64/mingw64/include/c++/13.2.0/bits/predefined_ops.h \
   C:/msys64/mingw64/include/c++/13.2.0/bits/ptr_traits.h \
+  C:/msys64/mingw64/include/c++/13.2.0/bits/random.h \
+  C:/msys64/mingw64/include/c++/13.2.0/bits/random.tcc \
   C:/msys64/mingw64/include/c++/13.2.0/bits/range_access.h \
   C:/msys64/mingw64/include/c++/13.2.0/bits/refwrap.h \
   C:/msys64/mingw64/include/c++/13.2.0/bits/requires_hosted.h \
@@ -493,6 +496,7 @@ CMakeFiles/LearnOpengl.dir/src/engine/sogl_engine.cpp.obj: C:/Users/adars/Docume
   C:/msys64/mingw64/include/c++/13.2.0/bits/stl_iterator_base_types.h \
   C:/msys64/mingw64/include/c++/13.2.0/bits/stl_map.h \
   C:/msys64/mingw64/include/c++/13.2.0/bits/stl_multimap.h \
+  C:/msys64/mingw64/include/c++/13.2.0/bits/stl_numeric.h \
   C:/msys64/mingw64/include/c++/13.2.0/bits/stl_pair.h \
   C:/msys64/mingw64/include/c++/13.2.0/bits/stl_raw_storage_iter.h \
   C:/msys64/mingw64/include/c++/13.2.0/bits/stl_tempbuf.h \
@@ -540,11 +544,14 @@ CMakeFiles/LearnOpengl.dir/src/engine/sogl_engine.cpp.obj: C:/Users/adars/Docume
   C:/msys64/mingw64/include/c++/13.2.0/map \
   C:/msys64/mingw64/include/c++/13.2.0/memory \
   C:/msys64/mingw64/include/c++/13.2.0/new \
+  C:/msys64/mingw64/include/c++/13.2.0/numeric \
   C:/msys64/mingw64/include/c++/13.2.0/ostream \
   C:/msys64/mingw64/include/c++/13.2.0/pstl/execution_defs.h \
   C:/msys64/mingw64/include/c++/13.2.0/pstl/glue_algorithm_defs.h \
   C:/msys64/mingw64/include/c++/13.2.0/pstl/glue_memory_defs.h \
+  C:/msys64/mingw64/include/c++/13.2.0/pstl/glue_numeric_defs.h \
   C:/msys64/mingw64/include/c++/13.2.0/pstl/pstl_config.h \
+  C:/msys64/mingw64/include/c++/13.2.0/random \
   C:/msys64/mingw64/include/c++/13.2.0/stdexcept \
   C:/msys64/mingw64/include/c++/13.2.0/stdlib.h \
   C:/msys64/mingw64/include/c++/13.2.0/streambuf \
@@ -577,6 +584,7 @@ CMakeFiles/LearnOpengl.dir/src/engine/sogl_engine.cpp.obj: C:/Users/adars/Docume
   C:/msys64/mingw64/include/c++/13.2.0/x86_64-w64-mingw32/bits/error_constants.h \
   C:/msys64/mingw64/include/c++/13.2.0/x86_64-w64-mingw32/bits/gthr-default.h \
   C:/msys64/mingw64/include/c++/13.2.0/x86_64-w64-mingw32/bits/gthr.h \
+  C:/msys64/mingw64/include/c++/13.2.0/x86_64-w64-mingw32/bits/opt_random.h \
   C:/msys64/mingw64/include/c++/13.2.0/x86_64-w64-mingw32/bits/os_defines.h \
   C:/msys64/mingw64/include/corecrt.h \
   C:/msys64/mingw64/include/corecrt_startup.h \
@@ -617,13 +625,18 @@ CMakeFiles/LearnOpengl.dir/src/engine/sogl_engine.cpp.obj: C:/Users/adars/Docume
   C:/msys64/mingw64/include/vadefs.h \
   C:/msys64/mingw64/include/wchar.h \
   C:/msys64/mingw64/include/wctype.h \
+  C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/13.2.0/include/emmintrin.h \
   C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/13.2.0/include/float.h \
   C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/13.2.0/include/limits.h \
   C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/13.2.0/include/mm_malloc.h \
+  C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/13.2.0/include/mmintrin.h \
+  C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/13.2.0/include/mwaitintrin.h \
+  C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/13.2.0/include/pmmintrin.h \
   C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/13.2.0/include/stdarg.h \
   C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/13.2.0/include/stddef.h \
   C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/13.2.0/include/stdint.h \
-  C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/13.2.0/include/syslimits.h
+  C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/13.2.0/include/syslimits.h \
+  C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/13.2.0/include/xmmintrin.h
 
 CMakeFiles/LearnOpengl.dir/src/engine/sogl_game_object.cpp.obj: C:/Users/adars/Documents/Cpp\ Projects/FirstOpengl/src/engine/sogl_game_object.cpp \
   C:/Users/adars/Documents/Cpp\ Projects/FirstOpengl/include/GL/glew.h \
@@ -999,6 +1012,7 @@ CMakeFiles/LearnOpengl.dir/src/main.cpp.obj: C:/Users/adars/Documents/Cpp\ Proje
   C:/Users/adars/Documents/Cpp\ Projects/FirstOpengl/src/util/imgui/imgui.h \
   C:/Users/adars/Documents/Cpp\ Projects/FirstOpengl/src/util/shaders/sogl_program_manager.hpp \
   C:/Users/adars/Documents/Cpp\ Projects/FirstOpengl/src/util/sogl_camera_controller.hpp \
+  C:/Users/adars/Documents/Cpp\ Projects/FirstOpengl/src/util/sogl_helper.hpp \
   C:/Users/adars/Documents/Cpp\ Projects/FirstOpengl/include/glm/common.hpp \
   C:/Users/adars/Documents/Cpp\ Projects/FirstOpengl/include/glm/detail/_fixes.hpp \
   C:/Users/adars/Documents/Cpp\ Projects/FirstOpengl/include/glm/detail/_vectorize.hpp \
@@ -1184,6 +1198,8 @@ CMakeFiles/LearnOpengl.dir/src/main.cpp.obj: C:/Users/adars/Documents/Cpp\ Proje
   C:/msys64/mingw64/include/c++/13.2.0/bits/postypes.h \
   C:/msys64/mingw64/include/c++/13.2.0/bits/predefined_ops.h \
   C:/msys64/mingw64/include/c++/13.2.0/bits/ptr_traits.h \
+  C:/msys64/mingw64/include/c++/13.2.0/bits/random.h \
+  C:/msys64/mingw64/include/c++/13.2.0/bits/random.tcc \
   C:/msys64/mingw64/include/c++/13.2.0/bits/range_access.h \
   C:/msys64/mingw64/include/c++/13.2.0/bits/refwrap.h \
   C:/msys64/mingw64/include/c++/13.2.0/bits/requires_hosted.h \
@@ -1203,6 +1219,7 @@ CMakeFiles/LearnOpengl.dir/src/main.cpp.obj: C:/Users/adars/Documents/Cpp\ Proje
   C:/msys64/mingw64/include/c++/13.2.0/bits/stl_iterator_base_types.h \
   C:/msys64/mingw64/include/c++/13.2.0/bits/stl_map.h \
   C:/msys64/mingw64/include/c++/13.2.0/bits/stl_multimap.h \
+  C:/msys64/mingw64/include/c++/13.2.0/bits/stl_numeric.h \
   C:/msys64/mingw64/include/c++/13.2.0/bits/stl_pair.h \
   C:/msys64/mingw64/include/c++/13.2.0/bits/stl_raw_storage_iter.h \
   C:/msys64/mingw64/include/c++/13.2.0/bits/stl_tempbuf.h \
@@ -1250,11 +1267,14 @@ CMakeFiles/LearnOpengl.dir/src/main.cpp.obj: C:/Users/adars/Documents/Cpp\ Proje
   C:/msys64/mingw64/include/c++/13.2.0/map \
   C:/msys64/mingw64/include/c++/13.2.0/memory \
   C:/msys64/mingw64/include/c++/13.2.0/new \
+  C:/msys64/mingw64/include/c++/13.2.0/numeric \
   C:/msys64/mingw64/include/c++/13.2.0/ostream \
   C:/msys64/mingw64/include/c++/13.2.0/pstl/execution_defs.h \
   C:/msys64/mingw64/include/c++/13.2.0/pstl/glue_algorithm_defs.h \
   C:/msys64/mingw64/include/c++/13.2.0/pstl/glue_memory_defs.h \
+  C:/msys64/mingw64/include/c++/13.2.0/pstl/glue_numeric_defs.h \
   C:/msys64/mingw64/include/c++/13.2.0/pstl/pstl_config.h \
+  C:/msys64/mingw64/include/c++/13.2.0/random \
   C:/msys64/mingw64/include/c++/13.2.0/stdexcept \
   C:/msys64/mingw64/include/c++/13.2.0/stdlib.h \
   C:/msys64/mingw64/include/c++/13.2.0/streambuf \
@@ -1287,6 +1307,7 @@ CMakeFiles/LearnOpengl.dir/src/main.cpp.obj: C:/Users/adars/Documents/Cpp\ Proje
   C:/msys64/mingw64/include/c++/13.2.0/x86_64-w64-mingw32/bits/error_constants.h \
   C:/msys64/mingw64/include/c++/13.2.0/x86_64-w64-mingw32/bits/gthr-default.h \
   C:/msys64/mingw64/include/c++/13.2.0/x86_64-w64-mingw32/bits/gthr.h \
+  C:/msys64/mingw64/include/c++/13.2.0/x86_64-w64-mingw32/bits/opt_random.h \
   C:/msys64/mingw64/include/c++/13.2.0/x86_64-w64-mingw32/bits/os_defines.h \
   C:/msys64/mingw64/include/corecrt.h \
   C:/msys64/mingw64/include/corecrt_startup.h \
@@ -1327,13 +1348,18 @@ CMakeFiles/LearnOpengl.dir/src/main.cpp.obj: C:/Users/adars/Documents/Cpp\ Proje
   C:/msys64/mingw64/include/vadefs.h \
   C:/msys64/mingw64/include/wchar.h \
   C:/msys64/mingw64/include/wctype.h \
+  C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/13.2.0/include/emmintrin.h \
   C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/13.2.0/include/float.h \
   C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/13.2.0/include/limits.h \
   C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/13.2.0/include/mm_malloc.h \
+  C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/13.2.0/include/mmintrin.h \
+  C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/13.2.0/include/mwaitintrin.h \
+  C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/13.2.0/include/pmmintrin.h \
   C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/13.2.0/include/stdarg.h \
   C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/13.2.0/include/stddef.h \
   C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/13.2.0/include/stdint.h \
   C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/13.2.0/include/syslimits.h \
+  C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/13.2.0/include/xmmintrin.h \
   C:/Users/adars/Documents/Cpp\ Projects/FirstOpengl/src/engine/sogl_engine.hpp \
   C:/Users/adars/Documents/Cpp\ Projects/FirstOpengl/src/util/sogl_model_loader.hpp
 
@@ -1355,6 +1381,7 @@ CMakeFiles/LearnOpengl.dir/src/renderer/sogl_renderer.cpp.obj: C:/Users/adars/Do
   C:/Users/adars/Documents/Cpp\ Projects/FirstOpengl/src/renderer/sogl_renderer.hpp \
   C:/Users/adars/Documents/Cpp\ Projects/FirstOpengl/src/renderer/sogl_window.hpp \
   C:/Users/adars/Documents/Cpp\ Projects/FirstOpengl/src/util/shaders/sogl_program_manager.hpp \
+  C:/Users/adars/Documents/Cpp\ Projects/FirstOpengl/src/util/sogl_helper.hpp \
   C:/Users/adars/Documents/Cpp\ Projects/FirstOpengl/include/glm/common.hpp \
   C:/Users/adars/Documents/Cpp\ Projects/FirstOpengl/include/glm/detail/_fixes.hpp \
   C:/Users/adars/Documents/Cpp\ Projects/FirstOpengl/include/glm/detail/_vectorize.hpp \
@@ -1537,6 +1564,8 @@ CMakeFiles/LearnOpengl.dir/src/renderer/sogl_renderer.cpp.obj: C:/Users/adars/Do
   C:/msys64/mingw64/include/c++/13.2.0/bits/postypes.h \
   C:/msys64/mingw64/include/c++/13.2.0/bits/predefined_ops.h \
   C:/msys64/mingw64/include/c++/13.2.0/bits/ptr_traits.h \
+  C:/msys64/mingw64/include/c++/13.2.0/bits/random.h \
+  C:/msys64/mingw64/include/c++/13.2.0/bits/random.tcc \
   C:/msys64/mingw64/include/c++/13.2.0/bits/range_access.h \
   C:/msys64/mingw64/include/c++/13.2.0/bits/refwrap.h \
   C:/msys64/mingw64/include/c++/13.2.0/bits/requires_hosted.h \
@@ -1554,6 +1583,7 @@ CMakeFiles/LearnOpengl.dir/src/renderer/sogl_renderer.cpp.obj: C:/Users/adars/Do
   C:/msys64/mingw64/include/c++/13.2.0/bits/stl_iterator_base_types.h \
   C:/msys64/mingw64/include/c++/13.2.0/bits/stl_map.h \
   C:/msys64/mingw64/include/c++/13.2.0/bits/stl_multimap.h \
+  C:/msys64/mingw64/include/c++/13.2.0/bits/stl_numeric.h \
   C:/msys64/mingw64/include/c++/13.2.0/bits/stl_pair.h \
   C:/msys64/mingw64/include/c++/13.2.0/bits/stl_raw_storage_iter.h \
   C:/msys64/mingw64/include/c++/13.2.0/bits/stl_tempbuf.h \
@@ -1564,6 +1594,7 @@ CMakeFiles/LearnOpengl.dir/src/renderer/sogl_renderer.cpp.obj: C:/Users/adars/Do
   C:/msys64/mingw64/include/c++/13.2.0/bits/streambuf_iterator.h \
   C:/msys64/mingw64/include/c++/13.2.0/bits/string_view.tcc \
   C:/msys64/mingw64/include/c++/13.2.0/bits/stringfwd.h \
+  C:/msys64/mingw64/include/c++/13.2.0/bits/uniform_int_dist.h \
   C:/msys64/mingw64/include/c++/13.2.0/bits/unique_ptr.h \
   C:/msys64/mingw64/include/c++/13.2.0/bits/uses_allocator.h \
   C:/msys64/mingw64/include/c++/13.2.0/bits/uses_allocator_args.h \
@@ -1599,10 +1630,13 @@ CMakeFiles/LearnOpengl.dir/src/renderer/sogl_renderer.cpp.obj: C:/Users/adars/Do
   C:/msys64/mingw64/include/c++/13.2.0/map \
   C:/msys64/mingw64/include/c++/13.2.0/memory \
   C:/msys64/mingw64/include/c++/13.2.0/new \
+  C:/msys64/mingw64/include/c++/13.2.0/numeric \
   C:/msys64/mingw64/include/c++/13.2.0/ostream \
   C:/msys64/mingw64/include/c++/13.2.0/pstl/execution_defs.h \
   C:/msys64/mingw64/include/c++/13.2.0/pstl/glue_memory_defs.h \
+  C:/msys64/mingw64/include/c++/13.2.0/pstl/glue_numeric_defs.h \
   C:/msys64/mingw64/include/c++/13.2.0/pstl/pstl_config.h \
+  C:/msys64/mingw64/include/c++/13.2.0/random \
   C:/msys64/mingw64/include/c++/13.2.0/stdexcept \
   C:/msys64/mingw64/include/c++/13.2.0/stdlib.h \
   C:/msys64/mingw64/include/c++/13.2.0/streambuf \
@@ -1635,6 +1669,7 @@ CMakeFiles/LearnOpengl.dir/src/renderer/sogl_renderer.cpp.obj: C:/Users/adars/Do
   C:/msys64/mingw64/include/c++/13.2.0/x86_64-w64-mingw32/bits/error_constants.h \
   C:/msys64/mingw64/include/c++/13.2.0/x86_64-w64-mingw32/bits/gthr-default.h \
   C:/msys64/mingw64/include/c++/13.2.0/x86_64-w64-mingw32/bits/gthr.h \
+  C:/msys64/mingw64/include/c++/13.2.0/x86_64-w64-mingw32/bits/opt_random.h \
   C:/msys64/mingw64/include/c++/13.2.0/x86_64-w64-mingw32/bits/os_defines.h \
   C:/msys64/mingw64/include/corecrt.h \
   C:/msys64/mingw64/include/corecrt_startup.h \
@@ -1671,11 +1706,16 @@ CMakeFiles/LearnOpengl.dir/src/renderer/sogl_renderer.cpp.obj: C:/Users/adars/Do
   C:/msys64/mingw64/include/vadefs.h \
   C:/msys64/mingw64/include/wchar.h \
   C:/msys64/mingw64/include/wctype.h \
+  C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/13.2.0/include/emmintrin.h \
   C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/13.2.0/include/limits.h \
   C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/13.2.0/include/mm_malloc.h \
+  C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/13.2.0/include/mmintrin.h \
+  C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/13.2.0/include/mwaitintrin.h \
+  C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/13.2.0/include/pmmintrin.h \
   C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/13.2.0/include/stddef.h \
   C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/13.2.0/include/stdint.h \
-  C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/13.2.0/include/syslimits.h
+  C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/13.2.0/include/syslimits.h \
+  C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/13.2.0/include/xmmintrin.h
 
 CMakeFiles/LearnOpengl.dir/src/renderer/sogl_window.cpp.obj: C:/Users/adars/Documents/Cpp\ Projects/FirstOpengl/src/renderer/sogl_window.cpp \
   C:/Users/adars/Documents/Cpp\ Projects/FirstOpengl/include/GLFW/glfw3.h \
@@ -3492,6 +3532,7 @@ CMakeFiles/LearnOpengl.dir/src/util/sogl_camera_controller.cpp.obj: C:/Users/ada
   C:/Users/adars/Documents/Cpp\ Projects/FirstOpengl/src/engine/sogl_camera.hpp \
   C:/Users/adars/Documents/Cpp\ Projects/FirstOpengl/src/renderer/sogl_window.hpp \
   C:/Users/adars/Documents/Cpp\ Projects/FirstOpengl/src/util/sogl_camera_controller.hpp \
+  C:/Users/adars/Documents/Cpp\ Projects/FirstOpengl/src/util/sogl_helper.hpp \
   C:/Users/adars/Documents/Cpp\ Projects/FirstOpengl/include/glm/common.hpp \
   C:/Users/adars/Documents/Cpp\ Projects/FirstOpengl/include/glm/detail/_fixes.hpp \
   C:/Users/adars/Documents/Cpp\ Projects/FirstOpengl/include/glm/detail/_vectorize.hpp \
@@ -4137,13 +4178,13 @@ C:/msys64/mingw64/include/oleauto.h:
 
 C:/Users/adars/Documents/Cpp\ Projects/FirstOpengl/include/glm/mat4x4.hpp:
 
-C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/13.2.0/include/mmintrin.h:
-
 C:/Users/adars/Documents/Cpp\ Projects/FirstOpengl/include/glm/ext/matrix_double2x3.hpp:
 
 C:/Users/adars/Documents/Cpp\ Projects/FirstOpengl/include/glm/ext/vector_double2_precision.hpp:
 
 C:/msys64/mingw64/include/c++/13.2.0/pstl/glue_algorithm_defs.h:
+
+C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/13.2.0/include/mmintrin.h:
 
 C:/Users/adars/Documents/Cpp\ Projects/FirstOpengl/include/glm/detail/qualifier.hpp:
 
@@ -4168,6 +4209,8 @@ C:/msys64/mingw64/include/c++/13.2.0/map:
 C:/msys64/mingw64/include/c++/13.2.0/bits/locale_facets.tcc:
 
 C:/Users/adars/Documents/Cpp\ Projects/FirstOpengl/include/glm/ext/matrix_double3x2.hpp:
+
+C:/msys64/mingw64/include/c++/13.2.0/bits/random.tcc:
 
 C:/Users/adars/Documents/Cpp\ Projects/FirstOpengl/include/glm/ext/matrix_clip_space.inl:
 
@@ -4236,8 +4279,6 @@ C:/Users/adars/Documents/Cpp\ Projects/FirstOpengl/include/glm/detail/compute_ve
 C:/Users/adars/Documents/Cpp\ Projects/FirstOpengl/include/glm/detail/func_common.inl:
 
 C:/Users/adars/Documents/Cpp\ Projects/FirstOpengl/include/assimp/quaternion.h:
-
-C:/msys64/mingw64/include/winapifamily.h:
 
 C:/Users/adars/Documents/Cpp\ Projects/FirstOpengl/include/glm/detail/type_vec3.inl:
 
@@ -4331,11 +4372,11 @@ C:/msys64/mingw64/include/processthreadsapi.h:
 
 C:/Users/adars/Documents/Cpp\ Projects/FirstOpengl/include/glm/ext/matrix_double3x3.hpp:
 
-C:/Users/adars/Documents/Cpp\ Projects/FirstOpengl/include/glm/detail/type_mat3x4.inl:
+C:/Users/adars/Documents/Cpp\ Projects/FirstOpengl/include/glm/mat2x3.hpp:
 
 C:/msys64/mingw64/include/threadpoolapiset.h:
 
-C:/Users/adars/Documents/Cpp\ Projects/FirstOpengl/include/glm/mat2x3.hpp:
+C:/Users/adars/Documents/Cpp\ Projects/FirstOpengl/include/glm/detail/type_mat3x4.inl:
 
 C:/Users/adars/Documents/Cpp\ Projects/FirstOpengl/include/glm/detail/type_mat4x2.inl:
 
@@ -4517,9 +4558,11 @@ C:/Users/adars/Documents/Cpp\ Projects/FirstOpengl/include/glm/ext/vector_double
 
 C:/Users/adars/Documents/Cpp\ Projects/FirstOpengl/include/glm/ext/vector_float2.hpp:
 
-C:/Users/adars/Documents/Cpp\ Projects/FirstOpengl/include/glm/ext/vector_float2_precision.hpp:
+C:/msys64/mingw64/include/c++/13.2.0/random:
 
 C:/msys64/mingw64/include/tvout.h:
+
+C:/Users/adars/Documents/Cpp\ Projects/FirstOpengl/include/glm/ext/vector_float2_precision.hpp:
 
 C:/msys64/mingw64/include/c++/13.2.0/streambuf:
 
@@ -4645,9 +4688,9 @@ C:/msys64/mingw64/include/c++/13.2.0/bits/invoke.h:
 
 C:/msys64/mingw64/include/c++/13.2.0/bit:
 
-C:/msys64/mingw64/include/c++/13.2.0/cwchar:
-
 C:/msys64/mingw64/include/unknwn.h:
+
+C:/msys64/mingw64/include/c++/13.2.0/cwchar:
 
 C:/msys64/mingw64/include/c++/13.2.0/bits/alloc_traits.h:
 
@@ -4709,9 +4752,9 @@ C:/msys64/mingw64/include/c++/13.2.0/bits/stl_algobase.h:
 
 C:/msys64/mingw64/include/c++/13.2.0/bits/stl_bvector.h:
 
-C:/msys64/mingw64/include/c++/13.2.0/bits/stl_construct.h:
-
 C:/msys64/mingw64/include/winbase.h:
+
+C:/msys64/mingw64/include/c++/13.2.0/bits/stl_construct.h:
 
 C:/msys64/mingw64/include/c++/13.2.0/bits/stl_function.h:
 
@@ -4751,9 +4794,9 @@ C:/msys64/mingw64/include/c++/13.2.0/debug/assertions.h:
 
 C:/msys64/mingw64/include/c++/13.2.0/cstddef:
 
-C:/msys64/mingw64/include/c++/13.2.0/cstdint:
-
 C:/msys64/mingw64/include/utilapiset.h:
+
+C:/msys64/mingw64/include/c++/13.2.0/cstdint:
 
 C:/msys64/mingw64/include/c++/13.2.0/debug/debug.h:
 
@@ -4776,6 +4819,8 @@ C:/msys64/mingw64/include/c++/13.2.0/tr1/ell_integral.tcc:
 C:/msys64/mingw64/include/c++/13.2.0/tr1/exp_integral.tcc:
 
 C:/Users/adars/Documents/Cpp\ Projects/FirstOpengl/src/util/imgui/backends/imgui_impl_glfw.cpp:
+
+C:/msys64/mingw64/include/c++/13.2.0/bits/random.h:
 
 C:/msys64/mingw64/include/pthread_compat.h:
 
@@ -4857,9 +4902,9 @@ C:/Users/adars/Documents/Cpp\ Projects/FirstOpengl/include/assimp/Importer.hpp:
 
 C:/Users/adars/Documents/Cpp\ Projects/FirstOpengl/include/assimp/anim.h:
 
-C:/Users/adars/Documents/Cpp\ Projects/FirstOpengl/src/util/sogl_model_loader.hpp:
-
 C:/msys64/mingw64/include/unknwnbase.h:
+
+C:/Users/adars/Documents/Cpp\ Projects/FirstOpengl/src/util/sogl_model_loader.hpp:
 
 C:/Users/adars/Documents/Cpp\ Projects/FirstOpengl/include/assimp/color4.inl:
 
@@ -4878,6 +4923,8 @@ C:/Users/adars/Documents/Cpp\ Projects/FirstOpengl/include/assimp/matrix3x3.inl:
 C:/Users/adars/Documents/Cpp\ Projects/FirstOpengl/include/assimp/matrix4x4.inl:
 
 C:/Users/adars/Documents/Cpp\ Projects/FirstOpengl/include/assimp/mesh.h:
+
+C:/msys64/mingw64/include/c++/13.2.0/pstl/glue_numeric_defs.h:
 
 C:/Users/adars/Documents/Cpp\ Projects/FirstOpengl/include/assimp/metadata.h:
 
@@ -4939,6 +4986,10 @@ C:/Users/adars/Documents/Cpp\ Projects/FirstOpengl/src/util/imgui/imgui.h:
 
 C:/Users/adars/Documents/Cpp\ Projects/FirstOpengl/src/util/sogl_camera_controller.hpp:
 
+C:/Users/adars/Documents/Cpp\ Projects/FirstOpengl/src/util/sogl_helper.hpp:
+
+C:/msys64/mingw64/include/_timeval.h:
+
 C:/msys64/mingw64/include/dde.h:
 
 C:/msys64/mingw64/include/GL/gl.h:
@@ -4950,8 +5001,6 @@ C:/msys64/mingw64/include/_mingw_off_t.h:
 C:/msys64/mingw64/include/c++/13.2.0/string:
 
 C:/msys64/mingw64/include/_mingw_stat64.h:
-
-C:/msys64/mingw64/include/_timeval.h:
 
 C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/13.2.0/include/wmmintrin.h:
 
@@ -5011,6 +5060,8 @@ C:/msys64/mingw64/include/c++/13.2.0/bits/stl_heap.h:
 
 C:/msys64/mingw64/include/c++/13.2.0/bits/stl_multimap.h:
 
+C:/msys64/mingw64/include/c++/13.2.0/bits/stl_numeric.h:
+
 C:/msys64/mingw64/include/c++/13.2.0/bits/stl_tempbuf.h:
 
 C:/msys64/mingw64/include/commdlg.h:
@@ -5055,6 +5106,10 @@ C:/msys64/mingw64/include/rpcsal.h:
 
 C:/msys64/mingw64/include/c++/13.2.0/memory:
 
+C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/13.2.0/include/avxneconvertintrin.h:
+
+C:/msys64/mingw64/include/c++/13.2.0/numeric:
+
 C:/msys64/mingw64/include/corecrt_startup.h:
 
 C:/msys64/mingw64/include/c++/13.2.0/pstl/execution_defs.h:
@@ -5066,6 +5121,10 @@ C:/msys64/mingw64/include/c++/13.2.0/x86_64-w64-mingw32/bits/c++locale.h:
 C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/13.2.0/include/float.h:
 
 C:/msys64/mingw64/include/c++/13.2.0/x86_64-w64-mingw32/bits/ctype_base.h:
+
+C:/msys64/mingw64/include/c++/13.2.0/x86_64-w64-mingw32/bits/opt_random.h:
+
+C:/msys64/mingw64/include/wchar.h:
 
 C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/13.2.0/include/avx512erintrin.h:
 
@@ -5111,9 +5170,15 @@ C:/msys64/mingw64/include/sys/types.h:
 
 C:/msys64/mingw64/include/time.h:
 
-C:/msys64/mingw64/include/wchar.h:
+C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/13.2.0/include/emmintrin.h:
+
+C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/13.2.0/include/mwaitintrin.h:
+
+C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/13.2.0/include/pmmintrin.h:
 
 C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/13.2.0/include/stdarg.h:
+
+C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/13.2.0/include/xmmintrin.h:
 
 C:/Users/adars/Documents/Cpp\ Projects/FirstOpengl/src/engine/sogl_game_object.cpp:
 
@@ -5154,8 +5219,6 @@ C:/msys64/mingw64/include/c++/13.2.0/fstream:
 C:/msys64/mingw64/include/jobapi.h:
 
 C:/msys64/mingw64/include/lzexpand.h:
-
-C:/msys64/mingw64/include/threadpoollegacyapiset.h:
 
 C:/msys64/mingw64/include/mciapi.h:
 
@@ -5209,6 +5272,8 @@ C:/msys64/mingw64/include/sec_api/stralign_s.h:
 
 C:/msys64/mingw64/include/securityappcontainer.h:
 
+C:/msys64/mingw64/include/threadpoollegacyapiset.h:
+
 C:/Users/adars/Documents/Cpp\ Projects/FirstOpengl/src/util/shaders/sogl_program_manager.cpp:
 
 C:/msys64/mingw64/include/timeapi.h:
@@ -5220,6 +5285,8 @@ C:/msys64/mingw64/include/timezoneapi.h:
 C:/msys64/mingw64/include/urlmon.h:
 
 C:/msys64/mingw64/include/virtdisk.h:
+
+C:/msys64/mingw64/include/winapifamily.h:
 
 C:/msys64/mingw64/include/wincon.h:
 
@@ -5329,8 +5396,6 @@ C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/13.2.0/include/avx512vp2intersectvl
 
 C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/13.2.0/include/avxintrin.h:
 
-C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/13.2.0/include/avxneconvertintrin.h:
-
 C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/13.2.0/include/avxvnniint8intrin.h:
 
 C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/13.2.0/include/popcntintrin.h:
@@ -5340,8 +5405,6 @@ C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/13.2.0/include/avxvnniintrin.h:
 C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/13.2.0/include/bmiintrin.h:
 
 C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/13.2.0/include/clzerointrin.h:
-
-C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/13.2.0/include/emmintrin.h:
 
 C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/13.2.0/include/enqcmdintrin.h:
 
@@ -5353,15 +5416,11 @@ C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/13.2.0/include/ia32intrin.h:
 
 C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/13.2.0/include/mm3dnow.h:
 
-C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/13.2.0/include/mwaitintrin.h:
-
 C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/13.2.0/include/mwaitxintrin.h:
 
 C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/13.2.0/include/pconfigintrin.h:
 
 C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/13.2.0/include/pkuintrin.h:
-
-C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/13.2.0/include/pmmintrin.h:
 
 C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/13.2.0/include/prfchwintrin.h:
 
@@ -5388,8 +5447,6 @@ C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/13.2.0/include/vaesintrin.h:
 C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/13.2.0/include/waitpkgintrin.h:
 
 C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/13.2.0/include/x86intrin.h:
-
-C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/13.2.0/include/xmmintrin.h:
 
 C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/13.2.0/include/xopintrin.h:
 

@@ -3,6 +3,7 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include "engine/sogl_camera.hpp"
 #include "renderer/sogl_window.hpp"
+#include "util/sogl_helper.hpp"
 
 namespace sogl
 {
@@ -20,10 +21,8 @@ namespace sogl
         private:
         SoglCamera* camera;
         const float cameraSpeed = 14.0f;
-        const float mouseSpeed = 5.0f;
+        const float mouseSpeed = 3.0f;
         const float cameraRotSmooth = 0.00001f;
-
-        float lerp(const float a, const float b, const float c);
 
         const glm::vec3 cameraFront = glm::vec3(0, 0, -1);
         const glm::vec3 cameraUp = glm::vec3(0, 1, 0);

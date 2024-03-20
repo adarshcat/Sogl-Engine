@@ -277,6 +277,7 @@ CMakeFiles/LearnOpengl.dir/src/main.cpp.obj: \
  C:/msys64/mingw64/include/c++/13.2.0/bits/stl_multimap.h \
  C:/msys64/mingw64/include/c++/13.2.0/bits/erase_if.h \
  C:/Users/adars/DOCUME~1/CPPPRO~1/FIRSTO~1/src/engine/sogl_lights.hpp \
+ C:/Users/adars/DOCUME~1/CPPPRO~1/FIRSTO~1/src/util/sogl_helper.hpp \
  C:/msys64/mingw64/include/c++/13.2.0/memory \
  C:/msys64/mingw64/include/c++/13.2.0/bits/stl_tempbuf.h \
  C:/msys64/mingw64/include/c++/13.2.0/bits/stl_raw_storage_iter.h \
@@ -313,6 +314,19 @@ CMakeFiles/LearnOpengl.dir/src/main.cpp.obj: \
  C:/msys64/mingw64/include/c++/13.2.0/backward/auto_ptr.h \
  C:/msys64/mingw64/include/c++/13.2.0/pstl/glue_memory_defs.h \
  C:/msys64/mingw64/include/c++/13.2.0/pstl/execution_defs.h \
+ C:/msys64/mingw64/include/c++/13.2.0/random \
+ C:/msys64/mingw64/include/c++/13.2.0/bits/random.h \
+ C:/msys64/mingw64/include/c++/13.2.0/bits/uniform_int_dist.h \
+ C:/msys64/mingw64/include/c++/13.2.0/x86_64-w64-mingw32/bits/opt_random.h \
+ C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/13.2.0/include/pmmintrin.h \
+ C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/13.2.0/include/emmintrin.h \
+ C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/13.2.0/include/xmmintrin.h \
+ C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/13.2.0/include/mmintrin.h \
+ C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/13.2.0/include/mwaitintrin.h \
+ C:/msys64/mingw64/include/c++/13.2.0/bits/random.tcc \
+ C:/msys64/mingw64/include/c++/13.2.0/numeric \
+ C:/msys64/mingw64/include/c++/13.2.0/bits/stl_numeric.h \
+ C:/msys64/mingw64/include/c++/13.2.0/pstl/glue_numeric_defs.h \
  C:/Users/adars/DOCUME~1/CPPPRO~1/FIRSTO~1/src/util/sogl_camera_controller.hpp \
  C:/Users/adars/DOCUME~1/CPPPRO~1/FIRSTO~1/src/util/imgui/imgui.h \
  C:/Users/adars/DOCUME~1/CPPPRO~1/FIRSTO~1/src/util/imgui/imconfig.h \
@@ -345,7 +359,6 @@ CMakeFiles/LearnOpengl.dir/src/main.cpp.obj: \
  C:/msys64/mingw64/include/c++/13.2.0/bits/stl_algo.h \
  C:/msys64/mingw64/include/c++/13.2.0/bits/algorithmfwd.h \
  C:/msys64/mingw64/include/c++/13.2.0/bits/stl_heap.h \
- C:/msys64/mingw64/include/c++/13.2.0/bits/uniform_int_dist.h \
  C:/msys64/mingw64/include/c++/13.2.0/pstl/glue_algorithm_defs.h \
  C:/Users/adars/DOCUME~1/CPPPRO~1/FIRSTO~1/include/assimp/matrix4x4.inl \
  C:/Users/adars/DOCUME~1/CPPPRO~1/FIRSTO~1/include/assimp/MathFunctions.h \

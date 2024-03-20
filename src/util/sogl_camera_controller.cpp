@@ -9,8 +9,8 @@ namespace sogl
     }
 
     void SoglCameraController::process(const float deltaTime){
-        horizontalAngle = lerp(horizontalAngle, targetHorizontalAngle, 1.0f - std::pow(cameraRotSmooth, deltaTime));
-        verticalAngle = lerp(verticalAngle, targetVerticalAngle, 1.0f - std::pow(cameraRotSmooth, deltaTime));
+        horizontalAngle = sogl::helper::lerp(horizontalAngle, targetHorizontalAngle, 1.0f - std::pow(cameraRotSmooth, deltaTime));
+        verticalAngle = sogl::helper::lerp(verticalAngle, targetVerticalAngle, 1.0f - std::pow(cameraRotSmooth, deltaTime));
         
         glm::vec3 direction(
             cos(verticalAngle) * sin(horizontalAngle),
@@ -78,7 +78,4 @@ namespace sogl
             cameraPos -= cameraUp * apparentCameraSp * deltaTime;
     }
 
-    float SoglCameraController::lerp(const float a, const float b, const float c){
-        return a + (b - a)*c;
-    }
 } // namespace sogl

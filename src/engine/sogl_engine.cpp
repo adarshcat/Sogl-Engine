@@ -38,7 +38,7 @@ namespace sogl
             float lastFixedLoopTime = currentTime - lastFixedTick;
             if (lastFixedLoopTime > fixedLoopInterval){
                 // fixed loop stuff goes here
-                //std::cout << "FPS: " << int(1.0f/deltaTime) << std::endl;
+                std::cout << "FPS: " << int(1.0f/deltaTime) << std::endl;
 
                 lastFixedTick = currentTime;
             }
@@ -49,6 +49,7 @@ namespace sogl
             camData.viewProjectionMatrix = soglCamera.getViewProjectionMatrix();
             camData.viewMatrix = soglCamera.getViewMatrix();
             camData.invViewMatrix = soglCamera.getInvViewMatrix();
+            camData.projectionMatrix = soglCamera.getProjectionMatrix();
             camData.camPos = cameraController.cameraPos;
             camData.frustumSlice1 = soglCamera.getViewFrustumSlice(3, 0);
             
@@ -74,6 +75,9 @@ namespace sogl
 
             ImGui::Checkbox("Shadows", &shadows);
             soglRenderer.toggleShadows(shadows, directionalLight);
+
+            ImGui::Checkbox("SSAO", &ssao);
+            soglRenderer.toggleSSAO(ssao);
             
             ImGui::End();
 

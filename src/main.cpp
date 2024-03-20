@@ -9,15 +9,10 @@ using namespace sogl;
 
 int main() {
     SoglEngine engine;
-    std::vector<std::unique_ptr<SoglGameObject>> monkeyModel = SoglModelLoader::loadModel("monkey.obj");
-    std::vector<std::unique_ptr<SoglGameObject>> planeModel = SoglModelLoader::loadModel("plane.glb");
-    planeModel[0]->material.albedo = glm::vec3(1.0, 0.0, 0.0);
 
-    planeModel[0]->translate(glm::vec3(0, -2.1, 0));
-
-    engine.addGameObjects(std::move(monkeyModel));
-    engine.addGameObjects(std::move(planeModel));
-
+    std::vector<std::unique_ptr<SoglGameObject>> testSceneModels = SoglModelLoader::loadModel("testScene.glb");
+    engine.addGameObjects(std::move(testSceneModels));
+    
     engine.run();
 
     return 0;

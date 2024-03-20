@@ -1,6 +1,6 @@
 #version 330 core
 
-out vec3 FragColor;
+out vec4 FragColor;
 
 in vec2 texCoord;
 
@@ -21,6 +21,8 @@ struct DirectionalLight {
 
 uniform DirectionalLight dirLight;
 
+uniform sampler2D ssaoMap;
+
 #ifdef SHADOW_ENABLED
 float shadowCalculation(vec4 fragPosLightSpace, vec3 normal){
     vec3 projCoords = fragPosLightSpace.xyz / fragPosLightSpace.w;
@@ -29,7 +31,7 @@ float shadowCalculation(vec4 fragPosLightSpace, vec3 normal){
     float closestDepth = texture(dirLight.shadowMap, projCoords.xy).r;
     float currentDepth = projCoords.z;
 
-    float bias = max(0.002 * (1.0 - dot(normal, dirLight.direction)), 0.001);
+    float bias = max(0.00043 * (1.0 - dot(normal, dirLight.direction)), 0.00029);
 
     // shadow caculation with PCF
     float shadow = 0.0;
@@ -65,7 +67,7 @@ void main(){
     // Retrieve the values from g buffer
     vec3 worldNormal = texture(gNormal, texCoord).rgb;
     if (length(worldNormal) == 0.0){
-        FragColor = renderSky();
+        FragColor = vec4(renderSky(), 1.0);
         return;
     }
 
@@ -73,12 +75,17 @@ void main(){
     vec3 worldPos = (invViewMatrix * vec4(viewPos, 1)).xyz;
     vec3 albedo = texture(gAlbedoSpec, texCoord).rgb;
 
-    // phong lighting, start with ambient
-    float ambientStrength = 0.3;
-    vec3 ambient = ambientStrength * vec3(0.85, 1.0, 1.0);
-
+    // phong lighting----------------------------------------------------------------------------------------
     // calculate diffuse
     vec3 diffuse = max(dot(worldNormal, dirLight.direction), 0.0) * dirLight.color * dirLight.strength;
+
+    // ambient lighting with AO
+    float occlusionStrength = texture(ssaoMap, texCoord).r;
+    float ambientStrength = 0.5;
+    vec3 ambient = occlusionStrength * ambientStrength * albedo * vec3(0.85, 1.0, 1.0);
+
+    //FragColor = vec4(vec3(ssaoSample), 1.0);
+    //return;
 
     // calculate specular
     float specularStrength = 0.75;
@@ -99,5 +106,5 @@ void main(){
 #endif
 
     // output color with rienhard tonemapping
-    FragColor = lighting/(lighting+1.0f);
+    FragColor = vec4(lighting/(lighting+1.0f), 1.0);
 }

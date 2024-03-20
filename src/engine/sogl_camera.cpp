@@ -25,6 +25,10 @@ namespace sogl
         return viewMatrix;
     }
 
+    glm::mat4 &SoglCamera::getProjectionMatrix(){
+        return projectionMatrix;
+    }
+
     glm::mat4 SoglCamera::getInvViewMatrix(){
         return glm::inverse(viewMatrix);
     }

@@ -40,6 +40,10 @@ namespace sogl
         // Delete directional shadow map buffers
         glDeleteFramebuffers(1, &shadowBuffer);
         glDeleteTextures(1, &shadowMap);
+
+        // Delete SSAO related stuff
+        glDeleteFramebuffers(1, &ssaoFBO);
+        glDeleteTextures(1, &ssaoNoiseTex);
     }
 
     void SoglRenderer::updateLighting(){
@@ -54,6 +58,7 @@ namespace sogl
         SoglProgramManager::bindImage("gNormal", 1);
         SoglProgramManager::bindImage("gAlbedoSpec", 2);
         SoglProgramManager::bindImage("dirLight.shadowMap", 3);
+        SoglProgramManager::bindImage("ssaoMap", 4);
     }
 
     void SoglRenderer::initialiseRenderer(){
@@ -67,6 +72,7 @@ namespace sogl
         initialiseGBuffer();
         initialiseRenderQuad();
         initialiseShadowMap();
+        initialiseSSAO();
     }
 
     void SoglRenderer::initialiseGBuffer(){
@@ -162,16 +168,84 @@ namespace sogl
         glBindFramebuffer(GL_FRAMEBUFFER, 0);
     }
 
+    void SoglRenderer::initialiseSSAO(){
+        // generate the SSAO kernel
+        std::uniform_real_distribution<float> randomFloats(0, 1);
+        std::default_random_engine randomGenerator;
+
+        for (unsigned int i=0; i<SSAO_SAMPLES; i++){
+            glm::vec3 sample(
+                randomFloats(randomGenerator) * 2.0 - 1.0, 
+                randomFloats(randomGenerator) * 2.0 - 1.0, 
+                randomFloats(randomGenerator)
+            );
+
+            sample = glm::normalize(sample);
+            sample *= randomFloats(randomGenerator);
+
+            float scale = ((float)i) / SSAO_SAMPLES;
+            scale = sogl::helper::lerp(0.1f, 1.0f, scale * scale);
+            sample *= scale;
+            ssaoKernel.push_back(sample);
+        }
+
+        // generate ssao noise samples
+        std::vector<glm::vec3> ssaoNoise;
+        for (unsigned int i = 0; i < 16; i++){
+            glm::vec3 noise(
+                randomFloats(randomGenerator) * 2.0 - 1.0,
+                randomFloats(randomGenerator) * 2.0 - 1.0,
+                0.0f);
+            ssaoNoise.push_back(noise);
+        }
+
+        // pack ssao noise samples into a repeating ssao noise texture
+        glGenTextures(1, &ssaoNoiseTex);
+        glBindTexture(GL_TEXTURE_2D, ssaoNoiseTex);
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA16F, 4, 4, 0, GL_RGB, GL_FLOAT, &ssaoNoise[0]);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+
+        // create framebuffer for ssao rendering, attach a output texture
+        glGenFramebuffers(1, &ssaoFBO);  
+        glBindFramebuffer(GL_FRAMEBUFFER, ssaoFBO);
+
+        glGenTextures(1, &ssaoOutput);
+        glBindTexture(GL_TEXTURE_2D, ssaoOutput);
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RED, WIDTH, HEIGHT, 0, GL_RED, GL_FLOAT, NULL);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+
+        glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, ssaoOutput, 0);
+        glBindFramebuffer(GL_FRAMEBUFFER, 0);
+
+        // initialise the ssao shader program
+        SoglProgramManager::addProgram(ssaoShader);
+        SoglProgramManager::useProgram(ssaoShader);
+
+        SoglProgramManager::bindImage("gPositionView", 0);
+        SoglProgramManager::bindImage("gNormal", 1);
+        SoglProgramManager::bindImage("noiseTexture", 2);
+
+        // send the kernel over to the SSAO shader program
+        for (unsigned int i = 0; i < 64; i++)
+            SoglProgramManager::setVec3("samples[" + std::to_string(i) + "]", ssaoKernel[i]);
+    }
 
     // Renders onto glfw window, takes in all the renderable game objects and calls draw() on them
     void SoglRenderer::draw(std::vector<std::unique_ptr<SoglGameObject>> &gameObjects, CameraData camData, DirectionalLight dirLight){
         glm::mat4 dirLightMatrix = LightOperations::adjustShadowMap(dirLight, camData.frustumSlice1);//dirLight.projectionMatrix * dirLight.viewMatrix;
 
         glEnable(GL_DEPTH_TEST);
+
         geometryPass(gameObjects, camData);
-        shadowPass(gameObjects, dirLightMatrix);
+        if (shadowEnabled) shadowPass(gameObjects, dirLightMatrix);
 
         glDisable(GL_DEPTH_TEST);
+
+        if (ssaoEnabled) ssaoPass(camData);
         lightingPass(camData, dirLightMatrix);
     }
 
@@ -204,6 +278,29 @@ namespace sogl
         glViewport(0, 0, WIDTH, HEIGHT);
     }
 
+    void SoglRenderer::ssaoPass(CameraData &camData){
+        glBindFramebuffer(GL_FRAMEBUFFER, ssaoFBO);
+        glClear(GL_COLOR_BUFFER_BIT);
+
+        SoglProgramManager::useProgram(ssaoShader);
+
+        glActiveTexture(GL_TEXTURE0);
+        glBindTexture(GL_TEXTURE_2D, gPositionView);
+        glActiveTexture(GL_TEXTURE1);
+        glBindTexture(GL_TEXTURE_2D, gNormal);
+        glActiveTexture(GL_TEXTURE2);
+        glBindTexture(GL_TEXTURE_2D, ssaoNoiseTex);
+
+        SoglProgramManager::setMat4("viewMatrix", camData.viewMatrix);
+        SoglProgramManager::setMat4("projectionMatrix", camData.projectionMatrix);
+
+        // draw the render quad
+        glBindVertexArray(renderQuadVAO);
+        glDrawArrays(GL_TRIANGLES, 0, 6);
+
+        glBindFramebuffer(GL_FRAMEBUFFER, 0);
+    }
+
     void SoglRenderer::lightingPass(CameraData &camData, glm::mat4 &dirLightMatrix){
         glBindFramebuffer(GL_FRAMEBUFFER, 0);
         glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
@@ -218,13 +315,19 @@ namespace sogl
         glBindTexture(GL_TEXTURE_2D, gNormal);
         glActiveTexture(GL_TEXTURE2);
         glBindTexture(GL_TEXTURE_2D, gAlbedoSpec);
-        glActiveTexture(GL_TEXTURE3);
-        glBindTexture(GL_TEXTURE_2D, shadowMap);
+
+        if (shadowEnabled){
+            glActiveTexture(GL_TEXTURE3);
+            glBindTexture(GL_TEXTURE_2D, shadowMap);
+            SoglProgramManager::setMat4("dirLight.transformMatrix", dirLightMatrix);
+        }
+        if (ssaoEnabled){
+            glActiveTexture(GL_TEXTURE4);
+            glBindTexture(GL_TEXTURE_2D, ssaoOutput);
+        }
 
         SoglProgramManager::setMat4("invViewMatrix", camData.invViewMatrix);
         SoglProgramManager::setVec3("cameraPos", camData.camPos);
-
-        SoglProgramManager::setMat4("dirLight.transformMatrix", dirLightMatrix);
         
         // draw the render quad
         glBindVertexArray(renderQuadVAO);
@@ -245,5 +348,9 @@ namespace sogl
         shadowEnabled = state;
         updateLighting();
         updateDirectionalLight(dirLight);
+    }
+
+    void SoglRenderer::toggleSSAO(const bool state){
+        ssaoEnabled = state;
     }
 } // namespace sogl

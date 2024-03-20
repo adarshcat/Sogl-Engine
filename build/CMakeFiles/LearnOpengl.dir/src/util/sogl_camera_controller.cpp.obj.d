@@ -263,4 +263,5 @@ CMakeFiles/LearnOpengl.dir/src/util/sogl_camera_controller.cpp.obj: \
  C:/msys64/mingw64/include/c++/13.2.0/cstdio \
  C:/msys64/mingw64/include/c++/13.2.0/cerrno \
  C:/msys64/mingw64/include/c++/13.2.0/bits/charconv.h \
- C:/msys64/mingw64/include/c++/13.2.0/bits/basic_string.tcc
+ C:/msys64/mingw64/include/c++/13.2.0/bits/basic_string.tcc \
+ C:/Users/adars/DOCUME~1/CPPPRO~1/FIRSTO~1/src/util/sogl_helper.hpp

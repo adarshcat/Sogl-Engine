@@ -44,23 +44,14 @@ namespace sogl
         // Delete SSAO related stuff
         glDeleteFramebuffers(1, &ssaoFBO);
         glDeleteTextures(1, &ssaoNoiseTex);
+        glDeleteTextures(1, &ssaoOutput);
+
+        // Delete SSAO blur stuff
+        glDeleteFramebuffers(1, &ssaoBlurFBO);
+        glDeleteTextures(1, &ssaoBlurOutput);
     }
 
-    void SoglRenderer::updateLighting(){
-        std::string lightingParams = "";
-
-        if (shadowEnabled) lightingParams += "SHADOW_ENABLED ";
-        if (lightingParams.size() > 0) lightingParams = lightingParams.substr(0, lightingParams.size()-1);
-
-        SoglProgramManager::recompileProgram(lightingShader, lightingParams);
-        SoglProgramManager::useProgram(lightingShader);
-        SoglProgramManager::bindImage("gPositionView", 0);
-        SoglProgramManager::bindImage("gNormal", 1);
-        SoglProgramManager::bindImage("gAlbedoSpec", 2);
-        SoglProgramManager::bindImage("dirLight.shadowMap", 3);
-        SoglProgramManager::bindImage("ssaoMap", 4);
-    }
-
+#pragma region rendererInitialisation
     void SoglRenderer::initialiseRenderer(){
         updateLighting();
         
@@ -73,6 +64,7 @@ namespace sogl
         initialiseRenderQuad();
         initialiseShadowMap();
         initialiseSSAO();
+        initialiseSSAOBlur();
     }
 
     void SoglRenderer::initialiseGBuffer(){
@@ -222,7 +214,9 @@ namespace sogl
         glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
         // initialise the ssao shader program
-        SoglProgramManager::addProgram(ssaoShader);
+        const std::string ssaoParams = "KERNEL_SIZE "+std::to_string(SSAO_SAMPLES)+
+                                        ",WINDOW_WIDTH "+std::to_string(WIDTH)+",WINDOW_HEIGHT "+std::to_string(HEIGHT);
+        SoglProgramManager::addProgram(ssaoShader, ssaoParams);
         SoglProgramManager::useProgram(ssaoShader);
 
         SoglProgramManager::bindImage("gPositionView", 0);
@@ -234,9 +228,28 @@ namespace sogl
             SoglProgramManager::setVec3("samples[" + std::to_string(i) + "]", ssaoKernel[i]);
     }
 
+    void SoglRenderer::initialiseSSAOBlur(){
+        glGenFramebuffers(1, &ssaoBlurFBO);
+        glBindFramebuffer(GL_FRAMEBUFFER, ssaoBlurFBO);
+        glGenTextures(1, &ssaoBlurOutput);
+        glBindTexture(GL_TEXTURE_2D, ssaoBlurOutput);
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RED, WIDTH, HEIGHT, 0, GL_RED, GL_FLOAT, NULL);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+        glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, ssaoBlurOutput, 0);
+
+        glBindFramebuffer(GL_FRAMEBUFFER, 0);
+
+        SoglProgramManager::addProgram(ssaoBlurShader);
+        SoglProgramManager::useProgram(ssaoBlurShader);
+
+        SoglProgramManager::bindImage("ssaoInput", 0);
+    }
+#pragma endregion rendererInitialisation
+
     // Renders onto glfw window, takes in all the renderable game objects and calls draw() on them
-    void SoglRenderer::draw(std::vector<std::unique_ptr<SoglGameObject>> &gameObjects, CameraData camData, DirectionalLight dirLight){
-        glm::mat4 dirLightMatrix = LightOperations::adjustShadowMap(dirLight, camData.frustumSlice1);//dirLight.projectionMatrix * dirLight.viewMatrix;
+    void SoglRenderer::draw(std::vector<std::unique_ptr<SoglGameObject>> &gameObjects, CameraData camData){
+        glm::mat4 dirLightMatrix = LightOperations::adjustShadowMap(directionalLight, camData.frustumSlice1);
 
         glEnable(GL_DEPTH_TEST);
 
@@ -249,6 +262,7 @@ namespace sogl
         lightingPass(camData, dirLightMatrix);
     }
 
+#pragma region renderpasses
     void SoglRenderer::geometryPass(std::vector<std::unique_ptr<SoglGameObject>> &gameObjects, CameraData &camData){
         glBindFramebuffer(GL_FRAMEBUFFER, gBuffer);
         
@@ -279,6 +293,7 @@ namespace sogl
     }
 
     void SoglRenderer::ssaoPass(CameraData &camData){
+        // ssao pass
         glBindFramebuffer(GL_FRAMEBUFFER, ssaoFBO);
         glClear(GL_COLOR_BUFFER_BIT);
 
@@ -297,6 +312,20 @@ namespace sogl
         // draw the render quad
         glBindVertexArray(renderQuadVAO);
         glDrawArrays(GL_TRIANGLES, 0, 6);
+
+        // Do SSAO blur
+        if (ssaoBlurEnabled){
+            glBindFramebuffer(GL_FRAMEBUFFER, ssaoBlurFBO);
+            glClear(GL_COLOR_BUFFER_BIT);
+
+            SoglProgramManager::useProgram(ssaoBlurShader);
+            glActiveTexture(GL_TEXTURE0);
+            glBindTexture(GL_TEXTURE_2D, ssaoOutput);
+
+            // draw the render quad
+            glBindVertexArray(renderQuadVAO);
+            glDrawArrays(GL_TRIANGLES, 0, 6);
+        }
 
         glBindFramebuffer(GL_FRAMEBUFFER, 0);
     }
@@ -323,7 +352,10 @@ namespace sogl
         }
         if (ssaoEnabled){
             glActiveTexture(GL_TEXTURE4);
-            glBindTexture(GL_TEXTURE_2D, ssaoOutput);
+            if (ssaoBlurEnabled)
+                glBindTexture(GL_TEXTURE_2D, ssaoBlurOutput);
+            else
+                glBindTexture(GL_TEXTURE_2D, ssaoOutput);
         }
 
         SoglProgramManager::setMat4("invViewMatrix", camData.invViewMatrix);
@@ -333,24 +365,64 @@ namespace sogl
         glBindVertexArray(renderQuadVAO);
         glDrawArrays(GL_TRIANGLES, 0, 6);
     }
+#pragma endregion renderpasses
 
-
+#pragma region updateLightingProgram
+    // updates directional light parameters and also updates in the shader
     void SoglRenderer::updateDirectionalLight(DirectionalLight &dirLight){
-        SoglProgramManager::useProgram(lightingShader);
-        SoglProgramManager::setVec3("dirLight.color", dirLight.color);
-        SoglProgramManager::setVec3("dirLight.direction", glm::normalize(dirLight.direction));
-        SoglProgramManager::setFloat("dirLight.strength", dirLight.strength);
+        directionalLight.color = dirLight.color;
+        directionalLight.direction = dirLight.direction;
+        directionalLight.strength = dirLight.strength;
+
+        updateLightingShaderInputs();
     }
 
-    void SoglRenderer::toggleShadows(const bool state, DirectionalLight &dirLight){
+    // updates directional light parameters in the shader
+    void SoglRenderer::updateLightingShaderInputs(){
+        SoglProgramManager::useProgram(lightingShader);
+        SoglProgramManager::setVec3("dirLight.color", directionalLight.color);
+        SoglProgramManager::setVec3("dirLight.direction", glm::normalize(directionalLight.direction));
+        SoglProgramManager::setFloat("dirLight.strength", directionalLight.strength);
+    }
+
+    // recompiles lighting shader with updated flags (ssao, shadow, etc..) binds the sampler locations to respective indices
+    void SoglRenderer::updateLighting(){
+        std::string lightingParams = "";
+
+        if (shadowEnabled) lightingParams += "SHADOW_ENABLED,";
+        if (ssaoEnabled) lightingParams += "SSAO_ENABLED,";
+
+        if (lightingParams.size() > 0) lightingParams = lightingParams.substr(0, lightingParams.size()-1);
+
+        SoglProgramManager::recompileProgram(lightingShader, lightingParams);
+        SoglProgramManager::useProgram(lightingShader);
+        SoglProgramManager::bindImage("gPositionView", 0);
+        SoglProgramManager::bindImage("gNormal", 1);
+        SoglProgramManager::bindImage("gAlbedoSpec", 2);
+        SoglProgramManager::bindImage("dirLight.shadowMap", 3);
+        SoglProgramManager::bindImage("ssaoMap", 4);
+
+        updateLightingShaderInputs();
+    }
+#pragma endregion updateLightingProgram
+
+#pragma region rendererToggles
+    void SoglRenderer::toggleShadows(const bool state){
         if (shadowEnabled == state) return;
 
         shadowEnabled = state;
         updateLighting();
-        updateDirectionalLight(dirLight);
     }
 
     void SoglRenderer::toggleSSAO(const bool state){
+        if (ssaoEnabled == state) return;
+
         ssaoEnabled = state;
+        updateLighting();
     }
+
+    void SoglRenderer::toggleSSAOBlur(const bool state){
+        ssaoBlurEnabled = state;
+    }
+#pragma endregion rendererToggles
 } // namespace sogl

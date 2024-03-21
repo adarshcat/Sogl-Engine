@@ -48,6 +48,7 @@ namespace sogl
         glBindVertexArray(0);
     }
 
+#pragma reigon drawFunctions
     void SoglGameObject::draw(CameraData &camData){
         SoglProgramManager::useProgram(shader);
         applyMaterial();
@@ -68,11 +69,13 @@ namespace sogl
         glBindVertexArray(vertexArrayObject);
         glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);
     }
+#pragma endregion drawFunctions
 
     void SoglGameObject::applyMaterial(){
         SoglProgramManager::setVec3("albedo", material.albedo);
     }
 
+#pragma region transformationFunctions
     void SoglGameObject::translate(glm::vec3 amnt){
         modelMatrix = glm::translate(modelMatrix, amnt);
     }
@@ -84,6 +87,6 @@ namespace sogl
     void SoglGameObject::scale(glm::vec3 scaleVec){
         modelMatrix = glm::scale(modelMatrix, scaleVec);
     }
-
+#pragma endregion transformationFunctions
 } // namespace sogl
 

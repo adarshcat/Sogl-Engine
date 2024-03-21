@@ -29,8 +29,6 @@ namespace sogl
 
         void setViewMatrix(glm::mat4 &viewMat);
 
-        void orbitCamera();
-
         private:
         const int WIDTH;
         const int HEIGHT;

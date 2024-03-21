@@ -10,16 +10,15 @@ namespace sogl
     
     SoglEngine::SoglEngine(): 
         soglWindow{RENDER_WIDTH, RENDER_HEIGHT, "Sogl Window"} ,
-        soglCamera(RENDER_WIDTH, RENDER_HEIGHT),
         soglRenderer(soglWindow, RENDER_WIDTH, RENDER_HEIGHT),
+        soglCamera(RENDER_WIDTH, RENDER_HEIGHT),
         cameraController{SoglCameraController(&soglCamera)}
     {
         soglRenderer.initialiseRenderer();
-        soglRenderer.updateDirectionalLight(directionalLight);
 
-        #ifdef DEBUG
+#ifdef DEBUG
         initialiseImguiDebug();
-        #endif
+#endif
     }
 
     void SoglEngine::run(){
@@ -53,10 +52,12 @@ namespace sogl
             camData.camPos = cameraController.cameraPos;
             camData.frustumSlice1 = soglCamera.getViewFrustumSlice(3, 0);
             
+            // update the camera controller
             cameraController.processInput(soglWindow, deltaTime);
             cameraController.process(deltaTime);
             
-            soglRenderer.draw(gameObjects, camData, directionalLight);
+            // render to screen
+            soglRenderer.draw(gameObjects, camData);
 
 
 #ifdef DEBUG
@@ -74,10 +75,13 @@ namespace sogl
             gameObjects[0]->material.albedo = glm::vec3(monkeyCol[0], monkeyCol[1], monkeyCol[2]);
 
             ImGui::Checkbox("Shadows", &shadows);
-            soglRenderer.toggleShadows(shadows, directionalLight);
+            soglRenderer.toggleShadows(shadows);
 
             ImGui::Checkbox("SSAO", &ssao);
             soglRenderer.toggleSSAO(ssao);
+
+            ImGui::Checkbox("SSAO Blur", &ssaoBlur);
+            soglRenderer.toggleSSAOBlur(ssaoBlur);
             
             ImGui::End();
 
@@ -85,7 +89,7 @@ namespace sogl
             ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 #endif
 
-        }
+        } // end engine's draw loop
         while(soglWindow.updateAndPollWindow());
 
 #ifdef DEBUG
@@ -94,9 +98,9 @@ namespace sogl
         ImGui_ImplGlfw_Shutdown();
         ImGui::DestroyContext();
 #endif
-    }
+    } // end run function
 
-
+#pragma region addObjects
     void SoglEngine::addGameObject(std::unique_ptr<SoglGameObject> &_gameObj){
         gameObjects.push_back(std::move(_gameObj));
     }
@@ -106,10 +110,10 @@ namespace sogl
             gameObjects.push_back(std::move(gameObj));
         }
     }
-
+#pragma endregion addObjects
 
     // DEBUG
-    #ifdef DEBUG
+#ifdef DEBUG
     void SoglEngine::initialiseImguiDebug(){
         IMGUI_CHECKVERSION();
         ImGui::CreateContext();
@@ -120,5 +124,5 @@ namespace sogl
         ImGui_ImplGlfw_InitForOpenGL(soglWindow.window, true);
         ImGui_ImplOpenGL3_Init("#version 330");
     }
-    #endif
+#endif
 } // namespace sogl

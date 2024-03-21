@@ -26,7 +26,7 @@ namespace sogl{
 		pointer = 0;
 		while (pointer < params.size()){
 			char currentChar = params.at(pointer);
-			if (currentChar == ' '){
+			if (currentChar == ','){
 				toInsert += "\n#define ";
 			} else{
 				toInsert += currentChar;

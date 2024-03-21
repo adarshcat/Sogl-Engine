@@ -17,6 +17,7 @@ namespace sogl
         projectionMatrix = glm::perspective(glm::radians(FOV), (float) WIDTH / (float)HEIGHT, NEAR_PLANE, FAR_PLANE);
     }
 
+#pragma region getterFunctions
     glm::mat4 SoglCamera::getViewProjectionMatrix(){
         return projectionMatrix * viewMatrix;
     }
@@ -64,20 +65,9 @@ namespace sogl
 
         return getViewFrustum(slicedViewProjMatrix);
     }
-
+#pragma endregion getterFunctions
 
     void SoglCamera::setViewMatrix(glm::mat4 &viewMat){
         viewMatrix = viewMat;
-    }
-
-
-    void SoglCamera::orbitCamera(){
-        viewMatrix = glm::lookAt(
-            glm::vec3(sinf(rotDegree)*4,3,cosf(rotDegree)*4),
-            glm::vec3(0,0,0),
-            glm::vec3(0,1,0)
-        );
-
-        rotDegree += 0.001;
     }
 } // namespace sogl

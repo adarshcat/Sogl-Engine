@@ -28,19 +28,22 @@ namespace sogl
 
         void initialiseRenderer();
         void updateDirectionalLight(DirectionalLight &dirLight);
-        void draw(std::vector<std::unique_ptr<SoglGameObject>> &gameObjects, CameraData camData, DirectionalLight dirLight);
+        void draw(std::vector<std::unique_ptr<SoglGameObject>> &gameObjects, CameraData camData);
 
         // changed renderer settings
-        void toggleShadows(const bool state, DirectionalLight &dirLight);
+        void toggleShadows(const bool state);
         void toggleSSAO(const bool state);
+        void toggleSSAOBlur(const bool state);
 
         const int WIDTH;
         const int HEIGHT;
 
         private:
         SoglWindow& soglWindow;
+        DirectionalLight directionalLight;
         std::string lightingShader = "lighting";
         std::string ssaoShader = "ssao";
+        std::string ssaoBlurShader = "ssao_blur";
 
         //g-buffer
         GLuint gBuffer;
@@ -57,6 +60,10 @@ namespace sogl
         GLuint ssaoFBO;
         GLuint ssaoNoiseTex, ssaoOutput;
 
+        //ssao blur
+        GLuint ssaoBlurFBO;
+        GLuint ssaoBlurOutput;
+
         //render quad
         GLuint quadVertexBuffer;
         GLuint renderQuadVAO;
@@ -64,12 +71,16 @@ namespace sogl
         // renderer settings
         bool shadowEnabled = true;
         bool ssaoEnabled = true;
+        bool ssaoBlurEnabled = true;
+
         void updateLighting();
+        void updateLightingShaderInputs();
 
         void initialiseGBuffer();
         void initialiseRenderQuad();
         void initialiseShadowMap();
         void initialiseSSAO();
+        void initialiseSSAOBlur();
 
         void geometryPass(std::vector<std::unique_ptr<SoglGameObject>> &gameObjects, CameraData &camData);
         void shadowPass(std::vector<std::unique_ptr<SoglGameObject>> &gameObjects, glm::mat4 &lightSpaceMatrix);

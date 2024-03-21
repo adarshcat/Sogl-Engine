@@ -25,8 +25,6 @@ namespace sogl
 
         void addGameObject(std::unique_ptr<SoglGameObject> &_gameObj);
         void addGameObjects(std::vector<std::unique_ptr<SoglGameObject>> _gameObjs);
-
-        DirectionalLight directionalLight;
         
         private:
         const int RENDER_WIDTH = 1024;
@@ -41,11 +39,12 @@ namespace sogl
 
         std::vector<std::unique_ptr<SoglGameObject>> gameObjects;
 
-        #ifdef DEBUG
+#ifdef DEBUG
         bool model0rot = false;
         bool shadows = true;
         bool ssao = true;
         float monkeyCol[3]{1.0f, 1.0f, 1.0f};
-        #endif
+        bool ssaoBlur = true;
+#endif
     };
 } // namespace sogl

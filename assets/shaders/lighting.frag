@@ -80,12 +80,13 @@ void main(){
     vec3 diffuse = max(dot(worldNormal, dirLight.direction), 0.0) * dirLight.color * dirLight.strength;
 
     // ambient lighting with AO
-    float occlusionStrength = texture(ssaoMap, texCoord).r;
     float ambientStrength = 0.5;
-    vec3 ambient = occlusionStrength * ambientStrength * albedo * vec3(0.85, 1.0, 1.0);
-
-    //FragColor = vec4(vec3(ssaoSample), 1.0);
-    //return;
+#ifdef SSAO_ENABLED
+    float occlusionStrength = texture(ssaoMap, texCoord).r;
+    vec3 ambient = occlusionStrength * ambientStrength * albedo;
+#else
+    vec3 ambient = ambientStrength * albedo;
+#endif
 
     // calculate specular
     float specularStrength = 0.75;

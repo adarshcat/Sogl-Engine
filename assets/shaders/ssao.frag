@@ -5,7 +5,7 @@ out vec4 FragColor;
 in vec2 texCoord;
 
 const vec2 noiseScale = vec2(WINDOW_WIDTH/4.0, WINDOW_HEIGHT/4.0);
-const float bias = 0.052;
+const float bias = 0.06; //0.052
 const float radius = 1.23;
 
 uniform sampler2D gPositionView;
@@ -48,7 +48,7 @@ void main(){
         float rangeCheck = smoothstep(0.0, 1.0, radius / abs(viewPos.z - sampleDepth));
 
         occlusion += (sampleDepth >= samplePos.z + bias ? 1.0 : 0.0) * rangeCheck;
-    }  
+    } 
 
     occlusion = 1.0 - (occlusion / KERNEL_SIZE);
     FragColor = vec4(occlusion, 0.0, 0.0, 1.0);

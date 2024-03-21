@@ -89,7 +89,7 @@ void main(){
 #endif
 
     // calculate specular
-    float specularStrength = 0.75;
+    float specularStrength = 0.5;
     vec3 viewDir = normalize(cameraPos - worldPos);
     vec3 reflectDir = reflect(-dirLight.direction, worldNormal);
 

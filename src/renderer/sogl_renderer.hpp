@@ -55,7 +55,8 @@ namespace sogl
         GLuint shadowMap;
 
         //ssao
-        const unsigned int SSAO_SAMPLES = 12;
+        const unsigned int SSAO_WIDTH = (int)1024/2, SSAO_HEIGHT = (int)768/2;
+        const unsigned int SSAO_SAMPLES = 16;
         std::vector<glm::vec3> ssaoKernel;
         GLuint ssaoFBO;
         GLuint ssaoNoiseTex, ssaoOutput;

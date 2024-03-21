@@ -206,7 +206,7 @@ namespace sogl
 
         glGenTextures(1, &ssaoOutput);
         glBindTexture(GL_TEXTURE_2D, ssaoOutput);
-        glTexImage2D(GL_TEXTURE_2D, 0, GL_RED, WIDTH, HEIGHT, 0, GL_RED, GL_FLOAT, NULL);
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RED, SSAO_WIDTH, SSAO_HEIGHT, 0, GL_RED, GL_FLOAT, NULL);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 
@@ -233,7 +233,7 @@ namespace sogl
         glBindFramebuffer(GL_FRAMEBUFFER, ssaoBlurFBO);
         glGenTextures(1, &ssaoBlurOutput);
         glBindTexture(GL_TEXTURE_2D, ssaoBlurOutput);
-        glTexImage2D(GL_TEXTURE_2D, 0, GL_RED, WIDTH, HEIGHT, 0, GL_RED, GL_FLOAT, NULL);
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RED, SSAO_WIDTH, SSAO_HEIGHT, 0, GL_RED, GL_FLOAT, NULL);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
         glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, ssaoBlurOutput, 0);
@@ -293,6 +293,7 @@ namespace sogl
     }
 
     void SoglRenderer::ssaoPass(CameraData &camData){
+        glViewport(0, 0, SSAO_WIDTH, SSAO_HEIGHT);
         // ssao pass
         glBindFramebuffer(GL_FRAMEBUFFER, ssaoFBO);
         glClear(GL_COLOR_BUFFER_BIT);
@@ -328,6 +329,7 @@ namespace sogl
         }
 
         glBindFramebuffer(GL_FRAMEBUFFER, 0);
+        glViewport(0, 0, WIDTH, HEIGHT);
     }
 
     void SoglRenderer::lightingPass(CameraData &camData, glm::mat4 &dirLightMatrix){

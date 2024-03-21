@@ -6,7 +6,7 @@ in vec2 texCoord;
 
 const vec2 noiseScale = vec2(WINDOW_WIDTH/4.0, WINDOW_HEIGHT/4.0);
 const float bias = 0.06; //0.052
-const float radius = 1.23;
+const float radius = 1.23; //1.23
 
 uniform sampler2D gPositionView;
 uniform sampler2D gNormal;

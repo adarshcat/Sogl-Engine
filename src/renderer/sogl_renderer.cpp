@@ -215,7 +215,7 @@ namespace sogl
 
         // initialise the ssao shader program
         const std::string ssaoParams = "KERNEL_SIZE "+std::to_string(SSAO_SAMPLES)+
-                                        ",WINDOW_WIDTH "+std::to_string(WIDTH)+",WINDOW_HEIGHT "+std::to_string(HEIGHT);
+                                        ",WINDOW_WIDTH "+std::to_string(SSAO_WIDTH)+",WINDOW_HEIGHT "+std::to_string(SSAO_HEIGHT);
         SoglProgramManager::addProgram(ssaoShader, ssaoParams);
         SoglProgramManager::useProgram(ssaoShader);
 

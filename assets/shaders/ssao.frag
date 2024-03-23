@@ -8,13 +8,26 @@ const vec2 noiseScale = vec2(WINDOW_WIDTH/4.0, WINDOW_HEIGHT/4.0);
 const float bias = 0.06; //0.052
 const float radius = 1.23; //1.23
 
-uniform sampler2D gPositionView;
+uniform sampler2D gDepth;
 uniform sampler2D gNormal;
 uniform sampler2D noiseTexture;
 
 uniform vec3 samples[KERNEL_SIZE];
+
+uniform mat4 invProjection;
 uniform mat4 projectionMatrix;
 uniform mat4 viewMatrix;
+
+vec3 getViewpos(float depth){
+    float z = depth * 2.0 - 1.0;
+
+    vec4 clipSpacePosition = vec4(texCoord * 2.0 - 1.0, z, 1.0);
+    vec4 viewSpacePosition = invProjection * clipSpacePosition;
+
+    viewSpacePosition /= viewSpacePosition.w;
+
+    return viewSpacePosition.xyz;
+}
 
 void main(){
     vec3 worldNormal = texture(gNormal, texCoord).rgb;
@@ -23,7 +36,7 @@ void main(){
         return;
     }
 
-    vec3 viewPos = texture(gPositionView, texCoord).rgb;
+    vec3 viewPos = getViewpos(texture(gDepth, texCoord).r);
     vec3 viewNormal = (viewMatrix*vec4(worldNormal,0.0)).xyz;
     vec3 randomVec = texture(noiseTexture, texCoord * noiseScale).xyz;
     
@@ -44,7 +57,7 @@ void main(){
 
         if (offset.x > 1.0 || offset.y > 1.0 || offset.x < 0.0 || offset.y < 0.0) continue;
 
-        float sampleDepth = texture(gPositionView, offset.xy).z;
+        float sampleDepth = getViewpos(texture(gDepth, offset.xy).r).z;
         float rangeCheck = smoothstep(0.0, 1.0, radius / abs(viewPos.z - sampleDepth));
 
         occlusion += (sampleDepth >= samplePos.z + bias ? 1.0 : 0.0) * rangeCheck;

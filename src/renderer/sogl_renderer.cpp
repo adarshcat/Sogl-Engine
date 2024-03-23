@@ -28,10 +28,9 @@ namespace sogl
     SoglRenderer::~SoglRenderer(){
         // Delete the G-Buffer
         glDeleteFramebuffers(1, &gBuffer);
-        glDeleteTextures(1, &gPositionView);
         glDeleteTextures(1, &gNormal);
         glDeleteTextures(1, &gAlbedoSpec);
-        glDeleteRenderbuffers(1, &gDepth);
+        glDeleteTextures(1, &gDepth);
 
         // Delete the render quad
         glDeleteVertexArrays(1, &renderQuadVAO);
@@ -71,21 +70,13 @@ namespace sogl
         glGenFramebuffers(1, &gBuffer);
         glBindFramebuffer(GL_FRAMEBUFFER, gBuffer);
         
-        // - position color buffer
-        glGenTextures(1, &gPositionView);
-        glBindTexture(GL_TEXTURE_2D, gPositionView);
-        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA16F, WIDTH, HEIGHT, 0, GL_RGBA, GL_FLOAT, NULL);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-        glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, gPositionView, 0);
-        
         // - normal color buffer
         glGenTextures(1, &gNormal);
         glBindTexture(GL_TEXTURE_2D, gNormal);
         glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA16F, WIDTH, HEIGHT, 0, GL_RGBA, GL_FLOAT, NULL);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-        glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT1, GL_TEXTURE_2D, gNormal, 0);
+        glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, gNormal, 0);
         
         // - albedo + specular color buffer
         glGenTextures(1, &gAlbedoSpec);
@@ -93,20 +84,24 @@ namespace sogl
         glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, WIDTH, HEIGHT, 0, GL_RGBA, GL_UNSIGNED_BYTE, NULL);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-        glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT2, GL_TEXTURE_2D, gAlbedoSpec, 0);
-
-        GLenum err = glCheckFramebufferStatus(GL_FRAMEBUFFER);
-        assert(err == GL_FRAMEBUFFER_COMPLETE);
-        
-        // - tell OpenGL which color attachments we'll use (of this framebuffer) for rendering 
-        GLuint attachments[3] = { GL_COLOR_ATTACHMENT0, GL_COLOR_ATTACHMENT1, GL_COLOR_ATTACHMENT2 };
-        glDrawBuffers(3, attachments);
+        glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT1, GL_TEXTURE_2D, gAlbedoSpec, 0);
 
         // attach basic depth buffer
-        glGenRenderbuffers(1, &gDepth);
-        glBindRenderbuffer(GL_RENDERBUFFER, gDepth);
-        glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT, WIDTH, HEIGHT);
-        glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, gDepth);
+        glGenTextures(1, &gDepth);
+        glBindTexture(GL_TEXTURE_2D, gDepth);
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT24, WIDTH, HEIGHT, 0, GL_DEPTH_COMPONENT, GL_FLOAT, NULL);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_COMPARE_FUNC, GL_LEQUAL);
+        glTexParameteri (GL_TEXTURE_2D, GL_TEXTURE_COMPARE_MODE, GL_NONE);
+        
+        glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, gDepth, 0);
+
+        // - tell OpenGL which color attachments we'll use (of this framebuffer) for rendering 
+        GLuint attachments[2] = { GL_COLOR_ATTACHMENT0, GL_COLOR_ATTACHMENT1 };
+        glDrawBuffers(2, attachments);
 
         glBindFramebuffer(GL_FRAMEBUFFER, 0);
     }
@@ -142,7 +137,7 @@ namespace sogl
         glBindTexture(GL_TEXTURE_2D, shadowMap);
 
         // shadow texture settings
-        glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT32F, 
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT16,
                     SHADOW_WIDTH, SHADOW_HEIGHT, 0, GL_DEPTH_COMPONENT, GL_FLOAT, NULL);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
@@ -219,7 +214,7 @@ namespace sogl
         SoglProgramManager::addProgram(ssaoShader, ssaoParams);
         SoglProgramManager::useProgram(ssaoShader);
 
-        SoglProgramManager::bindImage("gPositionView", 0);
+        SoglProgramManager::bindImage("gDepth", 0);
         SoglProgramManager::bindImage("gNormal", 1);
         SoglProgramManager::bindImage("noiseTexture", 2);
 
@@ -273,6 +268,7 @@ namespace sogl
         for (std::unique_ptr<SoglGameObject> &gameObj : gameObjects){
             gameObj->draw(camData);
         }
+        glBindFramebuffer(GL_FRAMEBUFFER, 0);
     }
 
     void SoglRenderer::shadowPass(std::vector<std::unique_ptr<SoglGameObject>> &gameObjects, glm::mat4 &dirLightMatrix){
@@ -301,7 +297,7 @@ namespace sogl
         SoglProgramManager::useProgram(ssaoShader);
 
         glActiveTexture(GL_TEXTURE0);
-        glBindTexture(GL_TEXTURE_2D, gPositionView);
+        glBindTexture(GL_TEXTURE_2D, gDepth);
         glActiveTexture(GL_TEXTURE1);
         glBindTexture(GL_TEXTURE_2D, gNormal);
         glActiveTexture(GL_TEXTURE2);
@@ -309,6 +305,7 @@ namespace sogl
 
         SoglProgramManager::setMat4("viewMatrix", camData.viewMatrix);
         SoglProgramManager::setMat4("projectionMatrix", camData.projectionMatrix);
+        SoglProgramManager::setMat4("invProjection", camData.invProjectionMatrix);
 
         // draw the render quad
         glBindVertexArray(renderQuadVAO);
@@ -341,7 +338,7 @@ namespace sogl
 
         // bind the g-buffer to lighting shader program
         glActiveTexture(GL_TEXTURE0);
-        glBindTexture(GL_TEXTURE_2D, gPositionView);
+        glBindTexture(GL_TEXTURE_2D, gDepth);
         glActiveTexture(GL_TEXTURE1);
         glBindTexture(GL_TEXTURE_2D, gNormal);
         glActiveTexture(GL_TEXTURE2);
@@ -360,8 +357,9 @@ namespace sogl
                 glBindTexture(GL_TEXTURE_2D, ssaoOutput);
         }
 
-        SoglProgramManager::setMat4("invViewMatrix", camData.invViewMatrix);
-        SoglProgramManager::setVec3("cameraPos", camData.camPos);
+        SoglProgramManager::setMat4("camera.invView", camData.invViewMatrix);
+        SoglProgramManager::setMat4("camera.invProjection", camData.invProjectionMatrix);
+        SoglProgramManager::setVec3("camera.position", camData.camPos);
         
         // draw the render quad
         glBindVertexArray(renderQuadVAO);
@@ -379,7 +377,7 @@ namespace sogl
         updateLightingShaderInputs();
     }
 
-    // updates directional light parameters in the shader
+    // updates directional light + etc. parameters in the shader
     void SoglRenderer::updateLightingShaderInputs(){
         SoglProgramManager::useProgram(lightingShader);
         SoglProgramManager::setVec3("dirLight.color", directionalLight.color);
@@ -398,7 +396,7 @@ namespace sogl
 
         SoglProgramManager::recompileProgram(lightingShader, lightingParams);
         SoglProgramManager::useProgram(lightingShader);
-        SoglProgramManager::bindImage("gPositionView", 0);
+        SoglProgramManager::bindImage("gDepth", 0);
         SoglProgramManager::bindImage("gNormal", 1);
         SoglProgramManager::bindImage("gAlbedoSpec", 2);
         SoglProgramManager::bindImage("dirLight.shadowMap", 3);

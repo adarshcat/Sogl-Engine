@@ -50,12 +50,12 @@ namespace sogl
         GLuint gPositionView, gNormal, gAlbedoSpec, gDepth;
 
         //shadow
-        const unsigned int SHADOW_WIDTH = 1024*2, SHADOW_HEIGHT = 1024*2;
+        const unsigned int SHADOW_WIDTH = WIDTH*2, SHADOW_HEIGHT = WIDTH*2;
         GLuint shadowBuffer;
         GLuint shadowMap;
 
         //ssao
-        const unsigned int SSAO_WIDTH = (int)1024/1.7, SSAO_HEIGHT = (int)768/1.7;
+        const unsigned int SSAO_WIDTH = (int)WIDTH/2, SSAO_HEIGHT = (int)HEIGHT/2;
         const unsigned int SSAO_SAMPLES = 16;
         std::vector<glm::vec3> ssaoKernel;
         GLuint ssaoFBO;

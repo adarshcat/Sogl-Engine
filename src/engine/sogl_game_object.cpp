@@ -55,6 +55,8 @@ namespace sogl
         SoglProgramManager::setMat4("mvpMatrix", camData.viewProjectionMatrix * modelMatrix);
         SoglProgramManager::setMat4("mvMatrix", camData.viewMatrix * modelMatrix);
         SoglProgramManager::setMat4("modelMatrix", modelMatrix);
+        SoglProgramManager::setFloat("camera.near", camData.near);
+        SoglProgramManager::setFloat("camera.far", camData.far);
 
         glBindVertexArray(vertexArrayObject);
         glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);

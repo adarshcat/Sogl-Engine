@@ -4,12 +4,11 @@ out vec4 FragColor;
 
 in vec2 texCoord;
 
-uniform mat4 invViewMatrix;
-uniform vec3 cameraPos;
-
-uniform sampler2D gPositionView;
-uniform sampler2D gNormal;
-uniform sampler2D gAlbedoSpec;
+struct CameraData {
+    mat4 invView;
+    mat4 invProjection;
+    vec3 position;
+};
 
 struct DirectionalLight {
     sampler2D shadowMap;
@@ -19,7 +18,13 @@ struct DirectionalLight {
     mat4 transformMatrix;
 };
 
+
+uniform CameraData camera;
 uniform DirectionalLight dirLight;
+
+uniform sampler2D gDepth;
+uniform sampler2D gNormal;
+uniform sampler2D gAlbedoSpec;
 
 uniform sampler2D ssaoMap;
 
@@ -53,14 +58,24 @@ float shadowCalculation(vec4 fragPosLightSpace, vec3 normal){
 }
 #endif
 
-
 vec3 renderSky(){
-    vec3 camDirWorld = normalize((invViewMatrix * vec4((texCoord - vec2(0.5))*2.0, -1, 1)).xyz - cameraPos);
+    vec3 camDirWorld = normalize((camera.invView * vec4((texCoord - vec2(0.5))*2.0, -1, 1)).xyz - camera.position);
 
     float elevation = 1.0 - max(dot(camDirWorld, vec3(0, 1, 0)), 0.0);
     elevation = pow(elevation, 1.5);
 
     return mix(vec3(0, 0.9, 1.0), vec3(0.4, 1, 1), elevation);
+}
+
+vec3 getViewpos(float depth){
+    float z = depth * 2.0 - 1.0;
+
+    vec4 clipSpacePosition = vec4(texCoord * 2.0 - 1.0, z, 1.0);
+    vec4 viewSpacePosition = camera.invProjection * clipSpacePosition;
+
+    viewSpacePosition /= viewSpacePosition.w;
+
+    return viewSpacePosition.xyz;
 }
 
 void main(){
@@ -71,8 +86,8 @@ void main(){
         return;
     }
 
-    vec3 viewPos = texture(gPositionView, texCoord).rgb;
-    vec3 worldPos = (invViewMatrix * vec4(viewPos, 1)).xyz;
+    vec3 viewPos = getViewpos(texture(gDepth, texCoord).r);
+    vec3 worldPos = (camera.invView * vec4(viewPos, 1)).xyz;
     vec3 albedo = texture(gAlbedoSpec, texCoord).rgb;
 
     // phong lighting----------------------------------------------------------------------------------------
@@ -90,7 +105,7 @@ void main(){
 
     // calculate specular
     float specularStrength = 0.5;
-    vec3 viewDir = normalize(cameraPos - worldPos);
+    vec3 viewDir = normalize(camera.position - worldPos);
     vec3 reflectDir = reflect(-dirLight.direction, worldNormal);
 
     float spec = pow(max(dot(viewDir, reflectDir), 0.0), 128);

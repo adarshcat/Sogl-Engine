@@ -31,6 +31,7 @@ namespace sogl
         const int RENDER_HEIGHT = 768;
 
         void initialiseImguiDebug();
+        void packCameraData(CameraData &camData);
 
         SoglWindow soglWindow;
         SoglRenderer soglRenderer;

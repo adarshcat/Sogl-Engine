@@ -42,15 +42,9 @@ namespace sogl
                 lastFixedTick = currentTime;
             }
 
-
             // construct camera data for renderer
             CameraData camData;
-            camData.viewProjectionMatrix = soglCamera.getViewProjectionMatrix();
-            camData.viewMatrix = soglCamera.getViewMatrix();
-            camData.invViewMatrix = soglCamera.getInvViewMatrix();
-            camData.projectionMatrix = soglCamera.getProjectionMatrix();
-            camData.camPos = cameraController.cameraPos;
-            camData.frustumSlice1 = soglCamera.getViewFrustumSlice(3, 0);
+            packCameraData(camData);
             
             // update the camera controller
             cameraController.processInput(soglWindow, deltaTime);
@@ -99,6 +93,16 @@ namespace sogl
         ImGui::DestroyContext();
 #endif
     } // end run function
+
+    void SoglEngine::packCameraData(CameraData &camData){
+        camData.viewProjectionMatrix = soglCamera.getViewProjectionMatrix();
+        camData.viewMatrix = soglCamera.getViewMatrix();
+        camData.invViewMatrix = soglCamera.getInvViewMatrix();
+        camData.projectionMatrix = soglCamera.getProjectionMatrix();
+        camData.invProjectionMatrix = soglCamera.getInvProjectionMatrix();
+        camData.camPos = cameraController.cameraPos;
+        camData.frustumSlice1 = soglCamera.getViewFrustumSlice(3, 0);
+    }
 
 #pragma region addObjects
     void SoglEngine::addGameObject(std::unique_ptr<SoglGameObject> &_gameObj){

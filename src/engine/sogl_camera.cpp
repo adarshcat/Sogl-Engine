@@ -15,6 +15,7 @@ namespace sogl
 
         // Initialise simple projection matrix with fov of 45 degrees, near and far
         projectionMatrix = glm::perspective(glm::radians(FOV), (float) WIDTH / (float)HEIGHT, NEAR_PLANE, FAR_PLANE);
+        invProjectionMatrix = glm::inverse(projectionMatrix);
     }
 
 #pragma region getterFunctions
@@ -28,6 +29,10 @@ namespace sogl
 
     glm::mat4 &SoglCamera::getProjectionMatrix(){
         return projectionMatrix;
+    }
+
+    glm::mat4 &SoglCamera::getInvProjectionMatrix(){
+        return invProjectionMatrix;
     }
 
     glm::mat4 SoglCamera::getInvViewMatrix(){

@@ -11,8 +11,10 @@ int main() {
     SoglEngine engine;
 
     std::vector<std::unique_ptr<SoglGameObject>> testSceneModels = SoglModelLoader::loadModel("testScene.glb");
-    testSceneModels[0]->material.albedo = glm::vec3(1.0, 0.0, 0.0);
+    std::vector<std::unique_ptr<SoglGameObject>> monkeyModel = SoglModelLoader::loadModel("monkey.obj");
+
     engine.addGameObjects(std::move(testSceneModels));
+    engine.addGameObjects(std::move(monkeyModel));
     
     engine.run();
 

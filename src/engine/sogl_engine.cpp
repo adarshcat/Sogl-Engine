@@ -102,6 +102,8 @@ namespace sogl
         camData.invProjectionMatrix = soglCamera.getInvProjectionMatrix();
         camData.camPos = cameraController.cameraPos;
         camData.frustumSlice1 = soglCamera.getViewFrustumSlice(3, 0);
+        camData.near = soglCamera.NEAR_PLANE;
+        camData.far = soglCamera.FAR_PLANE;
     }
 
 #pragma region addObjects

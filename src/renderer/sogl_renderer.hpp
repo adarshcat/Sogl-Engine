@@ -50,7 +50,7 @@ namespace sogl
         GLuint gPositionView, gNormal, gAlbedoSpec, gDepth;
 
         //shadow
-        const unsigned int SHADOW_WIDTH = WIDTH*2, SHADOW_HEIGHT = WIDTH*2;
+        const unsigned int SHADOW_WIDTH = WIDTH*0.75, SHADOW_HEIGHT = WIDTH*0.75;
         GLuint shadowBuffer;
         GLuint shadowMap;
 

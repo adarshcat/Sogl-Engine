@@ -238,7 +238,8 @@ namespace sogl
         SoglProgramManager::addProgram(ssaoBlurShader);
         SoglProgramManager::useProgram(ssaoBlurShader);
 
-        SoglProgramManager::bindImage("ssaoInput", 0);
+        SoglProgramManager::bindImage("depthBuffer", 0);
+        SoglProgramManager::bindImage("ssaoInput", 1);
     }
 #pragma endregion rendererInitialisation
 
@@ -318,7 +319,12 @@ namespace sogl
 
             SoglProgramManager::useProgram(ssaoBlurShader);
             glActiveTexture(GL_TEXTURE0);
+            glBindTexture(GL_TEXTURE_2D, gDepth);
+            glActiveTexture(GL_TEXTURE1);
             glBindTexture(GL_TEXTURE_2D, ssaoOutput);
+
+            SoglProgramManager::setFloat("near", camData.near);
+            SoglProgramManager::setFloat("far", camData.far);
 
             // draw the render quad
             glBindVertexArray(renderQuadVAO);
@@ -360,6 +366,8 @@ namespace sogl
         SoglProgramManager::setMat4("camera.invView", camData.invViewMatrix);
         SoglProgramManager::setMat4("camera.invProjection", camData.invProjectionMatrix);
         SoglProgramManager::setVec3("camera.position", camData.camPos);
+        SoglProgramManager::setFloat("camera.near", camData.near);
+        SoglProgramManager::setFloat("camera.far", camData.far);
         
         // draw the render quad
         glBindVertexArray(renderQuadVAO);

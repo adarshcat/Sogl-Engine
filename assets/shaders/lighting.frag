@@ -81,12 +81,17 @@ vec3 getViewpos(vec2 coord, float depth){
 
 #ifdef SSAO_ENABLED
 float getSSAO(vec2 location){
-    vec2 texelSize = 1.0 / vec2(textureSize(gDepth, 0));
+    vec2 texSize = vec2(textureSize(gDepth, 0));
+    vec2 texelSize = 1.0 / texSize;
     float result = 0.0;
     float counter = 0;
 
     float depthSampleCurrent = texture(gDepth, texCoord).r;
     float depthLinearCurrent = getLinearDepth(depthSampleCurrent);
+
+    float maxMag = length(texSize/2); // TODO - calculate these once in the CPU and store it for later use
+    float centreDist = length(texCoord - texSize/2);
+    float currentCutoff = ssaoBlurCutoff + 0.3*maxMag/centreDist;
 
     for (int x = -1; x < 1; ++x){
         for (int y = -1; y < 1; ++y){
@@ -94,8 +99,8 @@ float getSSAO(vec2 location){
             float depthSample = texture(gDepth, texCoord + offset).r;
             float depthLinear = getLinearDepth(depthSample);
             
-            if (abs(depthLinear - depthLinearCurrent) < ssaoBlurCutoff){
-                result += texture(ssaoMap, texCoord + offset).r * ((ssaoBlurCutoff - abs(depthLinear - depthLinearCurrent)) / ssaoBlurCutoff);
+            if (abs(depthLinear - depthLinearCurrent) < currentCutoff){
+                result += texture(ssaoMap, texCoord + offset).r * ((currentCutoff - abs(depthLinear - depthLinearCurrent)) / currentCutoff);
             }
             counter ++;
         }

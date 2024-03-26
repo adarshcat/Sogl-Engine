@@ -33,7 +33,7 @@ namespace sogl
         glfwMakeContextCurrent(window);
         glfwSetInputMode(window, GLFW_STICKY_KEYS, GL_TRUE);
         glfwSetCursorPos(window, WIDTH/2, HEIGHT/2);
-        //glfwSwapInterval(1);
+        glfwSwapInterval(1);
 
         return true;
     }

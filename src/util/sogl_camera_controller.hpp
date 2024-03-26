@@ -15,7 +15,7 @@ namespace sogl
         void processInput(SoglWindow& window, const float deltaTime);
         void process(const float deltaTime);
 
-        glm::vec3 cameraPos = glm::vec3(0, 1, 12);
+        glm::vec3 cameraPos = glm::vec3(10, 3, 0);
         bool inputEnabled = true;
 
         private:
@@ -28,7 +28,7 @@ namespace sogl
         const glm::vec3 cameraUp = glm::vec3(0, 1, 0);
 
         float lastControllerToggle = 0.0f;
-        float targetHorizontalAngle = 3.14f;
+        float targetHorizontalAngle = -3.14f/2.0f;
         float targetVerticalAngle = 0.0f;
         float horizontalAngle = targetHorizontalAngle;
         float verticalAngle = targetVerticalAngle;

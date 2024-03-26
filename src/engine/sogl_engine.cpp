@@ -65,7 +65,7 @@ namespace sogl
             if (model0rot)
                 gameObjects[0]->rotate(glm::vec3(0, 1, 0), 0.001f);
             
-            ImGui::ColorEdit3("monkeyColor", monkeyCol);
+            ImGui::ColorEdit3("box color", monkeyCol);
             gameObjects[0]->material.albedo = glm::vec3(monkeyCol[0], monkeyCol[1], monkeyCol[2]);
 
             ImGui::Checkbox("Shadows", &shadows);
@@ -76,6 +76,12 @@ namespace sogl
 
             ImGui::Checkbox("SSAO Blur", &ssaoBlur);
             soglRenderer.toggleSSAOBlur(ssaoBlur);
+
+            ImGui::SliderFloat("Sun Dir.", &time, 0.0, 3.14*2, "%.4f");
+
+            DirectionalLight sun;
+            sun.direction = glm::normalize(glm::vec3(sin(time)*2.0f, 1.0f, cos(time)*-1.0f));
+            soglRenderer.updateDirectionalLight(sun);
             
             ImGui::End();
 

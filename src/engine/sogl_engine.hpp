@@ -46,6 +46,8 @@ namespace sogl
         bool ssao = true;
         float monkeyCol[3]{1.0f, 1.0f, 1.0f};
         bool ssaoBlur = true;
+
+        float time = 0.9777;
 #endif
     };
 } // namespace sogl

@@ -10,11 +10,8 @@ using namespace sogl;
 int main() {
     SoglEngine engine;
 
-    std::vector<std::unique_ptr<SoglGameObject>> testSceneModels = SoglModelLoader::loadModel("testScene.glb");
-    std::vector<std::unique_ptr<SoglGameObject>> monkeyModel = SoglModelLoader::loadModel("monkey.obj");
-
+    std::vector<std::unique_ptr<SoglGameObject>> testSceneModels = SoglModelLoader::loadModel("cBox.glb");
     engine.addGameObjects(std::move(testSceneModels));
-    engine.addGameObjects(std::move(monkeyModel));
     
     engine.run();
 

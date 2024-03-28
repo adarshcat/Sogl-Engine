@@ -9,7 +9,7 @@ namespace sogl
 
         glm::vec3 color = glm::vec3(1.0, 1.0, 1.0);
         glm::vec3 direction = glm::normalize(glm::vec3(2.0f, 1.0f, -1.0f));
-        float strength = 2.2f;
+        float strength = 1.2f;
     };
 
     namespace LightOperations

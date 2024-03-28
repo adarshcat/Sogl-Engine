@@ -47,6 +47,8 @@ namespace sogl
         float monkeyCol[3]{1.0f, 1.0f, 1.0f};
         bool ssaoBlur = true;
 
+        float radiusSSAO = 0.5;
+        float biasSSAO = 0.08;
         float time = 0.9777;
 #endif
     };

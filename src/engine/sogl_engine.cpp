@@ -80,7 +80,7 @@ namespace sogl
             ImGui::SliderFloat("Sun Dir.", &time, 0.0, 3.14*2, "%.4f");
 
             DirectionalLight sun;
-            sun.direction = glm::normalize(glm::vec3(sin(time)*2.0f, 1.0f, cos(time)*-1.0f));
+            sun.direction = glm::normalize(glm::vec3(sin(time)*2.0f, 2.0f, cos(time)*-1.0f));
             soglRenderer.updateDirectionalLight(sun);
             
             ImGui::End();

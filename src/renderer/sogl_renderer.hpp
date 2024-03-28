@@ -56,7 +56,7 @@ namespace sogl
 
         //ssao
         const unsigned int SSAO_WIDTH = (int)WIDTH/2, SSAO_HEIGHT = (int)HEIGHT/2;
-        const unsigned int SSAO_SAMPLES = 16;
+        const unsigned int SSAO_SAMPLES = 32;
         std::vector<glm::vec3> ssaoKernel;
         GLuint ssaoFBO;
         GLuint ssaoNoiseTex, ssaoOutput;

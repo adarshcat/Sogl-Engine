@@ -80,7 +80,7 @@ vec3 getViewpos(vec2 coord, float depth){
 }
 
 #ifdef SSAO_ENABLED
-float getSSAO(vec2 location){
+float getSSAO(vec2 location, vec3 cameraDirection, vec3 surfaceNormal){
     vec2 texSize = vec2(textureSize(gDepth, 0));
     vec2 texelSize = 1.0 / texSize;
     float result = 0.0;
@@ -89,9 +89,8 @@ float getSSAO(vec2 location){
     float depthSampleCurrent = texture(gDepth, texCoord).r;
     float depthLinearCurrent = getLinearDepth(depthSampleCurrent);
 
-    float maxMag = length(texSize/2); // TODO - calculate these once in the CPU and store it for later use
-    float centreDist = length(texCoord - texSize/2);
-    float currentCutoff = ssaoBlurCutoff + 0.3*maxMag/centreDist;
+    float dotProd = 1.0 - abs(dot(cameraDirection, surfaceNormal));
+    float currentCutoff = ssaoBlurCutoff + 0.5*dotProd;
 
     for (int x = -1; x < 1; ++x){
         for (int y = -1; y < 1; ++y){
@@ -101,8 +100,9 @@ float getSSAO(vec2 location){
             
             if (abs(depthLinear - depthLinearCurrent) < currentCutoff){
                 result += texture(ssaoMap, texCoord + offset).r * ((currentCutoff - abs(depthLinear - depthLinearCurrent)) / currentCutoff);
+                counter++;
             }
-            counter ++;
+            
         }
     }
 
@@ -110,10 +110,8 @@ float getSSAO(vec2 location){
 }
 #endif
 
-vec3 renderSky(){
-    vec3 camDirWorld = normalize((camera.invView * vec4((texCoord - vec2(0.5))*2.0, -1, 1)).xyz - camera.position);
-
-    float elevation = 1.0 - max(dot(camDirWorld, vec3(0, 1, 0)), 0.0);
+vec3 renderSky(vec3 cameraDirection){
+    float elevation = 1.0 - max(dot(cameraDirection, vec3(0, 1, 0)), 0.0);
     elevation = pow(elevation, 1.5);
 
     return mix(vec3(0, 0.9, 1.0), vec3(0.4, 1, 1), elevation);
@@ -122,8 +120,10 @@ vec3 renderSky(){
 void main(){
     // Retrieve the values from g buffer
     vec3 worldNormal = texture(gNormal, texCoord).rgb;
+    vec3 cameraDirection = normalize((camera.invView * vec4((texCoord - vec2(0.5))*2.0, -1, 1)).xyz - camera.position);
+
     if (length(worldNormal) == 0.0){
-        FragColor = vec4(renderSky(), 1.0);
+        FragColor = vec4(renderSky(cameraDirection), 1.0);
         return;
     }
 
@@ -136,16 +136,16 @@ void main(){
     vec3 diffuse = max(dot(worldNormal, dirLight.direction), 0.0) * dirLight.color * dirLight.strength;
 
     // ambient lighting with AO
-    float ambientStrength = 0.5;
+    float ambientStrength = 0.3;
 #ifdef SSAO_ENABLED
-    float occlusionStrength = getSSAO(texCoord);
+    float occlusionStrength = getSSAO(texCoord, cameraDirection, worldNormal);
     vec3 ambient = occlusionStrength * ambientStrength * albedo;
 #else
     vec3 ambient = ambientStrength * albedo;
 #endif
 
     // calculate specular
-    float specularStrength = 0.5;
+    float specularStrength = 0.3;
     vec3 viewDir = normalize(camera.position - worldPos);
     vec3 reflectDir = reflect(-dirLight.direction, worldNormal);
 
@@ -163,5 +163,7 @@ void main(){
 #endif
 
     // output color with rienhard tonemapping
-    FragColor = vec4(lighting/(lighting+1.0f), 1.0);
+    vec3 tonemapped = lighting/(lighting+1.0f);
+    float gamma = 2.2;
+    FragColor = vec4(pow(tonemapped, vec3(1.0/gamma)), 1.0);
 }

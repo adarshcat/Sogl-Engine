@@ -219,7 +219,7 @@ namespace sogl
         SoglProgramManager::bindImage("noiseTexture", 2);
 
         // send the kernel over to the SSAO shader program
-        for (unsigned int i = 0; i < 64; i++)
+        for (unsigned int i = 0; i < SSAO_SAMPLES; i++)
             SoglProgramManager::setVec3("samples[" + std::to_string(i) + "]", ssaoKernel[i]);
     }
 

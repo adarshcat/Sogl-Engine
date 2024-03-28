@@ -21,7 +21,7 @@ namespace sogl
         private:
         SoglCamera* camera;
         const float cameraSpeed = 18.0f;
-        const float mouseSpeed = 1.75f;
+        const float mouseSpeed = 1.2f;
         const float cameraRotSmooth = 0.00001f;
 
         const glm::vec3 cameraFront = glm::vec3(0, 0, -1);

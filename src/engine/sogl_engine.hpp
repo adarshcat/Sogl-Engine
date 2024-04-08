@@ -49,7 +49,7 @@ namespace sogl
 
         float radiusSSAO = 0.5;
         float biasSSAO = 0.08;
-        float time = 0.9777;
+        float time = 3.45;
 #endif
     };
 } // namespace sogl

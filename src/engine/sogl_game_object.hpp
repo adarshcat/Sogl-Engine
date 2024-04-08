@@ -33,6 +33,8 @@ namespace sogl
         void rotate(glm::vec3 axis, float angle);
         void scale(glm::vec3 scaleVec);
 
+        void setTransform(glm::mat4 newTransform);
+
         Material material;
 
         protected:

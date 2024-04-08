@@ -89,6 +89,10 @@ namespace sogl
     void SoglGameObject::scale(glm::vec3 scaleVec){
         modelMatrix = glm::scale(modelMatrix, scaleVec);
     }
+
+    void SoglGameObject::setTransform(glm::mat4 newTransform){
+        modelMatrix = newTransform;
+    }
 #pragma endregion transformationFunctions
 } // namespace sogl
 

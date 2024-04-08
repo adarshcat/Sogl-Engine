@@ -1,6 +1,9 @@
 
 #include "util/sogl_camera_controller.hpp"
+
+//std
 #include <cmath>
+#include <iostream>
 
 namespace sogl
 {
@@ -76,6 +79,10 @@ namespace sogl
             cameraPos += cameraUp * apparentCameraSp * deltaTime;
         if (glfwGetKey(window.window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS)
             cameraPos -= cameraUp * apparentCameraSp * deltaTime;
+        
+        /*std::cout << cameraPos.x << " " << cameraPos.y << " " << cameraPos.z << std::endl;
+        std::cout << horizontalAngle << std::endl;
+        std::cout << verticalAngle << std::endl;*/
     }
 
 } // namespace sogl

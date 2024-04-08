@@ -16,21 +16,23 @@ namespace sogl
         if(!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode) {
             std::cout << "ERROR::ASSIMP::" << import.GetErrorString() << std::endl;
         }
-        //directory = path.substr(0, path.find_last_of('/'));
 
-        processNode(scene->mRootNode, scene, loadedGameObjects);
+        processNode(scene->mRootNode, glm::mat4(1.0), scene, loadedGameObjects);
 
         return loadedGameObjects;
     }
 
-    void SoglModelLoader::processNode(aiNode *node, const aiScene *scene, std::vector<std::unique_ptr<SoglGameObject>> &loadedGameObjects){
+    void SoglModelLoader::processNode(aiNode *node, glm::mat4 transform, const aiScene *scene, std::vector<std::unique_ptr<SoglGameObject>> &loadedGameObjects){
         for(unsigned int i = 0; i < node->mNumMeshes; i++) {
-            aiMesh *mesh = scene->mMeshes[node->mMeshes[i]]; 
-            loadedGameObjects.push_back(processMesh(mesh, scene));
+            aiMesh *mesh = scene->mMeshes[node->mMeshes[i]];
+            std::unique_ptr<SoglGameObject> gameObject = processMesh(mesh, scene);
+            gameObject->setTransform(transform);
+            loadedGameObjects.push_back(std::move(gameObject));
         }
         
         for(unsigned int i = 0; i < node->mNumChildren; i++) {
-            processNode(node->mChildren[i], scene, loadedGameObjects);
+            glm::mat4 localTransform = aiMatrixToGLM(node->mTransformation);
+            processNode(node->mChildren[i], localTransform * transform, scene, loadedGameObjects);
         }
     }
 
@@ -71,15 +73,27 @@ namespace sogl
             for(unsigned int j = 0; j < face.mNumIndices; j++)
                 indices.push_back(face.mIndices[j]);
         }
-                
+        
+        aiColor3D albedo (1.0, 1.0, 1.0);
         // process material
-        /*if(mesh->mMaterialIndex >= 0) {
-            [...]
-        }*/
+        if(mesh->mMaterialIndex >= 0) {
+            scene->mMaterials[mesh->mMaterialIndex]->Get(AI_MATKEY_COLOR_DIFFUSE, albedo);
+        }
 
         Material mat;
-        mat.albedo = glm::vec3(1.0);
+        mat.albedo = glm::vec3(albedo.r, albedo.g, albedo.b);
 
         return std::unique_ptr<SoglGameObject>(new SoglGameObject(vertices, indices, defaultShader, mat));
-    }  
+    }
+
+    glm::mat4 SoglModelLoader::aiMatrixToGLM(aiMatrix4x4 from){
+        glm::mat4 to;
+
+        to[0][0] = (GLfloat)from.a1; to[0][1] = (GLfloat)from.b1;  to[0][2] = (GLfloat)from.c1; to[0][3] = (GLfloat)from.d1;
+        to[1][0] = (GLfloat)from.a2; to[1][1] = (GLfloat)from.b2;  to[1][2] = (GLfloat)from.c2; to[1][3] = (GLfloat)from.d2;
+        to[2][0] = (GLfloat)from.a3; to[2][1] = (GLfloat)from.b3;  to[2][2] = (GLfloat)from.c3; to[2][3] = (GLfloat)from.d3;
+        to[3][0] = (GLfloat)from.a4; to[3][1] = (GLfloat)from.b4;  to[3][2] = (GLfloat)from.c4; to[3][3] = (GLfloat)from.d4;
+
+        return to;
+    }
 } // namespace sogl

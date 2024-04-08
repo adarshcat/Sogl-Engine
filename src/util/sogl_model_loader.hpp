@@ -21,7 +21,9 @@ namespace sogl
         static std::string defaultShader;
         
         static std::vector<std::unique_ptr<SoglGameObject>> loadModel(std::string relativePath);
-        static void processNode(aiNode *node, const aiScene *scene, std::vector<std::unique_ptr<SoglGameObject>> &loadedGameObjects);
+        static void processNode(aiNode *node, glm::mat4 transform, const aiScene *scene, std::vector<std::unique_ptr<SoglGameObject>> &loadedGameObjects);
         static std::unique_ptr<SoglGameObject> processMesh(aiMesh *mesh, const aiScene *scene);
+
+        static glm::mat4 aiMatrixToGLM(aiMatrix4x4 from);
     };
 } // namespace sogl

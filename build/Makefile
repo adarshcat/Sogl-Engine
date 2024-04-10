@@ -642,6 +642,30 @@ src/main.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\LearnOpengl.dir\build.make CMakeFiles/LearnOpengl.dir/src/main.cpp.s
 .PHONY : src/main.cpp.s
 
+src/renderer/modules/sogl_ssao_module.obj: src/renderer/modules/sogl_ssao_module.cpp.obj
+.PHONY : src/renderer/modules/sogl_ssao_module.obj
+
+# target to build an object file
+src/renderer/modules/sogl_ssao_module.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\LearnOpengl.dir\build.make CMakeFiles/LearnOpengl.dir/src/renderer/modules/sogl_ssao_module.cpp.obj
+.PHONY : src/renderer/modules/sogl_ssao_module.cpp.obj
+
+src/renderer/modules/sogl_ssao_module.i: src/renderer/modules/sogl_ssao_module.cpp.i
+.PHONY : src/renderer/modules/sogl_ssao_module.i
+
+# target to preprocess a source file
+src/renderer/modules/sogl_ssao_module.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\LearnOpengl.dir\build.make CMakeFiles/LearnOpengl.dir/src/renderer/modules/sogl_ssao_module.cpp.i
+.PHONY : src/renderer/modules/sogl_ssao_module.cpp.i
+
+src/renderer/modules/sogl_ssao_module.s: src/renderer/modules/sogl_ssao_module.cpp.s
+.PHONY : src/renderer/modules/sogl_ssao_module.s
+
+# target to generate assembly for a file
+src/renderer/modules/sogl_ssao_module.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\LearnOpengl.dir\build.make CMakeFiles/LearnOpengl.dir/src/renderer/modules/sogl_ssao_module.cpp.s
+.PHONY : src/renderer/modules/sogl_ssao_module.cpp.s
+
 src/renderer/sogl_renderer.obj: src/renderer/sogl_renderer.cpp.obj
 .PHONY : src/renderer/sogl_renderer.obj
 
@@ -985,6 +1009,9 @@ help:
 	@echo ... src/main.obj
 	@echo ... src/main.i
 	@echo ... src/main.s
+	@echo ... src/renderer/modules/sogl_ssao_module.obj
+	@echo ... src/renderer/modules/sogl_ssao_module.i
+	@echo ... src/renderer/modules/sogl_ssao_module.s
 	@echo ... src/renderer/sogl_renderer.obj
 	@echo ... src/renderer/sogl_renderer.i
 	@echo ... src/renderer/sogl_renderer.s

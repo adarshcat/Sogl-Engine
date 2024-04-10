@@ -143,11 +143,26 @@ CMakeFiles/LearnOpengl.dir/src/main.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/LearnOpengl.dir/src/main.cpp.s"
 	C:\msys64\mingw64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "C:\Users\adars\Documents\Cpp Projects\FirstOpengl\src\main.cpp" -o CMakeFiles\LearnOpengl.dir\src\main.cpp.s
 
+CMakeFiles/LearnOpengl.dir/src/renderer/modules/sogl_ssao_module.cpp.obj: CMakeFiles/LearnOpengl.dir/flags.make
+CMakeFiles/LearnOpengl.dir/src/renderer/modules/sogl_ssao_module.cpp.obj: CMakeFiles/LearnOpengl.dir/includes_CXX.rsp
+CMakeFiles/LearnOpengl.dir/src/renderer/modules/sogl_ssao_module.cpp.obj: C:/Users/adars/Documents/Cpp\ Projects/FirstOpengl/src/renderer/modules/sogl_ssao_module.cpp
+CMakeFiles/LearnOpengl.dir/src/renderer/modules/sogl_ssao_module.cpp.obj: CMakeFiles/LearnOpengl.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir="C:\Users\adars\Documents\Cpp Projects\FirstOpengl\build\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/LearnOpengl.dir/src/renderer/modules/sogl_ssao_module.cpp.obj"
+	C:\msys64\mingw64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/LearnOpengl.dir/src/renderer/modules/sogl_ssao_module.cpp.obj -MF CMakeFiles\LearnOpengl.dir\src\renderer\modules\sogl_ssao_module.cpp.obj.d -o CMakeFiles\LearnOpengl.dir\src\renderer\modules\sogl_ssao_module.cpp.obj -c "C:\Users\adars\Documents\Cpp Projects\FirstOpengl\src\renderer\modules\sogl_ssao_module.cpp"
+
+CMakeFiles/LearnOpengl.dir/src/renderer/modules/sogl_ssao_module.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/LearnOpengl.dir/src/renderer/modules/sogl_ssao_module.cpp.i"
+	C:\msys64\mingw64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "C:\Users\adars\Documents\Cpp Projects\FirstOpengl\src\renderer\modules\sogl_ssao_module.cpp" > CMakeFiles\LearnOpengl.dir\src\renderer\modules\sogl_ssao_module.cpp.i
+
+CMakeFiles/LearnOpengl.dir/src/renderer/modules/sogl_ssao_module.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/LearnOpengl.dir/src/renderer/modules/sogl_ssao_module.cpp.s"
+	C:\msys64\mingw64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "C:\Users\adars\Documents\Cpp Projects\FirstOpengl\src\renderer\modules\sogl_ssao_module.cpp" -o CMakeFiles\LearnOpengl.dir\src\renderer\modules\sogl_ssao_module.cpp.s
+
 CMakeFiles/LearnOpengl.dir/src/renderer/sogl_renderer.cpp.obj: CMakeFiles/LearnOpengl.dir/flags.make
 CMakeFiles/LearnOpengl.dir/src/renderer/sogl_renderer.cpp.obj: CMakeFiles/LearnOpengl.dir/includes_CXX.rsp
 CMakeFiles/LearnOpengl.dir/src/renderer/sogl_renderer.cpp.obj: C:/Users/adars/Documents/Cpp\ Projects/FirstOpengl/src/renderer/sogl_renderer.cpp
 CMakeFiles/LearnOpengl.dir/src/renderer/sogl_renderer.cpp.obj: CMakeFiles/LearnOpengl.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir="C:\Users\adars\Documents\Cpp Projects\FirstOpengl\build\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/LearnOpengl.dir/src/renderer/sogl_renderer.cpp.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir="C:\Users\adars\Documents\Cpp Projects\FirstOpengl\build\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/LearnOpengl.dir/src/renderer/sogl_renderer.cpp.obj"
 	C:\msys64\mingw64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/LearnOpengl.dir/src/renderer/sogl_renderer.cpp.obj -MF CMakeFiles\LearnOpengl.dir\src\renderer\sogl_renderer.cpp.obj.d -o CMakeFiles\LearnOpengl.dir\src\renderer\sogl_renderer.cpp.obj -c "C:\Users\adars\Documents\Cpp Projects\FirstOpengl\src\renderer\sogl_renderer.cpp"
 
 CMakeFiles/LearnOpengl.dir/src/renderer/sogl_renderer.cpp.i: cmake_force
@@ -162,7 +177,7 @@ CMakeFiles/LearnOpengl.dir/src/renderer/sogl_window.cpp.obj: CMakeFiles/LearnOpe
 CMakeFiles/LearnOpengl.dir/src/renderer/sogl_window.cpp.obj: CMakeFiles/LearnOpengl.dir/includes_CXX.rsp
 CMakeFiles/LearnOpengl.dir/src/renderer/sogl_window.cpp.obj: C:/Users/adars/Documents/Cpp\ Projects/FirstOpengl/src/renderer/sogl_window.cpp
 CMakeFiles/LearnOpengl.dir/src/renderer/sogl_window.cpp.obj: CMakeFiles/LearnOpengl.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir="C:\Users\adars\Documents\Cpp Projects\FirstOpengl\build\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/LearnOpengl.dir/src/renderer/sogl_window.cpp.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir="C:\Users\adars\Documents\Cpp Projects\FirstOpengl\build\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/LearnOpengl.dir/src/renderer/sogl_window.cpp.obj"
 	C:\msys64\mingw64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/LearnOpengl.dir/src/renderer/sogl_window.cpp.obj -MF CMakeFiles\LearnOpengl.dir\src\renderer\sogl_window.cpp.obj.d -o CMakeFiles\LearnOpengl.dir\src\renderer\sogl_window.cpp.obj -c "C:\Users\adars\Documents\Cpp Projects\FirstOpengl\src\renderer\sogl_window.cpp"
 
 CMakeFiles/LearnOpengl.dir/src/renderer/sogl_window.cpp.i: cmake_force
@@ -177,7 +192,7 @@ CMakeFiles/LearnOpengl.dir/src/util/imgui/backends/imgui_impl_glfw.cpp.obj: CMak
 CMakeFiles/LearnOpengl.dir/src/util/imgui/backends/imgui_impl_glfw.cpp.obj: CMakeFiles/LearnOpengl.dir/includes_CXX.rsp
 CMakeFiles/LearnOpengl.dir/src/util/imgui/backends/imgui_impl_glfw.cpp.obj: C:/Users/adars/Documents/Cpp\ Projects/FirstOpengl/src/util/imgui/backends/imgui_impl_glfw.cpp
 CMakeFiles/LearnOpengl.dir/src/util/imgui/backends/imgui_impl_glfw.cpp.obj: CMakeFiles/LearnOpengl.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir="C:\Users\adars\Documents\Cpp Projects\FirstOpengl\build\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/LearnOpengl.dir/src/util/imgui/backends/imgui_impl_glfw.cpp.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir="C:\Users\adars\Documents\Cpp Projects\FirstOpengl\build\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object CMakeFiles/LearnOpengl.dir/src/util/imgui/backends/imgui_impl_glfw.cpp.obj"
 	C:\msys64\mingw64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/LearnOpengl.dir/src/util/imgui/backends/imgui_impl_glfw.cpp.obj -MF CMakeFiles\LearnOpengl.dir\src\util\imgui\backends\imgui_impl_glfw.cpp.obj.d -o CMakeFiles\LearnOpengl.dir\src\util\imgui\backends\imgui_impl_glfw.cpp.obj -c "C:\Users\adars\Documents\Cpp Projects\FirstOpengl\src\util\imgui\backends\imgui_impl_glfw.cpp"
 
 CMakeFiles/LearnOpengl.dir/src/util/imgui/backends/imgui_impl_glfw.cpp.i: cmake_force
@@ -192,7 +207,7 @@ CMakeFiles/LearnOpengl.dir/src/util/imgui/backends/imgui_impl_opengl3.cpp.obj: C
 CMakeFiles/LearnOpengl.dir/src/util/imgui/backends/imgui_impl_opengl3.cpp.obj: CMakeFiles/LearnOpengl.dir/includes_CXX.rsp
 CMakeFiles/LearnOpengl.dir/src/util/imgui/backends/imgui_impl_opengl3.cpp.obj: C:/Users/adars/Documents/Cpp\ Projects/FirstOpengl/src/util/imgui/backends/imgui_impl_opengl3.cpp
 CMakeFiles/LearnOpengl.dir/src/util/imgui/backends/imgui_impl_opengl3.cpp.obj: CMakeFiles/LearnOpengl.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir="C:\Users\adars\Documents\Cpp Projects\FirstOpengl\build\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object CMakeFiles/LearnOpengl.dir/src/util/imgui/backends/imgui_impl_opengl3.cpp.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir="C:\Users\adars\Documents\Cpp Projects\FirstOpengl\build\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_10) "Building CXX object CMakeFiles/LearnOpengl.dir/src/util/imgui/backends/imgui_impl_opengl3.cpp.obj"
 	C:\msys64\mingw64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/LearnOpengl.dir/src/util/imgui/backends/imgui_impl_opengl3.cpp.obj -MF CMakeFiles\LearnOpengl.dir\src\util\imgui\backends\imgui_impl_opengl3.cpp.obj.d -o CMakeFiles\LearnOpengl.dir\src\util\imgui\backends\imgui_impl_opengl3.cpp.obj -c "C:\Users\adars\Documents\Cpp Projects\FirstOpengl\src\util\imgui\backends\imgui_impl_opengl3.cpp"
 
 CMakeFiles/LearnOpengl.dir/src/util/imgui/backends/imgui_impl_opengl3.cpp.i: cmake_force
@@ -207,7 +222,7 @@ CMakeFiles/LearnOpengl.dir/src/util/imgui/imgui.cpp.obj: CMakeFiles/LearnOpengl.
 CMakeFiles/LearnOpengl.dir/src/util/imgui/imgui.cpp.obj: CMakeFiles/LearnOpengl.dir/includes_CXX.rsp
 CMakeFiles/LearnOpengl.dir/src/util/imgui/imgui.cpp.obj: C:/Users/adars/Documents/Cpp\ Projects/FirstOpengl/src/util/imgui/imgui.cpp
 CMakeFiles/LearnOpengl.dir/src/util/imgui/imgui.cpp.obj: CMakeFiles/LearnOpengl.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir="C:\Users\adars\Documents\Cpp Projects\FirstOpengl\build\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_10) "Building CXX object CMakeFiles/LearnOpengl.dir/src/util/imgui/imgui.cpp.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir="C:\Users\adars\Documents\Cpp Projects\FirstOpengl\build\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_11) "Building CXX object CMakeFiles/LearnOpengl.dir/src/util/imgui/imgui.cpp.obj"
 	C:\msys64\mingw64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/LearnOpengl.dir/src/util/imgui/imgui.cpp.obj -MF CMakeFiles\LearnOpengl.dir\src\util\imgui\imgui.cpp.obj.d -o CMakeFiles\LearnOpengl.dir\src\util\imgui\imgui.cpp.obj -c "C:\Users\adars\Documents\Cpp Projects\FirstOpengl\src\util\imgui\imgui.cpp"
 
 CMakeFiles/LearnOpengl.dir/src/util/imgui/imgui.cpp.i: cmake_force
@@ -222,7 +237,7 @@ CMakeFiles/LearnOpengl.dir/src/util/imgui/imgui_demo.cpp.obj: CMakeFiles/LearnOp
 CMakeFiles/LearnOpengl.dir/src/util/imgui/imgui_demo.cpp.obj: CMakeFiles/LearnOpengl.dir/includes_CXX.rsp
 CMakeFiles/LearnOpengl.dir/src/util/imgui/imgui_demo.cpp.obj: C:/Users/adars/Documents/Cpp\ Projects/FirstOpengl/src/util/imgui/imgui_demo.cpp
 CMakeFiles/LearnOpengl.dir/src/util/imgui/imgui_demo.cpp.obj: CMakeFiles/LearnOpengl.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir="C:\Users\adars\Documents\Cpp Projects\FirstOpengl\build\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_11) "Building CXX object CMakeFiles/LearnOpengl.dir/src/util/imgui/imgui_demo.cpp.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir="C:\Users\adars\Documents\Cpp Projects\FirstOpengl\build\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_12) "Building CXX object CMakeFiles/LearnOpengl.dir/src/util/imgui/imgui_demo.cpp.obj"
 	C:\msys64\mingw64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/LearnOpengl.dir/src/util/imgui/imgui_demo.cpp.obj -MF CMakeFiles\LearnOpengl.dir\src\util\imgui\imgui_demo.cpp.obj.d -o CMakeFiles\LearnOpengl.dir\src\util\imgui\imgui_demo.cpp.obj -c "C:\Users\adars\Documents\Cpp Projects\FirstOpengl\src\util\imgui\imgui_demo.cpp"
 
 CMakeFiles/LearnOpengl.dir/src/util/imgui/imgui_demo.cpp.i: cmake_force
@@ -237,7 +252,7 @@ CMakeFiles/LearnOpengl.dir/src/util/imgui/imgui_draw.cpp.obj: CMakeFiles/LearnOp
 CMakeFiles/LearnOpengl.dir/src/util/imgui/imgui_draw.cpp.obj: CMakeFiles/LearnOpengl.dir/includes_CXX.rsp
 CMakeFiles/LearnOpengl.dir/src/util/imgui/imgui_draw.cpp.obj: C:/Users/adars/Documents/Cpp\ Projects/FirstOpengl/src/util/imgui/imgui_draw.cpp
 CMakeFiles/LearnOpengl.dir/src/util/imgui/imgui_draw.cpp.obj: CMakeFiles/LearnOpengl.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir="C:\Users\adars\Documents\Cpp Projects\FirstOpengl\build\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_12) "Building CXX object CMakeFiles/LearnOpengl.dir/src/util/imgui/imgui_draw.cpp.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir="C:\Users\adars\Documents\Cpp Projects\FirstOpengl\build\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_13) "Building CXX object CMakeFiles/LearnOpengl.dir/src/util/imgui/imgui_draw.cpp.obj"
 	C:\msys64\mingw64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/LearnOpengl.dir/src/util/imgui/imgui_draw.cpp.obj -MF CMakeFiles\LearnOpengl.dir\src\util\imgui\imgui_draw.cpp.obj.d -o CMakeFiles\LearnOpengl.dir\src\util\imgui\imgui_draw.cpp.obj -c "C:\Users\adars\Documents\Cpp Projects\FirstOpengl\src\util\imgui\imgui_draw.cpp"
 
 CMakeFiles/LearnOpengl.dir/src/util/imgui/imgui_draw.cpp.i: cmake_force
@@ -252,7 +267,7 @@ CMakeFiles/LearnOpengl.dir/src/util/imgui/imgui_tables.cpp.obj: CMakeFiles/Learn
 CMakeFiles/LearnOpengl.dir/src/util/imgui/imgui_tables.cpp.obj: CMakeFiles/LearnOpengl.dir/includes_CXX.rsp
 CMakeFiles/LearnOpengl.dir/src/util/imgui/imgui_tables.cpp.obj: C:/Users/adars/Documents/Cpp\ Projects/FirstOpengl/src/util/imgui/imgui_tables.cpp
 CMakeFiles/LearnOpengl.dir/src/util/imgui/imgui_tables.cpp.obj: CMakeFiles/LearnOpengl.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir="C:\Users\adars\Documents\Cpp Projects\FirstOpengl\build\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_13) "Building CXX object CMakeFiles/LearnOpengl.dir/src/util/imgui/imgui_tables.cpp.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir="C:\Users\adars\Documents\Cpp Projects\FirstOpengl\build\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_14) "Building CXX object CMakeFiles/LearnOpengl.dir/src/util/imgui/imgui_tables.cpp.obj"
 	C:\msys64\mingw64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/LearnOpengl.dir/src/util/imgui/imgui_tables.cpp.obj -MF CMakeFiles\LearnOpengl.dir\src\util\imgui\imgui_tables.cpp.obj.d -o CMakeFiles\LearnOpengl.dir\src\util\imgui\imgui_tables.cpp.obj -c "C:\Users\adars\Documents\Cpp Projects\FirstOpengl\src\util\imgui\imgui_tables.cpp"
 
 CMakeFiles/LearnOpengl.dir/src/util/imgui/imgui_tables.cpp.i: cmake_force
@@ -267,7 +282,7 @@ CMakeFiles/LearnOpengl.dir/src/util/imgui/imgui_widgets.cpp.obj: CMakeFiles/Lear
 CMakeFiles/LearnOpengl.dir/src/util/imgui/imgui_widgets.cpp.obj: CMakeFiles/LearnOpengl.dir/includes_CXX.rsp
 CMakeFiles/LearnOpengl.dir/src/util/imgui/imgui_widgets.cpp.obj: C:/Users/adars/Documents/Cpp\ Projects/FirstOpengl/src/util/imgui/imgui_widgets.cpp
 CMakeFiles/LearnOpengl.dir/src/util/imgui/imgui_widgets.cpp.obj: CMakeFiles/LearnOpengl.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir="C:\Users\adars\Documents\Cpp Projects\FirstOpengl\build\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_14) "Building CXX object CMakeFiles/LearnOpengl.dir/src/util/imgui/imgui_widgets.cpp.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir="C:\Users\adars\Documents\Cpp Projects\FirstOpengl\build\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_15) "Building CXX object CMakeFiles/LearnOpengl.dir/src/util/imgui/imgui_widgets.cpp.obj"
 	C:\msys64\mingw64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/LearnOpengl.dir/src/util/imgui/imgui_widgets.cpp.obj -MF CMakeFiles\LearnOpengl.dir\src\util\imgui\imgui_widgets.cpp.obj.d -o CMakeFiles\LearnOpengl.dir\src\util\imgui\imgui_widgets.cpp.obj -c "C:\Users\adars\Documents\Cpp Projects\FirstOpengl\src\util\imgui\imgui_widgets.cpp"
 
 CMakeFiles/LearnOpengl.dir/src/util/imgui/imgui_widgets.cpp.i: cmake_force
@@ -282,7 +297,7 @@ CMakeFiles/LearnOpengl.dir/src/util/shaders/sogl_program_manager.cpp.obj: CMakeF
 CMakeFiles/LearnOpengl.dir/src/util/shaders/sogl_program_manager.cpp.obj: CMakeFiles/LearnOpengl.dir/includes_CXX.rsp
 CMakeFiles/LearnOpengl.dir/src/util/shaders/sogl_program_manager.cpp.obj: C:/Users/adars/Documents/Cpp\ Projects/FirstOpengl/src/util/shaders/sogl_program_manager.cpp
 CMakeFiles/LearnOpengl.dir/src/util/shaders/sogl_program_manager.cpp.obj: CMakeFiles/LearnOpengl.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir="C:\Users\adars\Documents\Cpp Projects\FirstOpengl\build\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_15) "Building CXX object CMakeFiles/LearnOpengl.dir/src/util/shaders/sogl_program_manager.cpp.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir="C:\Users\adars\Documents\Cpp Projects\FirstOpengl\build\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_16) "Building CXX object CMakeFiles/LearnOpengl.dir/src/util/shaders/sogl_program_manager.cpp.obj"
 	C:\msys64\mingw64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/LearnOpengl.dir/src/util/shaders/sogl_program_manager.cpp.obj -MF CMakeFiles\LearnOpengl.dir\src\util\shaders\sogl_program_manager.cpp.obj.d -o CMakeFiles\LearnOpengl.dir\src\util\shaders\sogl_program_manager.cpp.obj -c "C:\Users\adars\Documents\Cpp Projects\FirstOpengl\src\util\shaders\sogl_program_manager.cpp"
 
 CMakeFiles/LearnOpengl.dir/src/util/shaders/sogl_program_manager.cpp.i: cmake_force
@@ -297,7 +312,7 @@ CMakeFiles/LearnOpengl.dir/src/util/sogl_camera_controller.cpp.obj: CMakeFiles/L
 CMakeFiles/LearnOpengl.dir/src/util/sogl_camera_controller.cpp.obj: CMakeFiles/LearnOpengl.dir/includes_CXX.rsp
 CMakeFiles/LearnOpengl.dir/src/util/sogl_camera_controller.cpp.obj: C:/Users/adars/Documents/Cpp\ Projects/FirstOpengl/src/util/sogl_camera_controller.cpp
 CMakeFiles/LearnOpengl.dir/src/util/sogl_camera_controller.cpp.obj: CMakeFiles/LearnOpengl.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir="C:\Users\adars\Documents\Cpp Projects\FirstOpengl\build\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_16) "Building CXX object CMakeFiles/LearnOpengl.dir/src/util/sogl_camera_controller.cpp.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir="C:\Users\adars\Documents\Cpp Projects\FirstOpengl\build\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_17) "Building CXX object CMakeFiles/LearnOpengl.dir/src/util/sogl_camera_controller.cpp.obj"
 	C:\msys64\mingw64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/LearnOpengl.dir/src/util/sogl_camera_controller.cpp.obj -MF CMakeFiles\LearnOpengl.dir\src\util\sogl_camera_controller.cpp.obj.d -o CMakeFiles\LearnOpengl.dir\src\util\sogl_camera_controller.cpp.obj -c "C:\Users\adars\Documents\Cpp Projects\FirstOpengl\src\util\sogl_camera_controller.cpp"
 
 CMakeFiles/LearnOpengl.dir/src/util/sogl_camera_controller.cpp.i: cmake_force
@@ -312,7 +327,7 @@ CMakeFiles/LearnOpengl.dir/src/util/sogl_model_loader.cpp.obj: CMakeFiles/LearnO
 CMakeFiles/LearnOpengl.dir/src/util/sogl_model_loader.cpp.obj: CMakeFiles/LearnOpengl.dir/includes_CXX.rsp
 CMakeFiles/LearnOpengl.dir/src/util/sogl_model_loader.cpp.obj: C:/Users/adars/Documents/Cpp\ Projects/FirstOpengl/src/util/sogl_model_loader.cpp
 CMakeFiles/LearnOpengl.dir/src/util/sogl_model_loader.cpp.obj: CMakeFiles/LearnOpengl.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir="C:\Users\adars\Documents\Cpp Projects\FirstOpengl\build\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_17) "Building CXX object CMakeFiles/LearnOpengl.dir/src/util/sogl_model_loader.cpp.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir="C:\Users\adars\Documents\Cpp Projects\FirstOpengl\build\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_18) "Building CXX object CMakeFiles/LearnOpengl.dir/src/util/sogl_model_loader.cpp.obj"
 	C:\msys64\mingw64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/LearnOpengl.dir/src/util/sogl_model_loader.cpp.obj -MF CMakeFiles\LearnOpengl.dir\src\util\sogl_model_loader.cpp.obj.d -o CMakeFiles\LearnOpengl.dir\src\util\sogl_model_loader.cpp.obj -c "C:\Users\adars\Documents\Cpp Projects\FirstOpengl\src\util\sogl_model_loader.cpp"
 
 CMakeFiles/LearnOpengl.dir/src/util/sogl_model_loader.cpp.i: cmake_force
@@ -330,6 +345,7 @@ LearnOpengl_OBJECTS = \
 "CMakeFiles/LearnOpengl.dir/src/engine/sogl_game_object.cpp.obj" \
 "CMakeFiles/LearnOpengl.dir/src/engine/sogl_mesh_object.cpp.obj" \
 "CMakeFiles/LearnOpengl.dir/src/main.cpp.obj" \
+"CMakeFiles/LearnOpengl.dir/src/renderer/modules/sogl_ssao_module.cpp.obj" \
 "CMakeFiles/LearnOpengl.dir/src/renderer/sogl_renderer.cpp.obj" \
 "CMakeFiles/LearnOpengl.dir/src/renderer/sogl_window.cpp.obj" \
 "CMakeFiles/LearnOpengl.dir/src/util/imgui/backends/imgui_impl_glfw.cpp.obj" \
@@ -351,6 +367,7 @@ LearnOpengl.exe: CMakeFiles/LearnOpengl.dir/src/engine/sogl_engine.cpp.obj
 LearnOpengl.exe: CMakeFiles/LearnOpengl.dir/src/engine/sogl_game_object.cpp.obj
 LearnOpengl.exe: CMakeFiles/LearnOpengl.dir/src/engine/sogl_mesh_object.cpp.obj
 LearnOpengl.exe: CMakeFiles/LearnOpengl.dir/src/main.cpp.obj
+LearnOpengl.exe: CMakeFiles/LearnOpengl.dir/src/renderer/modules/sogl_ssao_module.cpp.obj
 LearnOpengl.exe: CMakeFiles/LearnOpengl.dir/src/renderer/sogl_renderer.cpp.obj
 LearnOpengl.exe: CMakeFiles/LearnOpengl.dir/src/renderer/sogl_window.cpp.obj
 LearnOpengl.exe: CMakeFiles/LearnOpengl.dir/src/util/imgui/backends/imgui_impl_glfw.cpp.obj
@@ -370,7 +387,7 @@ LearnOpengl.exe: C:/Users/adars/Documents/Cpp\ Projects/FirstOpengl/lib/libassim
 LearnOpengl.exe: CMakeFiles/LearnOpengl.dir/linkLibs.rsp
 LearnOpengl.exe: CMakeFiles/LearnOpengl.dir/objects1.rsp
 LearnOpengl.exe: CMakeFiles/LearnOpengl.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir="C:\Users\adars\Documents\Cpp Projects\FirstOpengl\build\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_18) "Linking CXX executable LearnOpengl.exe"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir="C:\Users\adars\Documents\Cpp Projects\FirstOpengl\build\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_19) "Linking CXX executable LearnOpengl.exe"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles\LearnOpengl.dir\link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

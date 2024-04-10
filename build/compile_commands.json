@@ -31,6 +31,12 @@
 },
 {
   "directory": "C:/Users/adars/Documents/Cpp Projects/FirstOpengl/build",
+  "command": "C:\\msys64\\mingw64\\bin\\g++.exe -DIMGUI_IMPL_OPENGL_LOADER_GLEW @CMakeFiles/LearnOpengl.dir/includes_CXX.rsp  -O4 -g -std=gnu++17 -o CMakeFiles\\LearnOpengl.dir\\src\\renderer\\modules\\sogl_ssao_module.cpp.obj -c \"C:\\Users\\adars\\Documents\\Cpp Projects\\FirstOpengl\\src\\renderer\\modules\\sogl_ssao_module.cpp\"",
+  "file": "C:/Users/adars/Documents/Cpp Projects/FirstOpengl/src/renderer/modules/sogl_ssao_module.cpp",
+  "output": "CMakeFiles/LearnOpengl.dir/src/renderer/modules/sogl_ssao_module.cpp.obj"
+},
+{
+  "directory": "C:/Users/adars/Documents/Cpp Projects/FirstOpengl/build",
   "command": "C:\\msys64\\mingw64\\bin\\g++.exe -DIMGUI_IMPL_OPENGL_LOADER_GLEW @CMakeFiles/LearnOpengl.dir/includes_CXX.rsp  -O4 -g -std=gnu++17 -o CMakeFiles\\LearnOpengl.dir\\src\\renderer\\sogl_renderer.cpp.obj -c \"C:\\Users\\adars\\Documents\\Cpp Projects\\FirstOpengl\\src\\renderer\\sogl_renderer.cpp\"",
   "file": "C:/Users/adars/Documents/Cpp Projects/FirstOpengl/src/renderer/sogl_renderer.cpp",
   "output": "CMakeFiles/LearnOpengl.dir/src/renderer/sogl_renderer.cpp.obj"

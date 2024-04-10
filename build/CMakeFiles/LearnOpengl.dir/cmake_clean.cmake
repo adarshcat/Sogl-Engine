@@ -9,6 +9,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/LearnOpengl.dir/src/engine/sogl_mesh_object.cpp.obj.d"
   "CMakeFiles/LearnOpengl.dir/src/main.cpp.obj"
   "CMakeFiles/LearnOpengl.dir/src/main.cpp.obj.d"
+  "CMakeFiles/LearnOpengl.dir/src/renderer/modules/sogl_ssao_module.cpp.obj"
+  "CMakeFiles/LearnOpengl.dir/src/renderer/modules/sogl_ssao_module.cpp.obj.d"
   "CMakeFiles/LearnOpengl.dir/src/renderer/sogl_renderer.cpp.obj"
   "CMakeFiles/LearnOpengl.dir/src/renderer/sogl_renderer.cpp.obj.d"
   "CMakeFiles/LearnOpengl.dir/src/renderer/sogl_window.cpp.obj"

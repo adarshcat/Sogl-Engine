@@ -5,6 +5,7 @@
 
 //std
 #include <map>
+#include <string>
 
 namespace sogl
 {

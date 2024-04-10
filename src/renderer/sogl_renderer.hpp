@@ -10,6 +10,8 @@
 #include "engine/sogl_lights.hpp"
 #include "util/sogl_helper.hpp"
 
+#include "renderer/modules/sogl_ssao_module.hpp"
+
 // std
 #include <vector>
 #include <memory>
@@ -25,6 +27,10 @@ namespace sogl
 
         SoglRenderer(const SoglRenderer&) = delete; // delete copy constructors
         SoglRenderer operator=(const SoglRenderer&) = delete;
+        
+        // render dimensions
+        const int WIDTH;
+        const int HEIGHT;
 
         void initialiseRenderer();
         void updateDirectionalLight(DirectionalLight &dirLight);
@@ -35,15 +41,27 @@ namespace sogl
         void toggleSSAO(const bool state);
         void toggleSSAOBlur(const bool state);
 
-        const int WIDTH;
-        const int HEIGHT;
-
         private:
         SoglWindow& soglWindow;
         DirectionalLight directionalLight;
         std::string lightingShader = "lighting";
-        std::string ssaoShader = "ssao";
-        std::string ssaoBlurShader = "ssao_blur";
+
+        // renderer settings
+        bool shadowEnabled = true;
+        bool ssaoEnabled = true;
+        bool ssaoBlurEnabled = true;
+
+        // renderer initialisation functions
+        void initialiseGBuffer();
+        void initialiseRenderQuad();
+        void initialiseShadowMap();
+
+        // renderer update functions
+        void updateLighting();
+        void updateLightingShaderInputs();
+
+        // renderer modules
+        SoglSSAOModule ssaoModule;
 
         //g-buffer
         GLuint gBuffer;
@@ -54,38 +72,13 @@ namespace sogl
         GLuint shadowBuffer;
         GLuint shadowMap;
 
-        //ssao
-        const unsigned int SSAO_WIDTH = (int)WIDTH/2, SSAO_HEIGHT = (int)HEIGHT/2;
-        const unsigned int SSAO_SAMPLES = 32;
-        std::vector<glm::vec3> ssaoKernel;
-        GLuint ssaoFBO;
-        GLuint ssaoNoiseTex, ssaoOutput;
-
-        //ssao blur
-        GLuint ssaoBlurFBO;
-        GLuint ssaoBlurOutput;
-
         //render quad
         GLuint quadVertexBuffer;
         GLuint renderQuadVAO;
 
-        // renderer settings
-        bool shadowEnabled = true;
-        bool ssaoEnabled = true;
-        bool ssaoBlurEnabled = true;
-
-        void updateLighting();
-        void updateLightingShaderInputs();
-
-        void initialiseGBuffer();
-        void initialiseRenderQuad();
-        void initialiseShadowMap();
-        void initialiseSSAO();
-        void initialiseSSAOBlur();
-
+        // render passes
         void geometryPass(std::vector<std::unique_ptr<SoglGameObject>> &gameObjects, CameraData &camData);
         void shadowPass(std::vector<std::unique_ptr<SoglGameObject>> &gameObjects, glm::mat4 &lightSpaceMatrix);
-        void ssaoPass(CameraData &camData);
         void lightingPass(CameraData &camData, glm::mat4 &lightSpaceMatrix);
     };
 

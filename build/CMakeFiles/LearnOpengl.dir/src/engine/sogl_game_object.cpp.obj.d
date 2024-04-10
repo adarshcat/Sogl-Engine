@@ -264,14 +264,6 @@ CMakeFiles/LearnOpengl.dir/src/engine/sogl_game_object.cpp.obj: \
  C:/msys64/mingw64/include/c++/13.2.0/cerrno \
  C:/msys64/mingw64/include/c++/13.2.0/bits/charconv.h \
  C:/msys64/mingw64/include/c++/13.2.0/bits/basic_string.tcc \
- C:/Users/adars/DOCUME~1/CPPPRO~1/FIRSTO~1/src/util/shaders/sogl_program_manager.hpp \
- C:/msys64/mingw64/include/c++/13.2.0/map \
- C:/msys64/mingw64/include/c++/13.2.0/bits/stl_tree.h \
- C:/msys64/mingw64/include/c++/13.2.0/ext/aligned_buffer.h \
- C:/msys64/mingw64/include/c++/13.2.0/bits/node_handle.h \
- C:/msys64/mingw64/include/c++/13.2.0/bits/stl_map.h \
- C:/msys64/mingw64/include/c++/13.2.0/bits/stl_multimap.h \
- C:/msys64/mingw64/include/c++/13.2.0/bits/erase_if.h \
  C:/msys64/mingw64/include/c++/13.2.0/iostream \
  C:/msys64/mingw64/include/c++/13.2.0/ostream \
  C:/msys64/mingw64/include/c++/13.2.0/ios \

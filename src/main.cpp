@@ -17,6 +17,7 @@ int main() {
 
     engine.addGameObjects(std::move(testSceneModels));
     
+    
     engine.run();
 
     return 0;

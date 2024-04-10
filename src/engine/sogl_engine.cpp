@@ -2,6 +2,7 @@
 #include "engine/sogl_engine.hpp"
 #include "util/sogl_model_loader.hpp"
 #include "engine/sogl_game_object.hpp"
+#include "engine/sogl_mesh_object.hpp"
 
 #define DEBUG
 
@@ -37,8 +38,8 @@ namespace sogl
             float lastFixedLoopTime = currentTime - lastFixedTick;
             if (lastFixedLoopTime > fixedLoopInterval){
                 // fixed loop stuff goes here
-                std::cout << "FPS: " << int(1.0f/deltaTime) << std::endl;
-
+                //std::cout << "FPS: " << int(1.0f/deltaTime) << std::endl;
+                
                 lastFixedTick = currentTime;
             }
 
@@ -60,13 +61,14 @@ namespace sogl
             ImGui::NewFrame();
 
             ImGui::Begin("Debug");
+            ImGui::LabelText(std::to_string(int(1.0f/deltaTime)).c_str(), "FPS: ");
 
             ImGui::Checkbox("Rotating", &model0rot);
             if (model0rot)
                 gameObjects[0]->rotate(glm::vec3(0, 1, 0), 0.001f);
             
             ImGui::ColorEdit3("box color", monkeyCol);
-            gameObjects[0]->material.albedo = glm::vec3(monkeyCol[0], monkeyCol[1], monkeyCol[2]);
+            static_cast<SoglMeshObject*>(gameObjects[0].get())->material.albedo = glm::vec3(monkeyCol[0], monkeyCol[1], monkeyCol[2]);
 
             ImGui::Checkbox("Shadows", &shadows);
             soglRenderer.toggleShadows(shadows);

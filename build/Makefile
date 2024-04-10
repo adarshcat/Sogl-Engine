@@ -594,6 +594,30 @@ src/engine/sogl_game_object.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\LearnOpengl.dir\build.make CMakeFiles/LearnOpengl.dir/src/engine/sogl_game_object.cpp.s
 .PHONY : src/engine/sogl_game_object.cpp.s
 
+src/engine/sogl_mesh_object.obj: src/engine/sogl_mesh_object.cpp.obj
+.PHONY : src/engine/sogl_mesh_object.obj
+
+# target to build an object file
+src/engine/sogl_mesh_object.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\LearnOpengl.dir\build.make CMakeFiles/LearnOpengl.dir/src/engine/sogl_mesh_object.cpp.obj
+.PHONY : src/engine/sogl_mesh_object.cpp.obj
+
+src/engine/sogl_mesh_object.i: src/engine/sogl_mesh_object.cpp.i
+.PHONY : src/engine/sogl_mesh_object.i
+
+# target to preprocess a source file
+src/engine/sogl_mesh_object.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\LearnOpengl.dir\build.make CMakeFiles/LearnOpengl.dir/src/engine/sogl_mesh_object.cpp.i
+.PHONY : src/engine/sogl_mesh_object.cpp.i
+
+src/engine/sogl_mesh_object.s: src/engine/sogl_mesh_object.cpp.s
+.PHONY : src/engine/sogl_mesh_object.s
+
+# target to generate assembly for a file
+src/engine/sogl_mesh_object.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\LearnOpengl.dir\build.make CMakeFiles/LearnOpengl.dir/src/engine/sogl_mesh_object.cpp.s
+.PHONY : src/engine/sogl_mesh_object.cpp.s
+
 src/main.obj: src/main.cpp.obj
 .PHONY : src/main.obj
 
@@ -955,6 +979,9 @@ help:
 	@echo ... src/engine/sogl_game_object.obj
 	@echo ... src/engine/sogl_game_object.i
 	@echo ... src/engine/sogl_game_object.s
+	@echo ... src/engine/sogl_mesh_object.obj
+	@echo ... src/engine/sogl_mesh_object.i
+	@echo ... src/engine/sogl_mesh_object.s
 	@echo ... src/main.obj
 	@echo ... src/main.i
 	@echo ... src/main.s

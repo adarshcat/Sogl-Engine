@@ -311,6 +311,7 @@ CMakeFiles/LearnOpengl.dir/src/util/sogl_model_loader.cpp.obj: \
  C:/msys64/mingw64/include/c++/13.2.0/bits/stl_vector.h \
  C:/msys64/mingw64/include/c++/13.2.0/bits/stl_bvector.h \
  C:/msys64/mingw64/include/c++/13.2.0/bits/vector.tcc \
+ C:/Users/adars/DOCUME~1/CPPPRO~1/FIRSTO~1/src/engine/sogl_mesh_object.hpp \
  C:/msys64/mingw64/include/c++/13.2.0/iostream \
  C:/msys64/mingw64/include/c++/13.2.0/ostream \
  C:/msys64/mingw64/include/c++/13.2.0/ios \

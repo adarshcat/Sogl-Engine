@@ -376,6 +376,7 @@ CMakeFiles/LearnOpengl.dir/src/engine/sogl_engine.cpp.obj: \
  C:/Users/adars/DOCUME~1/CPPPRO~1/FIRSTO~1/include/assimp/anim.h \
  C:/Users/adars/DOCUME~1/CPPPRO~1/FIRSTO~1/include/assimp/metadata.h \
  C:/Users/adars/DOCUME~1/CPPPRO~1/FIRSTO~1/include/assimp/postprocess.h \
+ C:/Users/adars/DOCUME~1/CPPPRO~1/FIRSTO~1/src/engine/sogl_mesh_object.hpp \
  C:/msys64/mingw64/include/c++/13.2.0/iostream \
  C:/msys64/mingw64/include/c++/13.2.0/ostream \
  C:/msys64/mingw64/include/c++/13.2.0/ios \

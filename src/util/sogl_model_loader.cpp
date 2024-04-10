@@ -25,9 +25,9 @@ namespace sogl
     void SoglModelLoader::processNode(aiNode *node, glm::mat4 transform, const aiScene *scene, std::vector<std::unique_ptr<SoglGameObject>> &loadedGameObjects){
         for(unsigned int i = 0; i < node->mNumMeshes; i++) {
             aiMesh *mesh = scene->mMeshes[node->mMeshes[i]];
-            std::unique_ptr<SoglGameObject> gameObject = processMesh(mesh, scene);
-            gameObject->setTransform(transform);
-            loadedGameObjects.push_back(std::move(gameObject));
+            std::unique_ptr<SoglGameObject> meshObject = processMesh(mesh, scene);
+            meshObject->setTransform(transform);
+            loadedGameObjects.push_back(std::move(meshObject));
         }
         
         for(unsigned int i = 0; i < node->mNumChildren; i++) {
@@ -83,7 +83,7 @@ namespace sogl
         Material mat;
         mat.albedo = glm::vec3(albedo.r, albedo.g, albedo.b);
 
-        return std::unique_ptr<SoglGameObject>(new SoglGameObject(vertices, indices, defaultShader, mat));
+        return std::unique_ptr<SoglGameObject>(new SoglMeshObject(vertices, indices, defaultShader, mat));
     }
 
     glm::mat4 SoglModelLoader::aiMatrixToGLM(aiMatrix4x4 from){

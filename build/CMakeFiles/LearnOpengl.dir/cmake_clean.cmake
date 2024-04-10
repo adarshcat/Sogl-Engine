@@ -5,6 +5,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/LearnOpengl.dir/src/engine/sogl_engine.cpp.obj.d"
   "CMakeFiles/LearnOpengl.dir/src/engine/sogl_game_object.cpp.obj"
   "CMakeFiles/LearnOpengl.dir/src/engine/sogl_game_object.cpp.obj.d"
+  "CMakeFiles/LearnOpengl.dir/src/engine/sogl_mesh_object.cpp.obj"
+  "CMakeFiles/LearnOpengl.dir/src/engine/sogl_mesh_object.cpp.obj.d"
   "CMakeFiles/LearnOpengl.dir/src/main.cpp.obj"
   "CMakeFiles/LearnOpengl.dir/src/main.cpp.obj.d"
   "CMakeFiles/LearnOpengl.dir/src/renderer/sogl_renderer.cpp.obj"

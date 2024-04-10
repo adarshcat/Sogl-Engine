@@ -11,49 +11,22 @@
 
 namespace sogl
 {
-    struct Material{
-        glm::vec3 albedo;
-    };
-
-    struct Vertex {
-        glm::vec3 Position;
-        glm::vec3 Normal;
-        glm::vec2 TexCoords;
-    };
     
     class SoglGameObject{
         public:
-        SoglGameObject(std::vector<Vertex> &inVertices, std::vector<unsigned int> &inIndices, std::string &_shader, Material &mat);
-        ~SoglGameObject();
+        SoglGameObject(){}
+        SoglGameObject(glm::mat4 _transform);
 
-        void draw(CameraData &camData);
-        void drawShadow(glm::mat4 &lightSpaceMatrix);
+        virtual void draw(CameraData &camData){}
+        virtual void drawShadow(glm::mat4 &lightSpaceMatrix){}
 
-        void translate(glm::vec3 amnt);
-        void rotate(glm::vec3 axis, float angle);
-        void scale(glm::vec3 scaleVec);
+        // basic transformations
+        void translate(glm::vec3 _amnt);
+        void rotate(glm::vec3 _axis, float _angle);
+        void scale(glm::vec3 _scaleVec);
 
-        void setTransform(glm::mat4 newTransform);
+        void setTransform(glm::mat4 _transform);
 
-        Material material;
-
-        protected:
-        void applyMaterial();
-
-        private:
-        void initialiseStorageBuffer();
-
-        // All the geometry stuff
-        std::vector<Vertex> vertices;
-        std::vector<unsigned int> indices;
-
-        GLuint vertexArrayObject;
-        GLuint vertexBuffer;
-        GLuint elementBuffer;
-
-        std::string shader;
-
-        // transforms
         glm::mat4 modelMatrix{1.0};
     };
 } // namespace sogl

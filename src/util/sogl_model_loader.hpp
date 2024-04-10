@@ -5,6 +5,7 @@
 #include <assimp/postprocess.h>
 
 #include "engine/sogl_game_object.hpp"
+#include "engine/sogl_mesh_object.hpp"
 
 //std
 #include <vector>

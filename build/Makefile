@@ -930,6 +930,30 @@ src/util/sogl_camera_controller.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\LearnOpengl.dir\build.make CMakeFiles/LearnOpengl.dir/src/util/sogl_camera_controller.cpp.s
 .PHONY : src/util/sogl_camera_controller.cpp.s
 
+src/util/sogl_helper.obj: src/util/sogl_helper.cpp.obj
+.PHONY : src/util/sogl_helper.obj
+
+# target to build an object file
+src/util/sogl_helper.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\LearnOpengl.dir\build.make CMakeFiles/LearnOpengl.dir/src/util/sogl_helper.cpp.obj
+.PHONY : src/util/sogl_helper.cpp.obj
+
+src/util/sogl_helper.i: src/util/sogl_helper.cpp.i
+.PHONY : src/util/sogl_helper.i
+
+# target to preprocess a source file
+src/util/sogl_helper.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\LearnOpengl.dir\build.make CMakeFiles/LearnOpengl.dir/src/util/sogl_helper.cpp.i
+.PHONY : src/util/sogl_helper.cpp.i
+
+src/util/sogl_helper.s: src/util/sogl_helper.cpp.s
+.PHONY : src/util/sogl_helper.s
+
+# target to generate assembly for a file
+src/util/sogl_helper.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\LearnOpengl.dir\build.make CMakeFiles/LearnOpengl.dir/src/util/sogl_helper.cpp.s
+.PHONY : src/util/sogl_helper.cpp.s
+
 src/util/sogl_model_loader.obj: src/util/sogl_model_loader.cpp.obj
 .PHONY : src/util/sogl_model_loader.obj
 
@@ -1045,6 +1069,9 @@ help:
 	@echo ... src/util/sogl_camera_controller.obj
 	@echo ... src/util/sogl_camera_controller.i
 	@echo ... src/util/sogl_camera_controller.s
+	@echo ... src/util/sogl_helper.obj
+	@echo ... src/util/sogl_helper.i
+	@echo ... src/util/sogl_helper.s
 	@echo ... src/util/sogl_model_loader.obj
 	@echo ... src/util/sogl_model_loader.i
 	@echo ... src/util/sogl_model_loader.s

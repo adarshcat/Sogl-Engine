@@ -25,6 +25,7 @@ set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "C:/Users/adars/Documents/Cpp Projects/FirstOpengl/src/util/imgui/imgui_widgets.cpp" "CMakeFiles/LearnOpengl.dir/src/util/imgui/imgui_widgets.cpp.obj" "gcc" "CMakeFiles/LearnOpengl.dir/src/util/imgui/imgui_widgets.cpp.obj.d"
   "C:/Users/adars/Documents/Cpp Projects/FirstOpengl/src/util/shaders/sogl_program_manager.cpp" "CMakeFiles/LearnOpengl.dir/src/util/shaders/sogl_program_manager.cpp.obj" "gcc" "CMakeFiles/LearnOpengl.dir/src/util/shaders/sogl_program_manager.cpp.obj.d"
   "C:/Users/adars/Documents/Cpp Projects/FirstOpengl/src/util/sogl_camera_controller.cpp" "CMakeFiles/LearnOpengl.dir/src/util/sogl_camera_controller.cpp.obj" "gcc" "CMakeFiles/LearnOpengl.dir/src/util/sogl_camera_controller.cpp.obj.d"
+  "C:/Users/adars/Documents/Cpp Projects/FirstOpengl/src/util/sogl_helper.cpp" "CMakeFiles/LearnOpengl.dir/src/util/sogl_helper.cpp.obj" "gcc" "CMakeFiles/LearnOpengl.dir/src/util/sogl_helper.cpp.obj.d"
   "C:/Users/adars/Documents/Cpp Projects/FirstOpengl/src/util/sogl_model_loader.cpp" "CMakeFiles/LearnOpengl.dir/src/util/sogl_model_loader.cpp.obj" "gcc" "CMakeFiles/LearnOpengl.dir/src/util/sogl_model_loader.cpp.obj.d"
   )
 

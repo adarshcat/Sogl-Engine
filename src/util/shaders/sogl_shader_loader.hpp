@@ -10,6 +10,7 @@
 #include <vector>
 
 namespace sogl{
+
 	static void insertShaderParams(std::string &dest, std::string params){
 		if (params.size() == 0) return;
 
@@ -54,7 +55,7 @@ namespace sogl{
 			insertShaderParams(VertexShaderCode, shaderParams);
 
 			VertexShaderStream.close();
-		}else{
+		} else{
 			printf("Impossible to open %s. Are you in the right directory ? Don't forget to read the FAQ !\n", vertex_file_path);
 			getchar();
 			return 0;
@@ -72,7 +73,7 @@ namespace sogl{
 			insertShaderParams(FragmentShaderCode, shaderParams);
 
 			FragmentShaderStream.close();
-		}else{
+		} else{
 			printf("Impossible to open %s. Are you in the right directory ? Don't forget to read the FAQ !\n", fragment_file_path);
 			getchar();
 			return 0;

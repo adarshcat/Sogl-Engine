@@ -103,6 +103,12 @@
 },
 {
   "directory": "C:/Users/adars/Documents/Cpp Projects/FirstOpengl/build",
+  "command": "C:\\msys64\\mingw64\\bin\\g++.exe -DIMGUI_IMPL_OPENGL_LOADER_GLEW @CMakeFiles/LearnOpengl.dir/includes_CXX.rsp  -O4 -g -std=gnu++17 -o CMakeFiles\\LearnOpengl.dir\\src\\util\\sogl_helper.cpp.obj -c \"C:\\Users\\adars\\Documents\\Cpp Projects\\FirstOpengl\\src\\util\\sogl_helper.cpp\"",
+  "file": "C:/Users/adars/Documents/Cpp Projects/FirstOpengl/src/util/sogl_helper.cpp",
+  "output": "CMakeFiles/LearnOpengl.dir/src/util/sogl_helper.cpp.obj"
+},
+{
+  "directory": "C:/Users/adars/Documents/Cpp Projects/FirstOpengl/build",
   "command": "C:\\msys64\\mingw64\\bin\\g++.exe -DIMGUI_IMPL_OPENGL_LOADER_GLEW @CMakeFiles/LearnOpengl.dir/includes_CXX.rsp  -O4 -g -std=gnu++17 -o CMakeFiles\\LearnOpengl.dir\\src\\util\\sogl_model_loader.cpp.obj -c \"C:\\Users\\adars\\Documents\\Cpp Projects\\FirstOpengl\\src\\util\\sogl_model_loader.cpp\"",
   "file": "C:/Users/adars/Documents/Cpp Projects/FirstOpengl/src/util/sogl_model_loader.cpp",
   "output": "CMakeFiles/LearnOpengl.dir/src/util/sogl_model_loader.cpp.obj"

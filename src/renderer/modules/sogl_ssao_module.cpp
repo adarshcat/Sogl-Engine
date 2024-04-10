@@ -37,7 +37,7 @@ namespace sogl
             sample *= randomFloats(randomGenerator);
 
             float scale = ((float)i) / SSAO_SAMPLES;
-            scale = sogl::helper::lerp(0.1f, 1.0f, scale * scale);
+            scale = sogl::Helper::lerp(0.1f, 1.0f, scale * scale);
             sample *= scale;
             ssaoKernel.push_back(sample);
         }

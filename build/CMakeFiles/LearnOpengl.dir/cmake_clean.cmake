@@ -33,6 +33,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/LearnOpengl.dir/src/util/shaders/sogl_program_manager.cpp.obj.d"
   "CMakeFiles/LearnOpengl.dir/src/util/sogl_camera_controller.cpp.obj"
   "CMakeFiles/LearnOpengl.dir/src/util/sogl_camera_controller.cpp.obj.d"
+  "CMakeFiles/LearnOpengl.dir/src/util/sogl_helper.cpp.obj"
+  "CMakeFiles/LearnOpengl.dir/src/util/sogl_helper.cpp.obj.d"
   "CMakeFiles/LearnOpengl.dir/src/util/sogl_model_loader.cpp.obj"
   "CMakeFiles/LearnOpengl.dir/src/util/sogl_model_loader.cpp.obj.d"
   "LearnOpengl.exe"

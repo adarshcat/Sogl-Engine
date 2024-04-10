@@ -39,7 +39,7 @@ float shadowCalculation(vec4 fragPosLightSpace, vec3 normal){
     float closestDepth = texture(dirLight.shadowMap, projCoords.xy).r;
     float currentDepth = projCoords.z;
 
-    float bias = max(0.0015 * (1.0 - dot(normal, dirLight.direction)), 0.00035); // 0.00043 // 0.00029
+    float bias = 0.0;//max(0.0015 * (1.0 - dot(normal, dirLight.direction)), 0.00035); // 0.0015 // 0.00035
 
     // shadow caculation with PCF
     float shadow = 0.0;
@@ -106,7 +106,7 @@ float getSSAO(vec2 location, vec3 cameraDirection, vec3 surfaceNormal){
         }
     }
 
-    return max(result/counter, 0.6);
+    return 1.0 - result/counter;
 }
 #endif
 

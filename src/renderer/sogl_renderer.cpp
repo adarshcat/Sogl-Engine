@@ -277,12 +277,12 @@ namespace sogl
         glBindFramebuffer(GL_FRAMEBUFFER, shadowBuffer);
         glClear(GL_DEPTH_BUFFER_BIT);
 
-        //glCullFace(GL_FRONT);
+        glCullFace(GL_FRONT);
         // Draw shadow calls to all the game objects
         for (std::unique_ptr<SoglGameObject> &gameObj : gameObjects){
             gameObj->drawShadow(dirLightMatrix);
         }
-        //glCullFace(GL_BACK);
+        glCullFace(GL_BACK);
 
         // reset stuff
         glBindFramebuffer(GL_FRAMEBUFFER, 0);

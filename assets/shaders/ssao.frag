@@ -5,8 +5,8 @@ out vec4 FragColor;
 in vec2 texCoord;
 
 const vec2 noiseScale = vec2(WINDOW_WIDTH/4.0, WINDOW_HEIGHT/4.0);
-const float bias = 0.08; //0.052
-const float radius = 0.5; //1.23
+const float bias = 0.08;
+const float radius = 0.5;
 
 uniform sampler2D gDepth;
 uniform sampler2D gNormal;

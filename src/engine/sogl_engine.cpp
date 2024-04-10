@@ -37,10 +37,18 @@ namespace sogl
             // Fixed loop, runs a fixed number of times a second
             float lastFixedLoopTime = currentTime - lastFixedTick;
             if (lastFixedLoopTime > fixedLoopInterval){
-                // fixed loop stuff goes here
-                //std::cout << "FPS: " << int(1.0f/deltaTime) << std::endl;
+
+                for (std::unique_ptr<SoglGameObject> &gameObj : gameObjects){
+                    gameObj->process(deltaTime);
+                    gameObj->fixedProcess(deltaTime);
+                }
                 
                 lastFixedTick = currentTime;
+            }
+            else{
+                for (std::unique_ptr<SoglGameObject> &gameObj : gameObjects){
+                    gameObj->process(deltaTime);
+                }
             }
 
             // construct camera data for renderer

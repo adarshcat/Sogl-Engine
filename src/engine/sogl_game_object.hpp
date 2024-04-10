@@ -6,6 +6,7 @@
 
 
 //std
+#include <iostream>
 #include <vector>
 #include <string>
 
@@ -19,6 +20,9 @@ namespace sogl
 
         virtual void draw(CameraData &camData){}
         virtual void drawShadow(glm::mat4 &lightSpaceMatrix){}
+
+        virtual void process(const float delta){}
+        virtual void fixedProcess(const float delta){}
 
         // basic transformations
         void translate(glm::vec3 _amnt);

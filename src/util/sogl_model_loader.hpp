@@ -4,8 +4,8 @@
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
 
-#include "engine/sogl_game_object.hpp"
-#include "engine/sogl_mesh_object.hpp"
+#include "engine/game/sogl_game_object.hpp"
+#include "engine/game/sogl_mesh_object.hpp"
 #include "util/shaders/sogl_program_manager.hpp"
 
 //std

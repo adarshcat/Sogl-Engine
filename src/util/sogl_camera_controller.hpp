@@ -1,7 +1,7 @@
 #pragma once
 
 #include <glm/gtc/matrix_transform.hpp>
-#include "engine/sogl_camera.hpp"
+#include "engine/env/sogl_camera.hpp"
 #include "renderer/sogl_window.hpp"
 #include "util/sogl_helper.hpp"
 

@@ -4,10 +4,10 @@
 #include <glm/gtc/matrix_transform.hpp>
 
 #include "renderer/sogl_window.hpp"
-#include "engine/sogl_camera.hpp"
-#include "engine/sogl_game_object.hpp"
+#include "engine/env/sogl_camera.hpp"
+#include "engine/game/sogl_game_object.hpp"
 #include "util/shaders/sogl_program_manager.hpp"
-#include "engine/sogl_lights.hpp"
+#include "engine/env/sogl_lights.hpp"
 #include "util/sogl_helper.hpp"
 
 #include "renderer/modules/sogl_ssao_module.hpp"

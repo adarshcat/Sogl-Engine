@@ -1,4 +1,4 @@
-#include "sogl_ssao_module.hpp"
+#include "renderer/modules/sogl_ssao_module.hpp"
 
 namespace sogl
 {

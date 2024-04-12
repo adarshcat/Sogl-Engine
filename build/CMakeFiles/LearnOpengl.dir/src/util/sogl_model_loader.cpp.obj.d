@@ -159,7 +159,7 @@ CMakeFiles/LearnOpengl.dir/src/util/sogl_model_loader.cpp.obj: \
  C:/Users/adars/DOCUME~1/CPPPRO~1/FIRSTO~1/include/assimp/anim.h \
  C:/Users/adars/DOCUME~1/CPPPRO~1/FIRSTO~1/include/assimp/metadata.h \
  C:/Users/adars/DOCUME~1/CPPPRO~1/FIRSTO~1/include/assimp/postprocess.h \
- C:/Users/adars/DOCUME~1/CPPPRO~1/FIRSTO~1/src/engine/sogl_game_object.hpp \
+ C:/Users/adars/DOCUME~1/CPPPRO~1/FIRSTO~1/src/engine/game/sogl_game_object.hpp \
  C:/Users/adars/DOCUME~1/CPPPRO~1/FIRSTO~1/include/GL/glew.h \
  C:/msys64/mingw64/include/inttypes.h C:/msys64/mingw64/include/GL/glu.h \
  C:/msys64/mingw64/include/GL/gl.h \
@@ -305,7 +305,7 @@ CMakeFiles/LearnOpengl.dir/src/util/sogl_model_loader.cpp.obj: \
  C:/Users/adars/DOCUME~1/CPPPRO~1/FIRSTO~1/include/glm/gtc/../ext/matrix_transform.hpp \
  C:/Users/adars/DOCUME~1/CPPPRO~1/FIRSTO~1/include/glm/gtc/../ext/matrix_transform.inl \
  C:/Users/adars/DOCUME~1/CPPPRO~1/FIRSTO~1/include/glm/gtc/matrix_transform.inl \
- C:/Users/adars/DOCUME~1/CPPPRO~1/FIRSTO~1/src/engine/sogl_camera.hpp \
+ C:/Users/adars/DOCUME~1/CPPPRO~1/FIRSTO~1/src/engine/env/sogl_camera.hpp \
  C:/msys64/mingw64/include/c++/13.2.0/vector \
  C:/msys64/mingw64/include/c++/13.2.0/bits/stl_uninitialized.h \
  C:/msys64/mingw64/include/c++/13.2.0/bits/stl_vector.h \
@@ -348,7 +348,7 @@ CMakeFiles/LearnOpengl.dir/src/util/sogl_model_loader.cpp.obj: \
  C:/msys64/mingw64/include/c++/13.2.0/bits/ostream.tcc \
  C:/msys64/mingw64/include/c++/13.2.0/istream \
  C:/msys64/mingw64/include/c++/13.2.0/bits/istream.tcc \
- C:/Users/adars/DOCUME~1/CPPPRO~1/FIRSTO~1/src/engine/sogl_mesh_object.hpp \
+ C:/Users/adars/DOCUME~1/CPPPRO~1/FIRSTO~1/src/engine/game/sogl_mesh_object.hpp \
  C:/Users/adars/DOCUME~1/CPPPRO~1/FIRSTO~1/src/util/shaders/sogl_program_manager.hpp \
  C:/msys64/mingw64/include/c++/13.2.0/map \
  C:/msys64/mingw64/include/c++/13.2.0/bits/stl_tree.h \

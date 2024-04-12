@@ -68,26 +68,56 @@ include CMakeFiles/LearnOpengl.dir/progress.make
 # Include the compile flags for this target's objects.
 include CMakeFiles/LearnOpengl.dir/flags.make
 
-CMakeFiles/LearnOpengl.dir/src/engine/sogl_camera.cpp.obj: CMakeFiles/LearnOpengl.dir/flags.make
-CMakeFiles/LearnOpengl.dir/src/engine/sogl_camera.cpp.obj: CMakeFiles/LearnOpengl.dir/includes_CXX.rsp
-CMakeFiles/LearnOpengl.dir/src/engine/sogl_camera.cpp.obj: C:/Users/adars/Documents/Cpp\ Projects/FirstOpengl/src/engine/sogl_camera.cpp
-CMakeFiles/LearnOpengl.dir/src/engine/sogl_camera.cpp.obj: CMakeFiles/LearnOpengl.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir="C:\Users\adars\Documents\Cpp Projects\FirstOpengl\build\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/LearnOpengl.dir/src/engine/sogl_camera.cpp.obj"
-	C:\msys64\mingw64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/LearnOpengl.dir/src/engine/sogl_camera.cpp.obj -MF CMakeFiles\LearnOpengl.dir\src\engine\sogl_camera.cpp.obj.d -o CMakeFiles\LearnOpengl.dir\src\engine\sogl_camera.cpp.obj -c "C:\Users\adars\Documents\Cpp Projects\FirstOpengl\src\engine\sogl_camera.cpp"
+CMakeFiles/LearnOpengl.dir/src/engine/env/sogl_camera.cpp.obj: CMakeFiles/LearnOpengl.dir/flags.make
+CMakeFiles/LearnOpengl.dir/src/engine/env/sogl_camera.cpp.obj: CMakeFiles/LearnOpengl.dir/includes_CXX.rsp
+CMakeFiles/LearnOpengl.dir/src/engine/env/sogl_camera.cpp.obj: C:/Users/adars/Documents/Cpp\ Projects/FirstOpengl/src/engine/env/sogl_camera.cpp
+CMakeFiles/LearnOpengl.dir/src/engine/env/sogl_camera.cpp.obj: CMakeFiles/LearnOpengl.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir="C:\Users\adars\Documents\Cpp Projects\FirstOpengl\build\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/LearnOpengl.dir/src/engine/env/sogl_camera.cpp.obj"
+	C:\msys64\mingw64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/LearnOpengl.dir/src/engine/env/sogl_camera.cpp.obj -MF CMakeFiles\LearnOpengl.dir\src\engine\env\sogl_camera.cpp.obj.d -o CMakeFiles\LearnOpengl.dir\src\engine\env\sogl_camera.cpp.obj -c "C:\Users\adars\Documents\Cpp Projects\FirstOpengl\src\engine\env\sogl_camera.cpp"
 
-CMakeFiles/LearnOpengl.dir/src/engine/sogl_camera.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/LearnOpengl.dir/src/engine/sogl_camera.cpp.i"
-	C:\msys64\mingw64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "C:\Users\adars\Documents\Cpp Projects\FirstOpengl\src\engine\sogl_camera.cpp" > CMakeFiles\LearnOpengl.dir\src\engine\sogl_camera.cpp.i
+CMakeFiles/LearnOpengl.dir/src/engine/env/sogl_camera.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/LearnOpengl.dir/src/engine/env/sogl_camera.cpp.i"
+	C:\msys64\mingw64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "C:\Users\adars\Documents\Cpp Projects\FirstOpengl\src\engine\env\sogl_camera.cpp" > CMakeFiles\LearnOpengl.dir\src\engine\env\sogl_camera.cpp.i
 
-CMakeFiles/LearnOpengl.dir/src/engine/sogl_camera.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/LearnOpengl.dir/src/engine/sogl_camera.cpp.s"
-	C:\msys64\mingw64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "C:\Users\adars\Documents\Cpp Projects\FirstOpengl\src\engine\sogl_camera.cpp" -o CMakeFiles\LearnOpengl.dir\src\engine\sogl_camera.cpp.s
+CMakeFiles/LearnOpengl.dir/src/engine/env/sogl_camera.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/LearnOpengl.dir/src/engine/env/sogl_camera.cpp.s"
+	C:\msys64\mingw64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "C:\Users\adars\Documents\Cpp Projects\FirstOpengl\src\engine\env\sogl_camera.cpp" -o CMakeFiles\LearnOpengl.dir\src\engine\env\sogl_camera.cpp.s
+
+CMakeFiles/LearnOpengl.dir/src/engine/game/sogl_game_object.cpp.obj: CMakeFiles/LearnOpengl.dir/flags.make
+CMakeFiles/LearnOpengl.dir/src/engine/game/sogl_game_object.cpp.obj: CMakeFiles/LearnOpengl.dir/includes_CXX.rsp
+CMakeFiles/LearnOpengl.dir/src/engine/game/sogl_game_object.cpp.obj: C:/Users/adars/Documents/Cpp\ Projects/FirstOpengl/src/engine/game/sogl_game_object.cpp
+CMakeFiles/LearnOpengl.dir/src/engine/game/sogl_game_object.cpp.obj: CMakeFiles/LearnOpengl.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir="C:\Users\adars\Documents\Cpp Projects\FirstOpengl\build\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/LearnOpengl.dir/src/engine/game/sogl_game_object.cpp.obj"
+	C:\msys64\mingw64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/LearnOpengl.dir/src/engine/game/sogl_game_object.cpp.obj -MF CMakeFiles\LearnOpengl.dir\src\engine\game\sogl_game_object.cpp.obj.d -o CMakeFiles\LearnOpengl.dir\src\engine\game\sogl_game_object.cpp.obj -c "C:\Users\adars\Documents\Cpp Projects\FirstOpengl\src\engine\game\sogl_game_object.cpp"
+
+CMakeFiles/LearnOpengl.dir/src/engine/game/sogl_game_object.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/LearnOpengl.dir/src/engine/game/sogl_game_object.cpp.i"
+	C:\msys64\mingw64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "C:\Users\adars\Documents\Cpp Projects\FirstOpengl\src\engine\game\sogl_game_object.cpp" > CMakeFiles\LearnOpengl.dir\src\engine\game\sogl_game_object.cpp.i
+
+CMakeFiles/LearnOpengl.dir/src/engine/game/sogl_game_object.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/LearnOpengl.dir/src/engine/game/sogl_game_object.cpp.s"
+	C:\msys64\mingw64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "C:\Users\adars\Documents\Cpp Projects\FirstOpengl\src\engine\game\sogl_game_object.cpp" -o CMakeFiles\LearnOpengl.dir\src\engine\game\sogl_game_object.cpp.s
+
+CMakeFiles/LearnOpengl.dir/src/engine/game/sogl_mesh_object.cpp.obj: CMakeFiles/LearnOpengl.dir/flags.make
+CMakeFiles/LearnOpengl.dir/src/engine/game/sogl_mesh_object.cpp.obj: CMakeFiles/LearnOpengl.dir/includes_CXX.rsp
+CMakeFiles/LearnOpengl.dir/src/engine/game/sogl_mesh_object.cpp.obj: C:/Users/adars/Documents/Cpp\ Projects/FirstOpengl/src/engine/game/sogl_mesh_object.cpp
+CMakeFiles/LearnOpengl.dir/src/engine/game/sogl_mesh_object.cpp.obj: CMakeFiles/LearnOpengl.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir="C:\Users\adars\Documents\Cpp Projects\FirstOpengl\build\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/LearnOpengl.dir/src/engine/game/sogl_mesh_object.cpp.obj"
+	C:\msys64\mingw64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/LearnOpengl.dir/src/engine/game/sogl_mesh_object.cpp.obj -MF CMakeFiles\LearnOpengl.dir\src\engine\game\sogl_mesh_object.cpp.obj.d -o CMakeFiles\LearnOpengl.dir\src\engine\game\sogl_mesh_object.cpp.obj -c "C:\Users\adars\Documents\Cpp Projects\FirstOpengl\src\engine\game\sogl_mesh_object.cpp"
+
+CMakeFiles/LearnOpengl.dir/src/engine/game/sogl_mesh_object.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/LearnOpengl.dir/src/engine/game/sogl_mesh_object.cpp.i"
+	C:\msys64\mingw64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "C:\Users\adars\Documents\Cpp Projects\FirstOpengl\src\engine\game\sogl_mesh_object.cpp" > CMakeFiles\LearnOpengl.dir\src\engine\game\sogl_mesh_object.cpp.i
+
+CMakeFiles/LearnOpengl.dir/src/engine/game/sogl_mesh_object.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/LearnOpengl.dir/src/engine/game/sogl_mesh_object.cpp.s"
+	C:\msys64\mingw64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "C:\Users\adars\Documents\Cpp Projects\FirstOpengl\src\engine\game\sogl_mesh_object.cpp" -o CMakeFiles\LearnOpengl.dir\src\engine\game\sogl_mesh_object.cpp.s
 
 CMakeFiles/LearnOpengl.dir/src/engine/sogl_engine.cpp.obj: CMakeFiles/LearnOpengl.dir/flags.make
 CMakeFiles/LearnOpengl.dir/src/engine/sogl_engine.cpp.obj: CMakeFiles/LearnOpengl.dir/includes_CXX.rsp
 CMakeFiles/LearnOpengl.dir/src/engine/sogl_engine.cpp.obj: C:/Users/adars/Documents/Cpp\ Projects/FirstOpengl/src/engine/sogl_engine.cpp
 CMakeFiles/LearnOpengl.dir/src/engine/sogl_engine.cpp.obj: CMakeFiles/LearnOpengl.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir="C:\Users\adars\Documents\Cpp Projects\FirstOpengl\build\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/LearnOpengl.dir/src/engine/sogl_engine.cpp.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir="C:\Users\adars\Documents\Cpp Projects\FirstOpengl\build\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/LearnOpengl.dir/src/engine/sogl_engine.cpp.obj"
 	C:\msys64\mingw64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/LearnOpengl.dir/src/engine/sogl_engine.cpp.obj -MF CMakeFiles\LearnOpengl.dir\src\engine\sogl_engine.cpp.obj.d -o CMakeFiles\LearnOpengl.dir\src\engine\sogl_engine.cpp.obj -c "C:\Users\adars\Documents\Cpp Projects\FirstOpengl\src\engine\sogl_engine.cpp"
 
 CMakeFiles/LearnOpengl.dir/src/engine/sogl_engine.cpp.i: cmake_force
@@ -97,36 +127,6 @@ CMakeFiles/LearnOpengl.dir/src/engine/sogl_engine.cpp.i: cmake_force
 CMakeFiles/LearnOpengl.dir/src/engine/sogl_engine.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/LearnOpengl.dir/src/engine/sogl_engine.cpp.s"
 	C:\msys64\mingw64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "C:\Users\adars\Documents\Cpp Projects\FirstOpengl\src\engine\sogl_engine.cpp" -o CMakeFiles\LearnOpengl.dir\src\engine\sogl_engine.cpp.s
-
-CMakeFiles/LearnOpengl.dir/src/engine/sogl_game_object.cpp.obj: CMakeFiles/LearnOpengl.dir/flags.make
-CMakeFiles/LearnOpengl.dir/src/engine/sogl_game_object.cpp.obj: CMakeFiles/LearnOpengl.dir/includes_CXX.rsp
-CMakeFiles/LearnOpengl.dir/src/engine/sogl_game_object.cpp.obj: C:/Users/adars/Documents/Cpp\ Projects/FirstOpengl/src/engine/sogl_game_object.cpp
-CMakeFiles/LearnOpengl.dir/src/engine/sogl_game_object.cpp.obj: CMakeFiles/LearnOpengl.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir="C:\Users\adars\Documents\Cpp Projects\FirstOpengl\build\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/LearnOpengl.dir/src/engine/sogl_game_object.cpp.obj"
-	C:\msys64\mingw64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/LearnOpengl.dir/src/engine/sogl_game_object.cpp.obj -MF CMakeFiles\LearnOpengl.dir\src\engine\sogl_game_object.cpp.obj.d -o CMakeFiles\LearnOpengl.dir\src\engine\sogl_game_object.cpp.obj -c "C:\Users\adars\Documents\Cpp Projects\FirstOpengl\src\engine\sogl_game_object.cpp"
-
-CMakeFiles/LearnOpengl.dir/src/engine/sogl_game_object.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/LearnOpengl.dir/src/engine/sogl_game_object.cpp.i"
-	C:\msys64\mingw64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "C:\Users\adars\Documents\Cpp Projects\FirstOpengl\src\engine\sogl_game_object.cpp" > CMakeFiles\LearnOpengl.dir\src\engine\sogl_game_object.cpp.i
-
-CMakeFiles/LearnOpengl.dir/src/engine/sogl_game_object.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/LearnOpengl.dir/src/engine/sogl_game_object.cpp.s"
-	C:\msys64\mingw64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "C:\Users\adars\Documents\Cpp Projects\FirstOpengl\src\engine\sogl_game_object.cpp" -o CMakeFiles\LearnOpengl.dir\src\engine\sogl_game_object.cpp.s
-
-CMakeFiles/LearnOpengl.dir/src/engine/sogl_mesh_object.cpp.obj: CMakeFiles/LearnOpengl.dir/flags.make
-CMakeFiles/LearnOpengl.dir/src/engine/sogl_mesh_object.cpp.obj: CMakeFiles/LearnOpengl.dir/includes_CXX.rsp
-CMakeFiles/LearnOpengl.dir/src/engine/sogl_mesh_object.cpp.obj: C:/Users/adars/Documents/Cpp\ Projects/FirstOpengl/src/engine/sogl_mesh_object.cpp
-CMakeFiles/LearnOpengl.dir/src/engine/sogl_mesh_object.cpp.obj: CMakeFiles/LearnOpengl.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir="C:\Users\adars\Documents\Cpp Projects\FirstOpengl\build\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/LearnOpengl.dir/src/engine/sogl_mesh_object.cpp.obj"
-	C:\msys64\mingw64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/LearnOpengl.dir/src/engine/sogl_mesh_object.cpp.obj -MF CMakeFiles\LearnOpengl.dir\src\engine\sogl_mesh_object.cpp.obj.d -o CMakeFiles\LearnOpengl.dir\src\engine\sogl_mesh_object.cpp.obj -c "C:\Users\adars\Documents\Cpp Projects\FirstOpengl\src\engine\sogl_mesh_object.cpp"
-
-CMakeFiles/LearnOpengl.dir/src/engine/sogl_mesh_object.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/LearnOpengl.dir/src/engine/sogl_mesh_object.cpp.i"
-	C:\msys64\mingw64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "C:\Users\adars\Documents\Cpp Projects\FirstOpengl\src\engine\sogl_mesh_object.cpp" > CMakeFiles\LearnOpengl.dir\src\engine\sogl_mesh_object.cpp.i
-
-CMakeFiles/LearnOpengl.dir/src/engine/sogl_mesh_object.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/LearnOpengl.dir/src/engine/sogl_mesh_object.cpp.s"
-	C:\msys64\mingw64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "C:\Users\adars\Documents\Cpp Projects\FirstOpengl\src\engine\sogl_mesh_object.cpp" -o CMakeFiles\LearnOpengl.dir\src\engine\sogl_mesh_object.cpp.s
 
 CMakeFiles/LearnOpengl.dir/src/main.cpp.obj: CMakeFiles/LearnOpengl.dir/flags.make
 CMakeFiles/LearnOpengl.dir/src/main.cpp.obj: CMakeFiles/LearnOpengl.dir/includes_CXX.rsp
@@ -355,10 +355,10 @@ CMakeFiles/LearnOpengl.dir/src/util/sogl_model_loader.cpp.s: cmake_force
 
 # Object files for target LearnOpengl
 LearnOpengl_OBJECTS = \
-"CMakeFiles/LearnOpengl.dir/src/engine/sogl_camera.cpp.obj" \
+"CMakeFiles/LearnOpengl.dir/src/engine/env/sogl_camera.cpp.obj" \
+"CMakeFiles/LearnOpengl.dir/src/engine/game/sogl_game_object.cpp.obj" \
+"CMakeFiles/LearnOpengl.dir/src/engine/game/sogl_mesh_object.cpp.obj" \
 "CMakeFiles/LearnOpengl.dir/src/engine/sogl_engine.cpp.obj" \
-"CMakeFiles/LearnOpengl.dir/src/engine/sogl_game_object.cpp.obj" \
-"CMakeFiles/LearnOpengl.dir/src/engine/sogl_mesh_object.cpp.obj" \
 "CMakeFiles/LearnOpengl.dir/src/main.cpp.obj" \
 "CMakeFiles/LearnOpengl.dir/src/renderer/modules/sogl_ssao_module.cpp.obj" \
 "CMakeFiles/LearnOpengl.dir/src/renderer/sogl_renderer.cpp.obj" \
@@ -378,10 +378,10 @@ LearnOpengl_OBJECTS = \
 # External object files for target LearnOpengl
 LearnOpengl_EXTERNAL_OBJECTS =
 
-LearnOpengl.exe: CMakeFiles/LearnOpengl.dir/src/engine/sogl_camera.cpp.obj
+LearnOpengl.exe: CMakeFiles/LearnOpengl.dir/src/engine/env/sogl_camera.cpp.obj
+LearnOpengl.exe: CMakeFiles/LearnOpengl.dir/src/engine/game/sogl_game_object.cpp.obj
+LearnOpengl.exe: CMakeFiles/LearnOpengl.dir/src/engine/game/sogl_mesh_object.cpp.obj
 LearnOpengl.exe: CMakeFiles/LearnOpengl.dir/src/engine/sogl_engine.cpp.obj
-LearnOpengl.exe: CMakeFiles/LearnOpengl.dir/src/engine/sogl_game_object.cpp.obj
-LearnOpengl.exe: CMakeFiles/LearnOpengl.dir/src/engine/sogl_mesh_object.cpp.obj
 LearnOpengl.exe: CMakeFiles/LearnOpengl.dir/src/main.cpp.obj
 LearnOpengl.exe: CMakeFiles/LearnOpengl.dir/src/renderer/modules/sogl_ssao_module.cpp.obj
 LearnOpengl.exe: CMakeFiles/LearnOpengl.dir/src/renderer/sogl_renderer.cpp.obj

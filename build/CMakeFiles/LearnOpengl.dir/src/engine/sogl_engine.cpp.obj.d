@@ -261,13 +261,13 @@ CMakeFiles/LearnOpengl.dir/src/engine/sogl_engine.cpp.obj: \
  C:/msys64/mingw64/include/c++/13.2.0/bits/uses_allocator.h \
  C:/msys64/mingw64/include/c++/13.2.0/bits/uses_allocator_args.h \
  C:/msys64/mingw64/include/c++/13.2.0/tuple \
- C:/Users/adars/DOCUME~1/CPPPRO~1/FIRSTO~1/src/engine/sogl_camera.hpp \
+ C:/Users/adars/DOCUME~1/CPPPRO~1/FIRSTO~1/src/engine/env/sogl_camera.hpp \
  C:/msys64/mingw64/include/c++/13.2.0/vector \
  C:/msys64/mingw64/include/c++/13.2.0/bits/stl_uninitialized.h \
  C:/msys64/mingw64/include/c++/13.2.0/bits/stl_vector.h \
  C:/msys64/mingw64/include/c++/13.2.0/bits/stl_bvector.h \
  C:/msys64/mingw64/include/c++/13.2.0/bits/vector.tcc \
- C:/Users/adars/DOCUME~1/CPPPRO~1/FIRSTO~1/src/engine/sogl_game_object.hpp \
+ C:/Users/adars/DOCUME~1/CPPPRO~1/FIRSTO~1/src/engine/game/sogl_game_object.hpp \
  C:/msys64/mingw64/include/c++/13.2.0/iostream \
  C:/msys64/mingw64/include/c++/13.2.0/ostream \
  C:/msys64/mingw64/include/c++/13.2.0/ios \
@@ -320,7 +320,7 @@ CMakeFiles/LearnOpengl.dir/src/engine/sogl_engine.cpp.obj: \
  C:/msys64/mingw64/include/c++/13.2.0/bits/stl_map.h \
  C:/msys64/mingw64/include/c++/13.2.0/bits/stl_multimap.h \
  C:/msys64/mingw64/include/c++/13.2.0/bits/erase_if.h \
- C:/Users/adars/DOCUME~1/CPPPRO~1/FIRSTO~1/src/engine/sogl_lights.hpp \
+ C:/Users/adars/DOCUME~1/CPPPRO~1/FIRSTO~1/src/engine/env/sogl_lights.hpp \
  C:/Users/adars/DOCUME~1/CPPPRO~1/FIRSTO~1/src/util/sogl_helper.hpp \
  C:/Users/adars/DOCUME~1/CPPPRO~1/FIRSTO~1/src/renderer/modules/sogl_ssao_module.hpp \
  C:/msys64/mingw64/include/c++/13.2.0/memory \
@@ -400,4 +400,4 @@ CMakeFiles/LearnOpengl.dir/src/engine/sogl_engine.cpp.obj: \
  C:/Users/adars/DOCUME~1/CPPPRO~1/FIRSTO~1/include/assimp/anim.h \
  C:/Users/adars/DOCUME~1/CPPPRO~1/FIRSTO~1/include/assimp/metadata.h \
  C:/Users/adars/DOCUME~1/CPPPRO~1/FIRSTO~1/include/assimp/postprocess.h \
- C:/Users/adars/DOCUME~1/CPPPRO~1/FIRSTO~1/src/engine/sogl_mesh_object.hpp
+ C:/Users/adars/DOCUME~1/CPPPRO~1/FIRSTO~1/src/engine/game/sogl_mesh_object.hpp

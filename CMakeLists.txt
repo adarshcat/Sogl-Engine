@@ -16,7 +16,14 @@ include_directories(
         src/util/imgui/backends
 )
 
-file(GLOB SOURCES src/engine/*.cpp src/renderer/*.cpp src/renderer/modules/*.cpp src/util/*.cpp src/util/shaders/*.cpp src/util/imgui/*.cpp src/util/imgui/backends/*.cpp src/*.cpp)
+file(GLOB SOURCES 
+    src/engine/*.cpp
+    src/engine/env/*.cpp
+    src/engine/game/*.cpp
+    src/engine/misc/*.cpp
+    src/renderer/*.cpp src/renderer/modules/*.cpp
+    src/util/*.cpp src/util/shaders/*.cpp src/util/imgui/*.cpp src/util/imgui/backends/*.cpp
+    src/*.cpp)
 
 add_executable(LearnOpengl ${SOURCES})
 

@@ -522,29 +522,77 @@ LearnOpengl/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\LearnOpengl.dir\build.make CMakeFiles/LearnOpengl.dir/build
 .PHONY : LearnOpengl/fast
 
-src/engine/sogl_camera.obj: src/engine/sogl_camera.cpp.obj
-.PHONY : src/engine/sogl_camera.obj
+src/engine/env/sogl_camera.obj: src/engine/env/sogl_camera.cpp.obj
+.PHONY : src/engine/env/sogl_camera.obj
 
 # target to build an object file
-src/engine/sogl_camera.cpp.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\LearnOpengl.dir\build.make CMakeFiles/LearnOpengl.dir/src/engine/sogl_camera.cpp.obj
-.PHONY : src/engine/sogl_camera.cpp.obj
+src/engine/env/sogl_camera.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\LearnOpengl.dir\build.make CMakeFiles/LearnOpengl.dir/src/engine/env/sogl_camera.cpp.obj
+.PHONY : src/engine/env/sogl_camera.cpp.obj
 
-src/engine/sogl_camera.i: src/engine/sogl_camera.cpp.i
-.PHONY : src/engine/sogl_camera.i
+src/engine/env/sogl_camera.i: src/engine/env/sogl_camera.cpp.i
+.PHONY : src/engine/env/sogl_camera.i
 
 # target to preprocess a source file
-src/engine/sogl_camera.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\LearnOpengl.dir\build.make CMakeFiles/LearnOpengl.dir/src/engine/sogl_camera.cpp.i
-.PHONY : src/engine/sogl_camera.cpp.i
+src/engine/env/sogl_camera.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\LearnOpengl.dir\build.make CMakeFiles/LearnOpengl.dir/src/engine/env/sogl_camera.cpp.i
+.PHONY : src/engine/env/sogl_camera.cpp.i
 
-src/engine/sogl_camera.s: src/engine/sogl_camera.cpp.s
-.PHONY : src/engine/sogl_camera.s
+src/engine/env/sogl_camera.s: src/engine/env/sogl_camera.cpp.s
+.PHONY : src/engine/env/sogl_camera.s
 
 # target to generate assembly for a file
-src/engine/sogl_camera.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\LearnOpengl.dir\build.make CMakeFiles/LearnOpengl.dir/src/engine/sogl_camera.cpp.s
-.PHONY : src/engine/sogl_camera.cpp.s
+src/engine/env/sogl_camera.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\LearnOpengl.dir\build.make CMakeFiles/LearnOpengl.dir/src/engine/env/sogl_camera.cpp.s
+.PHONY : src/engine/env/sogl_camera.cpp.s
+
+src/engine/game/sogl_game_object.obj: src/engine/game/sogl_game_object.cpp.obj
+.PHONY : src/engine/game/sogl_game_object.obj
+
+# target to build an object file
+src/engine/game/sogl_game_object.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\LearnOpengl.dir\build.make CMakeFiles/LearnOpengl.dir/src/engine/game/sogl_game_object.cpp.obj
+.PHONY : src/engine/game/sogl_game_object.cpp.obj
+
+src/engine/game/sogl_game_object.i: src/engine/game/sogl_game_object.cpp.i
+.PHONY : src/engine/game/sogl_game_object.i
+
+# target to preprocess a source file
+src/engine/game/sogl_game_object.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\LearnOpengl.dir\build.make CMakeFiles/LearnOpengl.dir/src/engine/game/sogl_game_object.cpp.i
+.PHONY : src/engine/game/sogl_game_object.cpp.i
+
+src/engine/game/sogl_game_object.s: src/engine/game/sogl_game_object.cpp.s
+.PHONY : src/engine/game/sogl_game_object.s
+
+# target to generate assembly for a file
+src/engine/game/sogl_game_object.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\LearnOpengl.dir\build.make CMakeFiles/LearnOpengl.dir/src/engine/game/sogl_game_object.cpp.s
+.PHONY : src/engine/game/sogl_game_object.cpp.s
+
+src/engine/game/sogl_mesh_object.obj: src/engine/game/sogl_mesh_object.cpp.obj
+.PHONY : src/engine/game/sogl_mesh_object.obj
+
+# target to build an object file
+src/engine/game/sogl_mesh_object.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\LearnOpengl.dir\build.make CMakeFiles/LearnOpengl.dir/src/engine/game/sogl_mesh_object.cpp.obj
+.PHONY : src/engine/game/sogl_mesh_object.cpp.obj
+
+src/engine/game/sogl_mesh_object.i: src/engine/game/sogl_mesh_object.cpp.i
+.PHONY : src/engine/game/sogl_mesh_object.i
+
+# target to preprocess a source file
+src/engine/game/sogl_mesh_object.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\LearnOpengl.dir\build.make CMakeFiles/LearnOpengl.dir/src/engine/game/sogl_mesh_object.cpp.i
+.PHONY : src/engine/game/sogl_mesh_object.cpp.i
+
+src/engine/game/sogl_mesh_object.s: src/engine/game/sogl_mesh_object.cpp.s
+.PHONY : src/engine/game/sogl_mesh_object.s
+
+# target to generate assembly for a file
+src/engine/game/sogl_mesh_object.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\LearnOpengl.dir\build.make CMakeFiles/LearnOpengl.dir/src/engine/game/sogl_mesh_object.cpp.s
+.PHONY : src/engine/game/sogl_mesh_object.cpp.s
 
 src/engine/sogl_engine.obj: src/engine/sogl_engine.cpp.obj
 .PHONY : src/engine/sogl_engine.obj
@@ -569,54 +617,6 @@ src/engine/sogl_engine.s: src/engine/sogl_engine.cpp.s
 src/engine/sogl_engine.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\LearnOpengl.dir\build.make CMakeFiles/LearnOpengl.dir/src/engine/sogl_engine.cpp.s
 .PHONY : src/engine/sogl_engine.cpp.s
-
-src/engine/sogl_game_object.obj: src/engine/sogl_game_object.cpp.obj
-.PHONY : src/engine/sogl_game_object.obj
-
-# target to build an object file
-src/engine/sogl_game_object.cpp.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\LearnOpengl.dir\build.make CMakeFiles/LearnOpengl.dir/src/engine/sogl_game_object.cpp.obj
-.PHONY : src/engine/sogl_game_object.cpp.obj
-
-src/engine/sogl_game_object.i: src/engine/sogl_game_object.cpp.i
-.PHONY : src/engine/sogl_game_object.i
-
-# target to preprocess a source file
-src/engine/sogl_game_object.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\LearnOpengl.dir\build.make CMakeFiles/LearnOpengl.dir/src/engine/sogl_game_object.cpp.i
-.PHONY : src/engine/sogl_game_object.cpp.i
-
-src/engine/sogl_game_object.s: src/engine/sogl_game_object.cpp.s
-.PHONY : src/engine/sogl_game_object.s
-
-# target to generate assembly for a file
-src/engine/sogl_game_object.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\LearnOpengl.dir\build.make CMakeFiles/LearnOpengl.dir/src/engine/sogl_game_object.cpp.s
-.PHONY : src/engine/sogl_game_object.cpp.s
-
-src/engine/sogl_mesh_object.obj: src/engine/sogl_mesh_object.cpp.obj
-.PHONY : src/engine/sogl_mesh_object.obj
-
-# target to build an object file
-src/engine/sogl_mesh_object.cpp.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\LearnOpengl.dir\build.make CMakeFiles/LearnOpengl.dir/src/engine/sogl_mesh_object.cpp.obj
-.PHONY : src/engine/sogl_mesh_object.cpp.obj
-
-src/engine/sogl_mesh_object.i: src/engine/sogl_mesh_object.cpp.i
-.PHONY : src/engine/sogl_mesh_object.i
-
-# target to preprocess a source file
-src/engine/sogl_mesh_object.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\LearnOpengl.dir\build.make CMakeFiles/LearnOpengl.dir/src/engine/sogl_mesh_object.cpp.i
-.PHONY : src/engine/sogl_mesh_object.cpp.i
-
-src/engine/sogl_mesh_object.s: src/engine/sogl_mesh_object.cpp.s
-.PHONY : src/engine/sogl_mesh_object.s
-
-# target to generate assembly for a file
-src/engine/sogl_mesh_object.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\LearnOpengl.dir\build.make CMakeFiles/LearnOpengl.dir/src/engine/sogl_mesh_object.cpp.s
-.PHONY : src/engine/sogl_mesh_object.cpp.s
 
 src/main.obj: src/main.cpp.obj
 .PHONY : src/main.obj
@@ -1018,18 +1018,18 @@ help:
 	@echo ... NightlyTest
 	@echo ... NightlyUpdate
 	@echo ... LearnOpengl
-	@echo ... src/engine/sogl_camera.obj
-	@echo ... src/engine/sogl_camera.i
-	@echo ... src/engine/sogl_camera.s
+	@echo ... src/engine/env/sogl_camera.obj
+	@echo ... src/engine/env/sogl_camera.i
+	@echo ... src/engine/env/sogl_camera.s
+	@echo ... src/engine/game/sogl_game_object.obj
+	@echo ... src/engine/game/sogl_game_object.i
+	@echo ... src/engine/game/sogl_game_object.s
+	@echo ... src/engine/game/sogl_mesh_object.obj
+	@echo ... src/engine/game/sogl_mesh_object.i
+	@echo ... src/engine/game/sogl_mesh_object.s
 	@echo ... src/engine/sogl_engine.obj
 	@echo ... src/engine/sogl_engine.i
 	@echo ... src/engine/sogl_engine.s
-	@echo ... src/engine/sogl_game_object.obj
-	@echo ... src/engine/sogl_game_object.i
-	@echo ... src/engine/sogl_game_object.s
-	@echo ... src/engine/sogl_mesh_object.obj
-	@echo ... src/engine/sogl_mesh_object.i
-	@echo ... src/engine/sogl_mesh_object.s
 	@echo ... src/main.obj
 	@echo ... src/main.i
 	@echo ... src/main.s

@@ -3,7 +3,7 @@
 #include <GL/glew.h>
 #include <glm/gtc/matrix_transform.hpp>
 
-#include "engine/sogl_camera.hpp"
+#include "engine/env/sogl_camera.hpp"
 #include "util/sogl_helper.hpp"
 #include "util/shaders/sogl_program_manager.hpp"
 

@@ -8,10 +8,10 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
-  "C:/Users/adars/Documents/Cpp Projects/FirstOpengl/src/engine/sogl_camera.cpp" "CMakeFiles/LearnOpengl.dir/src/engine/sogl_camera.cpp.obj" "gcc" "CMakeFiles/LearnOpengl.dir/src/engine/sogl_camera.cpp.obj.d"
+  "C:/Users/adars/Documents/Cpp Projects/FirstOpengl/src/engine/env/sogl_camera.cpp" "CMakeFiles/LearnOpengl.dir/src/engine/env/sogl_camera.cpp.obj" "gcc" "CMakeFiles/LearnOpengl.dir/src/engine/env/sogl_camera.cpp.obj.d"
+  "C:/Users/adars/Documents/Cpp Projects/FirstOpengl/src/engine/game/sogl_game_object.cpp" "CMakeFiles/LearnOpengl.dir/src/engine/game/sogl_game_object.cpp.obj" "gcc" "CMakeFiles/LearnOpengl.dir/src/engine/game/sogl_game_object.cpp.obj.d"
+  "C:/Users/adars/Documents/Cpp Projects/FirstOpengl/src/engine/game/sogl_mesh_object.cpp" "CMakeFiles/LearnOpengl.dir/src/engine/game/sogl_mesh_object.cpp.obj" "gcc" "CMakeFiles/LearnOpengl.dir/src/engine/game/sogl_mesh_object.cpp.obj.d"
   "C:/Users/adars/Documents/Cpp Projects/FirstOpengl/src/engine/sogl_engine.cpp" "CMakeFiles/LearnOpengl.dir/src/engine/sogl_engine.cpp.obj" "gcc" "CMakeFiles/LearnOpengl.dir/src/engine/sogl_engine.cpp.obj.d"
-  "C:/Users/adars/Documents/Cpp Projects/FirstOpengl/src/engine/sogl_game_object.cpp" "CMakeFiles/LearnOpengl.dir/src/engine/sogl_game_object.cpp.obj" "gcc" "CMakeFiles/LearnOpengl.dir/src/engine/sogl_game_object.cpp.obj.d"
-  "C:/Users/adars/Documents/Cpp Projects/FirstOpengl/src/engine/sogl_mesh_object.cpp" "CMakeFiles/LearnOpengl.dir/src/engine/sogl_mesh_object.cpp.obj" "gcc" "CMakeFiles/LearnOpengl.dir/src/engine/sogl_mesh_object.cpp.obj.d"
   "C:/Users/adars/Documents/Cpp Projects/FirstOpengl/src/main.cpp" "CMakeFiles/LearnOpengl.dir/src/main.cpp.obj" "gcc" "CMakeFiles/LearnOpengl.dir/src/main.cpp.obj.d"
   "C:/Users/adars/Documents/Cpp Projects/FirstOpengl/src/renderer/modules/sogl_ssao_module.cpp" "CMakeFiles/LearnOpengl.dir/src/renderer/modules/sogl_ssao_module.cpp.obj" "gcc" "CMakeFiles/LearnOpengl.dir/src/renderer/modules/sogl_ssao_module.cpp.obj.d"
   "C:/Users/adars/Documents/Cpp Projects/FirstOpengl/src/renderer/sogl_renderer.cpp" "CMakeFiles/LearnOpengl.dir/src/renderer/sogl_renderer.cpp.obj" "gcc" "CMakeFiles/LearnOpengl.dir/src/renderer/sogl_renderer.cpp.obj.d"

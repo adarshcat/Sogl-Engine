@@ -3,6 +3,7 @@
 #include "renderer/sogl_renderer.hpp"
 #include "util/shaders/sogl_program_manager.hpp"
 #include "util/sogl_camera_controller.hpp"
+#include "engine/env/sogl_lights.hpp"
 
 #include "imgui.h"
 #include "imgui_impl_glfw.h"
@@ -27,8 +28,8 @@ namespace sogl
         void addGameObjects(std::vector<std::unique_ptr<SoglGameObject>> _gameObjs);
         
         private:
-        const int RENDER_WIDTH = 1024;
-        const int RENDER_HEIGHT = 768;
+        const int RENDER_WIDTH = 1224; //1024
+        const int RENDER_HEIGHT = 768; //768
 
         void initialiseImguiDebug();
         void packCameraData(CameraData &camData);
@@ -50,6 +51,7 @@ namespace sogl
         bool ssaoBlur = true;
 
         float time = 3.45;
+        float sunStrength = 8.0;
 #endif
     };
 } // namespace sogl

@@ -1,6 +1,6 @@
 CMakeFiles/LearnOpengl.dir/src/renderer/modules/sogl_ssao_module.cpp.obj: \
  C:\Users\adars\Documents\Cpp\ Projects\FirstOpengl\src\renderer\modules\sogl_ssao_module.cpp \
- C:\Users\adars\Documents\Cpp\ Projects\FirstOpengl\src\renderer\modules\sogl_ssao_module.hpp \
+ C:/Users/adars/DOCUME~1/CPPPRO~1/FIRSTO~1/src/renderer/modules/sogl_ssao_module.hpp \
  C:/Users/adars/DOCUME~1/CPPPRO~1/FIRSTO~1/include/GL/glew.h \
  C:/msys64/mingw64/include/inttypes.h C:/msys64/mingw64/include/crtdefs.h \
  C:/msys64/mingw64/include/corecrt.h C:/msys64/mingw64/include/_mingw.h \
@@ -208,7 +208,7 @@ CMakeFiles/LearnOpengl.dir/src/renderer/modules/sogl_ssao_module.cpp.obj: \
  C:/Users/adars/DOCUME~1/CPPPRO~1/FIRSTO~1/include/glm/gtc/../ext/matrix_transform.hpp \
  C:/Users/adars/DOCUME~1/CPPPRO~1/FIRSTO~1/include/glm/gtc/../ext/matrix_transform.inl \
  C:/Users/adars/DOCUME~1/CPPPRO~1/FIRSTO~1/include/glm/gtc/matrix_transform.inl \
- C:/Users/adars/DOCUME~1/CPPPRO~1/FIRSTO~1/src/engine/sogl_camera.hpp \
+ C:/Users/adars/DOCUME~1/CPPPRO~1/FIRSTO~1/src/engine/env/sogl_camera.hpp \
  C:/msys64/mingw64/include/c++/13.2.0/vector \
  C:/msys64/mingw64/include/c++/13.2.0/bits/allocator.h \
  C:/msys64/mingw64/include/c++/13.2.0/x86_64-w64-mingw32/bits/c++allocator.h \

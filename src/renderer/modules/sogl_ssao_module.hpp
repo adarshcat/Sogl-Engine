@@ -29,8 +29,8 @@ namespace sogl
         GLuint ssaoBlurOutput, ssaoOutput;
 
         private:
-        std::string ssaoShader = "ssao";
-        std::string ssaoBlurShader = "ssao_blur";
+        std::string ssaoShader = "ssao/ssao";
+        std::string ssaoBlurShader = "ssao/ssao_blur";
 
         //ssao
         const unsigned int SSAO_WIDTH;

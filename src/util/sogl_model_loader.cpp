@@ -4,7 +4,6 @@
 namespace sogl
 {
     std::string SoglModelLoader::modelRoot = "assets/models/";
-    std::string SoglModelLoader::defaultShader = "default";
     
     std::vector<std::unique_ptr<SoglGameObject>> SoglModelLoader::loadModel(std::string relativePath){
         std::string path = modelRoot + relativePath;
@@ -83,7 +82,7 @@ namespace sogl
         Material mat;
         mat.albedo = glm::vec3(albedo.r, albedo.g, albedo.b);
 
-        return std::unique_ptr<SoglGameObject>(new SoglMeshObject(vertices, indices, defaultShader, mat));
+        return std::unique_ptr<SoglGameObject>(new SoglMeshObject(vertices, indices, mat));
     }
 
     glm::mat4 SoglModelLoader::aiMatrixToGLM(aiMatrix4x4 from){

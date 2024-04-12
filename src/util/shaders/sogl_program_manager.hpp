@@ -27,5 +27,8 @@ namespace sogl
 
         static std::string programPath;
         static std::map <std::string, GLuint> activePrograms;
+
+        static std::string defaultShader;
+        static std::string shadowSuffix;
     };
 } // namespace sogl

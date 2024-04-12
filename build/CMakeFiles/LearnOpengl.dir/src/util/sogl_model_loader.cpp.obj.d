@@ -349,6 +349,14 @@ CMakeFiles/LearnOpengl.dir/src/util/sogl_model_loader.cpp.obj: \
  C:/msys64/mingw64/include/c++/13.2.0/istream \
  C:/msys64/mingw64/include/c++/13.2.0/bits/istream.tcc \
  C:/Users/adars/DOCUME~1/CPPPRO~1/FIRSTO~1/src/engine/sogl_mesh_object.hpp \
+ C:/Users/adars/DOCUME~1/CPPPRO~1/FIRSTO~1/src/util/shaders/sogl_program_manager.hpp \
+ C:/msys64/mingw64/include/c++/13.2.0/map \
+ C:/msys64/mingw64/include/c++/13.2.0/bits/stl_tree.h \
+ C:/msys64/mingw64/include/c++/13.2.0/ext/aligned_buffer.h \
+ C:/msys64/mingw64/include/c++/13.2.0/bits/node_handle.h \
+ C:/msys64/mingw64/include/c++/13.2.0/bits/stl_map.h \
+ C:/msys64/mingw64/include/c++/13.2.0/bits/stl_multimap.h \
+ C:/msys64/mingw64/include/c++/13.2.0/bits/erase_if.h \
  C:/msys64/mingw64/include/c++/13.2.0/memory \
  C:/msys64/mingw64/include/c++/13.2.0/bits/stl_raw_storage_iter.h \
  C:/msys64/mingw64/include/c++/13.2.0/bits/align.h \
@@ -356,7 +364,6 @@ CMakeFiles/LearnOpengl.dir/src/util/sogl_model_loader.cpp.obj: \
  C:/msys64/mingw64/include/c++/13.2.0/bits/shared_ptr.h \
  C:/msys64/mingw64/include/c++/13.2.0/bits/shared_ptr_base.h \
  C:/msys64/mingw64/include/c++/13.2.0/bits/allocated_ptr.h \
- C:/msys64/mingw64/include/c++/13.2.0/ext/aligned_buffer.h \
  C:/msys64/mingw64/include/c++/13.2.0/ext/concurrence.h \
  C:/msys64/mingw64/include/c++/13.2.0/bits/shared_ptr_atomic.h \
  C:/msys64/mingw64/include/c++/13.2.0/bits/atomic_base.h \

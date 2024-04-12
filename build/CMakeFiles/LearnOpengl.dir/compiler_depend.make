@@ -4547,6 +4547,7 @@ CMakeFiles/LearnOpengl.dir/src/util/sogl_model_loader.cpp.obj: C:/Users/adars/Do
   C:/Users/adars/Documents/Cpp\ Projects/FirstOpengl/src/engine/sogl_camera.hpp \
   C:/Users/adars/Documents/Cpp\ Projects/FirstOpengl/src/engine/sogl_game_object.hpp \
   C:/Users/adars/Documents/Cpp\ Projects/FirstOpengl/src/engine/sogl_mesh_object.hpp \
+  C:/Users/adars/Documents/Cpp\ Projects/FirstOpengl/src/util/shaders/sogl_program_manager.hpp \
   C:/Users/adars/Documents/Cpp\ Projects/FirstOpengl/src/util/sogl_model_loader.hpp \
   C:/Users/adars/Documents/Cpp\ Projects/FirstOpengl/include/glm/common.hpp \
   C:/Users/adars/Documents/Cpp\ Projects/FirstOpengl/include/glm/detail/_fixes.hpp \
@@ -4706,6 +4707,7 @@ CMakeFiles/LearnOpengl.dir/src/util/sogl_model_loader.cpp.obj: C:/Users/adars/Do
   C:/msys64/mingw64/include/c++/13.2.0/bits/cpp_type_traits.h \
   C:/msys64/mingw64/include/c++/13.2.0/bits/cxxabi_forced.h \
   C:/msys64/mingw64/include/c++/13.2.0/bits/cxxabi_init_exception.h \
+  C:/msys64/mingw64/include/c++/13.2.0/bits/erase_if.h \
   C:/msys64/mingw64/include/c++/13.2.0/bits/exception.h \
   C:/msys64/mingw64/include/c++/13.2.0/bits/exception_defines.h \
   C:/msys64/mingw64/include/c++/13.2.0/bits/exception_ptr.h \
@@ -4725,6 +4727,7 @@ CMakeFiles/LearnOpengl.dir/src/util/sogl_model_loader.cpp.obj: C:/Users/adars/Do
   C:/msys64/mingw64/include/c++/13.2.0/bits/move.h \
   C:/msys64/mingw64/include/c++/13.2.0/bits/nested_exception.h \
   C:/msys64/mingw64/include/c++/13.2.0/bits/new_allocator.h \
+  C:/msys64/mingw64/include/c++/13.2.0/bits/node_handle.h \
   C:/msys64/mingw64/include/c++/13.2.0/bits/ostream.tcc \
   C:/msys64/mingw64/include/c++/13.2.0/bits/ostream_insert.h \
   C:/msys64/mingw64/include/c++/13.2.0/bits/postypes.h \
@@ -4747,9 +4750,12 @@ CMakeFiles/LearnOpengl.dir/src/util/sogl_model_loader.cpp.obj: C:/Users/adars/Do
   C:/msys64/mingw64/include/c++/13.2.0/bits/stl_iterator.h \
   C:/msys64/mingw64/include/c++/13.2.0/bits/stl_iterator_base_funcs.h \
   C:/msys64/mingw64/include/c++/13.2.0/bits/stl_iterator_base_types.h \
+  C:/msys64/mingw64/include/c++/13.2.0/bits/stl_map.h \
+  C:/msys64/mingw64/include/c++/13.2.0/bits/stl_multimap.h \
   C:/msys64/mingw64/include/c++/13.2.0/bits/stl_pair.h \
   C:/msys64/mingw64/include/c++/13.2.0/bits/stl_raw_storage_iter.h \
   C:/msys64/mingw64/include/c++/13.2.0/bits/stl_tempbuf.h \
+  C:/msys64/mingw64/include/c++/13.2.0/bits/stl_tree.h \
   C:/msys64/mingw64/include/c++/13.2.0/bits/stl_uninitialized.h \
   C:/msys64/mingw64/include/c++/13.2.0/bits/stl_vector.h \
   C:/msys64/mingw64/include/c++/13.2.0/bits/streambuf.tcc \
@@ -4790,6 +4796,7 @@ CMakeFiles/LearnOpengl.dir/src/util/sogl_model_loader.cpp.obj: C:/Users/adars/Do
   C:/msys64/mingw64/include/c++/13.2.0/iostream \
   C:/msys64/mingw64/include/c++/13.2.0/istream \
   C:/msys64/mingw64/include/c++/13.2.0/limits \
+  C:/msys64/mingw64/include/c++/13.2.0/map \
   C:/msys64/mingw64/include/c++/13.2.0/memory \
   C:/msys64/mingw64/include/c++/13.2.0/new \
   C:/msys64/mingw64/include/c++/13.2.0/ostream \

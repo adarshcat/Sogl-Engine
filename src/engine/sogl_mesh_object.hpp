@@ -5,7 +5,7 @@
 namespace sogl
 {
     struct Material{
-        glm::vec3 albedo;
+        glm::vec3 albedo = glm::vec3(1.0);
     };
 
     struct Vertex{
@@ -16,7 +16,9 @@ namespace sogl
 
     class SoglMeshObject : public SoglGameObject{
         public:
-        SoglMeshObject(std::vector<Vertex> &inVertices, std::vector<unsigned int> &inIndices, std::string &_shader, Material &mat);
+        SoglMeshObject(std::vector<Vertex> &_inVertices, std::vector<unsigned int> &_inIndices, std::string &_shader, Material &_mat);
+        SoglMeshObject(std::vector<Vertex> &_inVertices, std::vector<unsigned int> &_inIndices);
+        SoglMeshObject(std::vector<Vertex> &_inVertices, std::vector<unsigned int> &_inIndices, Material &_mat);
         ~SoglMeshObject();
 
         virtual void draw(CameraData &camData);

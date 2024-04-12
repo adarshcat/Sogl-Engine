@@ -12,6 +12,9 @@ namespace sogl
     std::map <std::string, GLuint> SoglProgramManager::activePrograms;
     GLuint SoglProgramManager::currentProgramId = 0;
 
+    std::string SoglProgramManager::defaultShader = "default/default";
+    std::string SoglProgramManager::shadowSuffix = "_shadow";
+
     GLuint SoglProgramManager::addProgram(std::string programName, std::string shaderParams){
         for (auto &[key, value]: activePrograms){
             if (std::strcmp(key.c_str(), programName.c_str()) == 0){

@@ -8,11 +8,27 @@
 namespace sogl
 {
     
-    SoglMeshObject::SoglMeshObject(std::vector<Vertex> &inVertices, std::vector<unsigned int> &inIndices, std::string &_shader, Material &mat): 
-            vertices{inVertices}, indices{inIndices}, shader{_shader}, material{mat}
+    SoglMeshObject::SoglMeshObject(std::vector<Vertex> &_inVertices, std::vector<unsigned int> &_inIndices, std::string &_shader, Material &_mat): 
+            vertices{_inVertices}, indices{_inIndices}, shader{_shader}, material{_mat}
     {
         SoglProgramManager::addProgram(shader);
-        SoglProgramManager::addProgram(shader+"_shadow");
+        SoglProgramManager::addProgram(shader+SoglProgramManager::shadowSuffix);
+        initialiseStorageBuffer();
+    }
+
+    SoglMeshObject::SoglMeshObject(std::vector<Vertex> &_inVertices, std::vector<unsigned int> &_inIndices): 
+            vertices{_inVertices}, indices{_inIndices}, shader{SoglProgramManager::defaultShader}, material{Material()}
+    {
+        SoglProgramManager::addProgram(shader);
+        SoglProgramManager::addProgram(shader+SoglProgramManager::shadowSuffix);
+        initialiseStorageBuffer();
+    }
+
+    SoglMeshObject::SoglMeshObject(std::vector<Vertex> &_inVertices, std::vector<unsigned int> &_inIndices, Material &_mat): 
+            vertices{_inVertices}, indices{_inIndices}, shader{SoglProgramManager::defaultShader}, material{_mat}
+    {
+        SoglProgramManager::addProgram(shader);
+        SoglProgramManager::addProgram(shader+SoglProgramManager::shadowSuffix);
         initialiseStorageBuffer();
     }
 

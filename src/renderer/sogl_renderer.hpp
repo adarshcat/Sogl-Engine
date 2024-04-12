@@ -44,7 +44,7 @@ namespace sogl
         private:
         SoglWindow& soglWindow;
         DirectionalLight directionalLight;
-        std::string lightingShader = "lighting";
+        std::string lightingShader = "lighting/pbr";
 
         // renderer settings
         bool shadowEnabled = true;

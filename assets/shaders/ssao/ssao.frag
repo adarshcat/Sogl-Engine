@@ -9,7 +9,7 @@ const float bias = 0.08;
 const float radius = 0.5;
 
 uniform sampler2D gDepth;
-uniform sampler2D gNormal;
+uniform sampler2D gNormalMet;
 uniform sampler2D noiseTexture;
 
 uniform vec3 samples[KERNEL_SIZE];
@@ -30,7 +30,7 @@ vec3 getViewpos(float depth){
 }
 
 void main(){
-    vec3 worldNormal = texture(gNormal, texCoord).rgb;
+    vec3 worldNormal = texture(gNormalMet, texCoord).rgb;
     if (length(worldNormal) == 0.0){
         FragColor = vec4(1.0);
         return;

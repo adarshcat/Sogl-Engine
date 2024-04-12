@@ -92,6 +92,8 @@ namespace sogl
 
     void SoglMeshObject::applyMaterial(){
         SoglProgramManager::setVec3("albedo", material.albedo);
+        SoglProgramManager::setFloat("roughness", material.roughness);
+        SoglProgramManager::setFloat("metallic", material.metallic);
     }
 
 } // namespace sogl

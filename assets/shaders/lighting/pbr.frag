@@ -1,5 +1,7 @@
 #version 330 core
 
+#define PI 3.1415926535
+
 out vec4 FragColor;
 
 in vec2 texCoord;
@@ -20,16 +22,40 @@ struct DirectionalLight {
     mat4 transformMatrix;
 };
 
+struct GBuffer {
+    sampler2D gDepth;
+    sampler2D gNormalMet;
+    sampler2D gAlbedoSpec;
+};
+
 
 uniform CameraData camera;
 uniform DirectionalLight dirLight;
+uniform GBuffer gbuffer;
 
-uniform sampler2D gDepth;
-uniform sampler2D gNormal;
-uniform sampler2D gAlbedoSpec;
-
+//ssao
 const float ssaoBlurCutoff = 0.1;
 uniform sampler2D ssaoMap;
+
+
+float getLinearDepth(float depth){
+    float ndc = depth * 2.0 - 1.0;
+    float linearDepth = (2.0 * camera.near * camera.far) / (camera.far + camera.near - ndc * (camera.far - camera.near));
+
+    return linearDepth;
+}
+
+vec3 getViewpos(vec2 coord, float depth){
+    float z = depth * 2.0 - 1.0;
+
+    vec4 clipSpacePosition = vec4(coord * 2.0 - 1.0, z, 1.0);
+    vec4 viewSpacePosition = camera.invProjection * clipSpacePosition;
+
+    viewSpacePosition /= viewSpacePosition.w;
+
+    return viewSpacePosition.xyz;
+}
+
 
 #ifdef SHADOW_ENABLED
 float shadowCalculation(vec4 fragPosLightSpace, vec3 normal){
@@ -61,32 +87,14 @@ float shadowCalculation(vec4 fragPosLightSpace, vec3 normal){
 }
 #endif
 
-float getLinearDepth(float depth){
-    float ndc = depth * 2.0 - 1.0;
-    float linearDepth = (2.0 * camera.near * camera.far) / (camera.far + camera.near - ndc * (camera.far - camera.near));
-
-    return linearDepth;
-}
-
-vec3 getViewpos(vec2 coord, float depth){
-    float z = depth * 2.0 - 1.0;
-
-    vec4 clipSpacePosition = vec4(coord * 2.0 - 1.0, z, 1.0);
-    vec4 viewSpacePosition = camera.invProjection * clipSpacePosition;
-
-    viewSpacePosition /= viewSpacePosition.w;
-
-    return viewSpacePosition.xyz;
-}
-
 #ifdef SSAO_ENABLED
 float getSSAO(vec2 location, vec3 cameraDirection, vec3 surfaceNormal){
-    vec2 texSize = vec2(textureSize(gDepth, 0));
+    vec2 texSize = vec2(textureSize(gbuffer.gDepth, 0));
     vec2 texelSize = 1.0 / texSize;
     float result = 0.0;
     float counter = 0;
 
-    float depthSampleCurrent = texture(gDepth, texCoord).r;
+    float depthSampleCurrent = texture(gbuffer.gDepth, texCoord).r;
     float depthLinearCurrent = getLinearDepth(depthSampleCurrent);
 
     float dotProd = 1.0 - abs(dot(cameraDirection, surfaceNormal));
@@ -95,7 +103,7 @@ float getSSAO(vec2 location, vec3 cameraDirection, vec3 surfaceNormal){
     for (int x = -1; x < 1; ++x){
         for (int y = -1; y < 1; ++y){
             vec2 offset = vec2(float(x), float(y)) * texelSize;
-            float depthSample = texture(gDepth, texCoord + offset).r;
+            float depthSample = texture(gbuffer.gDepth, texCoord + offset).r;
             float depthLinear = getLinearDepth(depthSample);
             
             if (abs(depthLinear - depthLinearCurrent) < currentCutoff){
@@ -117,52 +125,112 @@ vec3 renderSky(vec3 cameraDirection){
     return mix(vec3(0, 0.9, 1.0), vec3(0.4, 1, 1), elevation);
 }
 
+// PBR related functions-------------------------------------------
+vec3 fresnelSchlick(float cosTheta, vec3 F0){
+    return F0 + (1.0 - F0) * pow(clamp(1.0 - cosTheta, 0.0, 1.0), 5.0);
+}
+
+float DistributionGGX(vec3 N, vec3 H, float roughness){
+    float a = roughness*roughness;
+    float a2 = a*a;
+    float NdotH = max(dot(N, H), 0.0);
+    float NdotH2 = NdotH*NdotH;
+	
+    float num = a2;
+    float denom = (NdotH2 * (a2 - 1.0) + 1.0);
+    denom = PI * denom * denom;
+	
+    return num / denom;
+}
+
+float GeometrySchlickGGX(float NdotV, float roughness){
+    float r = (roughness + 1.0);
+    float k = (r*r) / 8.0;
+
+    float num   = NdotV;
+    float denom = NdotV * (1.0 - k) + k;
+	
+    return num / denom;
+}
+
+float GeometrySmith(vec3 N, vec3 V, vec3 L, float roughness){
+    float NdotV = max(dot(N, V), 0.0);
+    float NdotL = max(dot(N, L), 0.0);
+    float ggx2  = GeometrySchlickGGX(NdotV, roughness);
+    float ggx1  = GeometrySchlickGGX(NdotL, roughness);
+	
+    return ggx1 * ggx2;
+}
+// PBR functions end----------------------------------------------
+
 void main(){
-    // Retrieve the values from g buffer
-    vec3 worldNormal = texture(gNormal, texCoord).rgb;
+    // fetch the depth value from depth g buffer and check if its sky------
+    float depthValue = texture(gbuffer.gDepth, texCoord).r;
+
+    vec4 normalMetallic = texture(gbuffer.gNormalMet, texCoord).rgba;
+    vec3 worldNormal = normalize(normalMetallic.rgb);
     vec3 cameraDirection = normalize((camera.invView * vec4((texCoord - vec2(0.5))*2.0, -1, 1)).xyz - camera.position);
 
-    if (length(worldNormal) == 0.0){
+    if (depthValue >= 1.0){
         FragColor = vec4(renderSky(cameraDirection), 1.0);
         return;
     }
 
-    vec3 viewPos = getViewpos(texCoord, texture(gDepth, texCoord).r);
+    vec3 viewPos = getViewpos(texCoord, depthValue);
     vec3 worldPos = (camera.invView * vec4(viewPos, 1)).xyz;
-    vec3 albedo = texture(gAlbedoSpec, texCoord).rgb;
 
-    // phong lighting----------------------------------------------------------------------------------------
-    // calculate diffuse
-    vec3 diffuse = max(dot(worldNormal, dirLight.direction), 0.0) * dirLight.color * dirLight.strength;
-
-    // ambient lighting with AO
-    float ambientStrength = 0.3;
-#ifdef SSAO_ENABLED
-    float occlusionStrength = getSSAO(texCoord, cameraDirection, worldNormal);
-    vec3 ambient = occlusionStrength * ambientStrength * albedo;
-#else
-    vec3 ambient = ambientStrength * albedo;
-#endif
-
-    // calculate specular
-    float specularStrength = 0.3;
     vec3 viewDir = normalize(camera.position - worldPos);
-    vec3 reflectDir = reflect(-dirLight.direction, worldNormal);
 
-    float spec = pow(max(dot(viewDir, reflectDir), 0.0), 128);
-    vec3 specular = specularStrength * spec * dirLight.color;
+    vec4 albedoSpecData = texture(gbuffer.gAlbedoSpec, texCoord).rgba;
+    vec3 albedo = albedoSpecData.rgb;
+    float roughness = albedoSpecData.a;
+    float metallic = normalMetallic.a;
 
+    // g-buffer fetch/data-reconstruction complete---------------------------
+
+    // PBR
+    vec3 halfVector = normalize(viewDir + dirLight.direction);
+
+    vec3 radiance = dirLight.color * dirLight.strength;
+
+    vec3 F0 = vec3(0.04);
+    F0 = mix(F0, albedo, metallic);
+
+    vec3 F = fresnelSchlick(max(dot(halfVector, viewDir), 0.0), F0);
+    float NDF = DistributionGGX(worldNormal, halfVector, roughness);
+    float G = GeometrySmith(worldNormal, viewDir, dirLight.direction, roughness);
+
+    vec3 numerator = NDF * G * F;
+    float denominator = 4.0 * max(dot(worldNormal, viewDir), 0.0) * max(dot(worldNormal, dirLight.direction), 0.0)  + 0.0001;
+    vec3 specular = numerator / denominator;
+
+    vec3 kS = F;
+    vec3 kD = vec3(1.0) - kS;
+    kD *= 1.0 - metallic;
+  
+    float NdotL = max(dot(worldNormal, dirLight.direction), 0.0);        
+    vec3 lightOutput = (kD * albedo / PI + specular) * radiance * NdotL;
+
+    // ssao
+#ifdef SSAO_ENABLED
+    float ao = getSSAO(texCoord, cameraDirection, worldNormal);
+#else
+    float ao = 1.0;
+#endif
+    vec3 ambient = vec3(0.2) * albedo * ao;
+
+    // shadows
 #ifdef SHADOW_ENABLED
-    // calculate shadows
     vec4 fragPosLightSpace = dirLight.transformMatrix * vec4(worldPos, 1.0);
     float shadow = shadowCalculation(fragPosLightSpace, worldNormal);
     
-    vec3 lighting = (ambient + (1.0 - shadow) * (diffuse + specular)) * albedo;
+    vec3 lighting = ambient + (1.0 - shadow) * lightOutput;
 #else
-    vec3 lighting = (ambient + (diffuse + specular)) * albedo;
+    vec3 lighting = ambient + lightOutput;
 #endif
 
-    // output color with rienhard tonemapping
+
+    // tonemapping and gamma correction
     vec3 tonemapped = lighting/(lighting+1.0f);
     float gamma = 2.2;
     FragColor = vec4(pow(tonemapped, vec3(1.0/gamma)), 1.0);

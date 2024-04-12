@@ -65,7 +65,7 @@ namespace sogl
 
         //g-buffer
         GLuint gBuffer;
-        GLuint gPositionView, gNormal, gAlbedoSpec, gDepth;
+        GLuint gPositionView, gNormalMet, gAlbedoSpec, gDepth;
 
         //shadow
         const unsigned int SHADOW_WIDTH = WIDTH*1.25, SHADOW_HEIGHT = WIDTH*1.25;

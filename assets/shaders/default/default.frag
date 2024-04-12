@@ -1,6 +1,6 @@
 #version 330 core
 
-layout (location = 0) out vec3 gNormal;
+layout (location = 0) out vec4 gNormalMet;
 layout (location = 1) out vec4 gAlbedoSpec;
 
 struct CameraProperties{
@@ -14,9 +14,12 @@ in vec3 normal;
 
 uniform CameraProperties camera;
 uniform vec3 albedo;
+uniform float roughness;
+uniform float metallic;
 
 void main() {
-    gNormal = normalize(normal);
+    gNormalMet.rgb = normalize(normal);
+    gNormalMet.a = metallic;
     gAlbedoSpec.rgb = albedo;
-    gAlbedoSpec.a = 1.0f;
+    gAlbedoSpec.a = roughness;
 }

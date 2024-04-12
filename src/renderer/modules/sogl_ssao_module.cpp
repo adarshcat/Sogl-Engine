@@ -81,7 +81,7 @@ namespace sogl
         SoglProgramManager::useProgram(ssaoShader);
 
         SoglProgramManager::bindImage("gDepth", 0);
-        SoglProgramManager::bindImage("gNormal", 1);
+        SoglProgramManager::bindImage("gNormalMet", 1);
         SoglProgramManager::bindImage("noiseTexture", 2);
 
         // send the kernel over to the SSAO shader program
@@ -110,7 +110,7 @@ namespace sogl
 #pragma endregion initialisation
 
 
-    void SoglSSAOModule::ssaoPass(CameraData &camData, GLuint gDepth, GLuint gNormal, GLuint renderQuadVAO, bool ssaoBlurEnabled){
+    void SoglSSAOModule::ssaoPass(CameraData &camData, GLuint gDepth, GLuint gNormalMet, GLuint renderQuadVAO, bool ssaoBlurEnabled){
         glViewport(0, 0, SSAO_WIDTH, SSAO_HEIGHT);
         // ssao pass
         glBindFramebuffer(GL_FRAMEBUFFER, ssaoFBO);
@@ -121,7 +121,7 @@ namespace sogl
         glActiveTexture(GL_TEXTURE0);
         glBindTexture(GL_TEXTURE_2D, gDepth);
         glActiveTexture(GL_TEXTURE1);
-        glBindTexture(GL_TEXTURE_2D, gNormal);
+        glBindTexture(GL_TEXTURE_2D, gNormalMet);
         glActiveTexture(GL_TEXTURE2);
         glBindTexture(GL_TEXTURE_2D, ssaoNoiseTex);
 

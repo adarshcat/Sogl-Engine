@@ -45,6 +45,8 @@ namespace sogl
         bool shadows = true;
         bool ssao = true;
         float monkeyCol[3]{1.0f, 1.0f, 1.0f};
+        float monkeyRough = 0.5;
+        float monkeyMetallic = 0.5;
         bool ssaoBlur = true;
 
         float time = 3.45;

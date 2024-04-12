@@ -28,7 +28,7 @@ namespace sogl
     SoglRenderer::~SoglRenderer(){
         // Delete the G-Buffer
         glDeleteFramebuffers(1, &gBuffer);
-        glDeleteTextures(1, &gNormal);
+        glDeleteTextures(1, &gNormalMet);
         glDeleteTextures(1, &gAlbedoSpec);
         glDeleteTextures(1, &gDepth);
 
@@ -64,12 +64,12 @@ namespace sogl
         glBindFramebuffer(GL_FRAMEBUFFER, gBuffer);
         
         // - normal color buffer
-        glGenTextures(1, &gNormal);
-        glBindTexture(GL_TEXTURE_2D, gNormal);
+        glGenTextures(1, &gNormalMet);
+        glBindTexture(GL_TEXTURE_2D, gNormalMet);
         glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA16F, WIDTH, HEIGHT, 0, GL_RGBA, GL_FLOAT, NULL);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-        glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, gNormal, 0);
+        glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, gNormalMet, 0);
         
         // - albedo + specular color buffer
         glGenTextures(1, &gAlbedoSpec);
@@ -163,7 +163,7 @@ namespace sogl
         glDisable(GL_DEPTH_TEST);
 
         //if (ssaoEnabled) ssaoPass(camData);
-        if (ssaoEnabled) ssaoModule.ssaoPass(camData, gDepth, gNormal, renderQuadVAO, ssaoBlurEnabled);
+        if (ssaoEnabled) ssaoModule.ssaoPass(camData, gDepth, gNormalMet, renderQuadVAO, ssaoBlurEnabled);
         lightingPass(camData, dirLightMatrix);
     }
 
@@ -210,7 +210,7 @@ namespace sogl
         glActiveTexture(GL_TEXTURE0);
         glBindTexture(GL_TEXTURE_2D, gDepth);
         glActiveTexture(GL_TEXTURE1);
-        glBindTexture(GL_TEXTURE_2D, gNormal);
+        glBindTexture(GL_TEXTURE_2D, gNormalMet);
         glActiveTexture(GL_TEXTURE2);
         glBindTexture(GL_TEXTURE_2D, gAlbedoSpec);
 
@@ -269,9 +269,9 @@ namespace sogl
 
         SoglProgramManager::recompileProgram(lightingShader, lightingParams);
         SoglProgramManager::useProgram(lightingShader);
-        SoglProgramManager::bindImage("gDepth", 0);
-        SoglProgramManager::bindImage("gNormal", 1);
-        SoglProgramManager::bindImage("gAlbedoSpec", 2);
+        SoglProgramManager::bindImage("gbuffer.gDepth", 0);
+        SoglProgramManager::bindImage("gbuffer.gNormalMet", 1);
+        SoglProgramManager::bindImage("gbuffer.gAlbedoSpec", 2);
         SoglProgramManager::bindImage("dirLight.shadowMap", 3);
         SoglProgramManager::bindImage("ssaoMap", 4);
 

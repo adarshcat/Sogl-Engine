@@ -75,8 +75,14 @@ namespace sogl
             if (model0rot)
                 gameObjects[0]->rotate(glm::vec3(0, 1, 0), 0.001f);
             
-            ImGui::ColorEdit3("box color", monkeyCol);
+            ImGui::ColorEdit3("color", monkeyCol);
             static_cast<SoglMeshObject*>(gameObjects[0].get())->material.albedo = glm::vec3(monkeyCol[0], monkeyCol[1], monkeyCol[2]);
+
+            ImGui::SliderFloat("roughness", &monkeyRough, 0.0, 1.0);
+            static_cast<SoglMeshObject*>(gameObjects[0].get())->material.roughness = monkeyRough;
+
+            ImGui::SliderFloat("metallic", &monkeyMetallic, 0.0, 1.0);
+            static_cast<SoglMeshObject*>(gameObjects[0].get())->material.metallic = monkeyMetallic;
 
             ImGui::Checkbox("Shadows", &shadows);
             soglRenderer.toggleShadows(shadows);

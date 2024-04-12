@@ -88,7 +88,7 @@ float shadowCalculation(vec4 fragPosLightSpace, vec3 normal){
 #endif
 
 #ifdef SSAO_ENABLED
-float getSSAO(vec2 location, vec3 cameraDirection, vec3 surfaceNormal){
+float getSSAO(vec2 location){
     vec2 texSize = vec2(textureSize(gbuffer.gDepth, 0));
     vec2 texelSize = 1.0 / texSize;
     float result = 0.0;
@@ -97,8 +97,7 @@ float getSSAO(vec2 location, vec3 cameraDirection, vec3 surfaceNormal){
     float depthSampleCurrent = texture(gbuffer.gDepth, texCoord).r;
     float depthLinearCurrent = getLinearDepth(depthSampleCurrent);
 
-    float dotProd = 1.0 - abs(dot(cameraDirection, surfaceNormal));
-    float currentCutoff = ssaoBlurCutoff + 0.5*dotProd;
+    float currentCutoff = ssaoBlurCutoff;
 
     for (int x = -1; x < 1; ++x){
         for (int y = -1; y < 1; ++y){
@@ -213,7 +212,7 @@ void main(){
 
     // ssao
 #ifdef SSAO_ENABLED
-    float ao = getSSAO(texCoord, cameraDirection, worldNormal);
+    float ao = getSSAO(texCoord);
 #else
     float ao = 1.0;
 #endif

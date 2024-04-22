@@ -37,6 +37,9 @@ uniform GBuffer gbuffer;
 const float ssaoBlurCutoff = 0.1;
 uniform sampler2D ssaoMap;
 
+//skybox
+uniform samplerCube skybox;
+
 
 float getLinearDepth(float depth){
     float ndc = depth * 2.0 - 1.0;
@@ -121,7 +124,9 @@ vec3 renderSky(vec3 cameraDirection){
     float elevation = 1.0 - max(dot(cameraDirection, vec3(0, 1, 0)), 0.0);
     elevation = pow(elevation, 1.5);
 
-    return mix(vec3(0, 0.9, 1.0), vec3(0.4, 1, 1), elevation);
+    //return mix(vec3(0, 0.9, 1.0), vec3(0.4, 1, 1), elevation);
+
+    return texture(skybox, cameraDirection).rgb;
 }
 
 // PBR related functions-------------------------------------------

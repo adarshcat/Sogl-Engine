@@ -8,7 +8,8 @@ namespace sogl
 {
     // Setups renderin onto a glfw window
     SoglRenderer::SoglRenderer(SoglWindow& wind, const int width, const int height):
-        WIDTH{width}, HEIGHT{height}, soglWindow{wind}, ssaoModule{SoglSSAOModule(width/2, height/2, 32)}
+        WIDTH{width}, HEIGHT{height}, soglWindow{wind}, ssaoModule{SoglSSAOModule(width/2, height/2, 32)},
+        skyboxModule{SoglSkyboxModule()}
     {
         glewExperimental =  GL_TRUE;
 
@@ -57,6 +58,9 @@ namespace sogl
 
         ssaoModule.initialiseSSAO();
         ssaoModule.initialiseSSAOBlur();
+
+        skyboxModule.loadHDR("tree_sky.hdr");
+        skyboxModule.initialiseSkybox();
     }
 
     void SoglRenderer::initialiseGBuffer(){
@@ -170,6 +174,7 @@ namespace sogl
 
 #pragma region renderpasses
     void SoglRenderer::geometryPass(std::vector<std::unique_ptr<SoglGameObject>> &gameObjects, CameraData &camData){
+        glViewport(0, 0, WIDTH, HEIGHT);
         glBindFramebuffer(GL_FRAMEBUFFER, gBuffer);
         
         glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
@@ -227,6 +232,11 @@ namespace sogl
                 glBindTexture(GL_TEXTURE_2D, ssaoModule.ssaoOutput);
         }
 
+        //attach skybox
+        glActiveTexture(GL_TEXTURE5);
+        glBindTexture(GL_TEXTURE_CUBE_MAP, skyboxModule.envCubemap);
+
+        // pass necessary camera parameters
         SoglProgramManager::setMat4("camera.invView", camData.invViewMatrix);
         SoglProgramManager::setMat4("camera.invProjection", camData.invProjectionMatrix);
         SoglProgramManager::setVec3("camera.position", camData.camPos);
@@ -274,6 +284,7 @@ namespace sogl
         SoglProgramManager::bindImage("gbuffer.gAlbedoSpec", 2);
         SoglProgramManager::bindImage("dirLight.shadowMap", 3);
         SoglProgramManager::bindImage("ssaoMap", 4);
+        SoglProgramManager::bindImage("skybox", 5);
 
         updateLightingShaderInputs();
     }

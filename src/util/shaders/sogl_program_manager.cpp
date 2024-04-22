@@ -79,6 +79,10 @@ namespace sogl
     void SoglProgramManager::setFloat(const std::string uniformName, float value){
         glUniform1f(glGetUniformLocation(currentProgramId, uniformName.c_str()), value);
     }
+
+    void SoglProgramManager::setInt(const std::string uniformName, int value){
+        glUniform1i(glGetUniformLocation(currentProgramId, uniformName.c_str()), value);
+    }
     
     void SoglProgramManager::bindImage(const std::string uniformName, GLuint val){
         glUniform1i(glGetUniformLocation(currentProgramId, uniformName.c_str()), val);

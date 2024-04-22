@@ -11,6 +11,7 @@
 #include "util/sogl_helper.hpp"
 
 #include "renderer/modules/sogl_ssao_module.hpp"
+#include "renderer/modules/sogl_skybox_module.hpp"
 
 // std
 #include <vector>
@@ -62,6 +63,7 @@ namespace sogl
 
         // renderer modules
         SoglSSAOModule ssaoModule;
+        SoglSkyboxModule skyboxModule;
 
         //g-buffer
         GLuint gBuffer;

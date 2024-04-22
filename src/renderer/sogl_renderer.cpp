@@ -59,7 +59,7 @@ namespace sogl
         ssaoModule.initialiseSSAO();
         ssaoModule.initialiseSSAOBlur();
 
-        skyboxModule.loadHDR("tree_sky.hdr");
+        skyboxModule.loadHDR(skyboxImage);
         skyboxModule.initialiseSkybox();
     }
 
@@ -171,7 +171,7 @@ namespace sogl
         // clear the screen and render the final image
         glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
-        
+
         skyboxModule.renderSkybox(camData);
         lightingPass(camData, dirLightMatrix);
     }
@@ -235,9 +235,9 @@ namespace sogl
                 glBindTexture(GL_TEXTURE_2D, ssaoModule.ssaoOutput);
         }
 
-        //attach skybox
+        //attach skybox irradiance map
         glActiveTexture(GL_TEXTURE5);
-        glBindTexture(GL_TEXTURE_CUBE_MAP, skyboxModule.envCubemap);
+        glBindTexture(GL_TEXTURE_CUBE_MAP, skyboxModule.irradianceMap);
 
         // pass necessary camera parameters
         SoglProgramManager::setMat4("camera.invView", camData.invViewMatrix);
@@ -277,6 +277,7 @@ namespace sogl
 
         if (shadowEnabled) lightingParams += "SHADOW_ENABLED,";
         if (ssaoEnabled) lightingParams += "SSAO_ENABLED,";
+        if (irradianceEnabled) lightingParams += "IRRADIANCE_ENABLED,";
 
         if (lightingParams.size() > 0) lightingParams = lightingParams.substr(0, lightingParams.size()-1);
 
@@ -287,7 +288,7 @@ namespace sogl
         SoglProgramManager::bindImage("gbuffer.gAlbedoSpec", 2);
         SoglProgramManager::bindImage("dirLight.shadowMap", 3);
         SoglProgramManager::bindImage("ssaoMap", 4);
-        SoglProgramManager::bindImage("skybox", 5);
+        SoglProgramManager::bindImage("skyIrradiance", 5);
 
         updateLightingShaderInputs();
     }
@@ -310,6 +311,13 @@ namespace sogl
 
     void SoglRenderer::toggleSSAOBlur(const bool state){
         ssaoBlurEnabled = state;
+    }
+
+    void SoglRenderer::toggleIrradiance(const bool state){
+        if (irradianceEnabled == state) return;
+
+        irradianceEnabled = state;
+        updateLighting();
     }
 #pragma endregion rendererToggles
 } // namespace sogl

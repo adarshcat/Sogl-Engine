@@ -7,7 +7,7 @@ namespace sogl
     struct Material{
         glm::vec3 albedo = glm::vec3(1.0);
         float roughness = 0.5;
-        float metallic = 0.5;
+        float metallic = 0.0;
     };
 
     struct Vertex{

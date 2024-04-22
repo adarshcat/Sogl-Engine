@@ -41,16 +41,20 @@ namespace sogl
         void toggleShadows(const bool state);
         void toggleSSAO(const bool state);
         void toggleSSAOBlur(const bool state);
+        void toggleIrradiance(const bool state);
 
         private:
+        const std::string lightingShader = "lighting/pbr";
+        const std::string skyboxImage = "veranda_2k.hdr";
+
         SoglWindow& soglWindow;
         DirectionalLight directionalLight;
-        std::string lightingShader = "lighting/pbr";
 
         // renderer settings
         bool shadowEnabled = true;
         bool ssaoEnabled = true;
         bool ssaoBlurEnabled = true;
+        bool irradianceEnabled = true;
 
         // renderer initialisation functions
         void initialiseGBuffer();

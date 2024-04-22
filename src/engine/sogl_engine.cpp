@@ -96,6 +96,9 @@ namespace sogl
             ImGui::SliderFloat("Sun Dir.", &time, 0.0, 3.14*2, "%.4f");
             ImGui::SliderFloat("Sun Strength", &sunStrength, 0.0, 16.0);
 
+            ImGui::Checkbox("ibl", &ibl);
+            soglRenderer.toggleIrradiance(ibl);
+
             DirectionalLight sun;
             sun.direction = glm::normalize(glm::vec3(sin(time)*2.0f, 1.0f, cos(time)*-1.0f));
             sun.strength = sunStrength;

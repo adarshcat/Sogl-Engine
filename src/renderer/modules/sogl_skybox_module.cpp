@@ -47,16 +47,15 @@ namespace sogl
 
         glBindFramebuffer(GL_FRAMEBUFFER, captureFBO);
         glBindRenderbuffer(GL_RENDERBUFFER, captureRBO);
-        glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT24, RESOLUTION, RESOLUTION);
+        glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT24, ENV_RESOLUTION, ENV_RESOLUTION);
         glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, captureRBO);
 
 
         // generate enviornment cubemap
         glGenTextures(1, &envCubemap);
         glBindTexture(GL_TEXTURE_CUBE_MAP, envCubemap);
-        for (unsigned int i = 0; i < 6; ++i)
-        {
-            glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, GL_RGB16F, RESOLUTION, RESOLUTION, 0, GL_RGB, GL_FLOAT, nullptr);
+        for (unsigned int i = 0; i < 6; ++i){
+            glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, GL_RGB16F, ENV_RESOLUTION, ENV_RESOLUTION, 0, GL_RGB, GL_FLOAT, nullptr);
         }
         glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
         glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
@@ -86,21 +85,17 @@ namespace sogl
         glBindTexture(GL_TEXTURE_2D, hdrTexture);
 
         // render equirectangular skybox to cubemap
-        glViewport(0, 0, RESOLUTION, RESOLUTION);
+        glViewport(0, 0, ENV_RESOLUTION, ENV_RESOLUTION);
         glBindFramebuffer(GL_FRAMEBUFFER, captureFBO);
 
         glDisable(GL_CULL_FACE);
 
-        for (unsigned int i = 0; i < 6; ++i)
-        {
+        for (unsigned int i = 0; i < 6; ++i){
             SoglProgramManager::setMat4("view", captureViews[i]);
-            glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, 
-                                GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, envCubemap, 0);
+            glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, envCubemap, 0);
             
-
-            glClearColor(0.0, i/6.0, 1.0, 1.0);
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-            this->renderCube(); // renders a 1x1 cube
+            renderCube(); // renders a 1x1 cube
         }
 
         glBindFramebuffer(GL_FRAMEBUFFER, 0);
@@ -112,6 +107,49 @@ namespace sogl
         SoglProgramManager::bindImage("skybox", 0);
         glActiveTexture(GL_TEXTURE0);
         glBindTexture(GL_TEXTURE_CUBE_MAP, envCubemap);
+
+        initialiseIrradiance(captureProjection, captureViews);
+    }
+
+    void SoglSkyboxModule::initialiseIrradiance(glm::mat4 captureProjection, glm::mat4 captureViews[]){
+        glGenTextures(1, &irradianceMap);
+        glBindTexture(GL_TEXTURE_CUBE_MAP, irradianceMap);
+
+        for (unsigned int i = 0; i < 6; ++i){
+            glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, GL_RGB16F, IRRADIANCE_RESOLUTION, IRRADIANCE_RESOLUTION,
+                        0, GL_RGB, GL_FLOAT, nullptr);
+        }
+        glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+        glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+        glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
+        glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+        glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+        glBindFramebuffer(GL_FRAMEBUFFER, captureFBO);
+        glBindRenderbuffer(GL_RENDERBUFFER, captureRBO);
+        glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT24, IRRADIANCE_RESOLUTION, IRRADIANCE_RESOLUTION);
+
+        SoglProgramManager::addProgram(irradianceShader);
+        SoglProgramManager::useProgram(irradianceShader);
+        SoglProgramManager::bindImage("envMap", 0);
+        SoglProgramManager::setMat4("projection", captureProjection);
+        glActiveTexture(GL_TEXTURE0);
+        glBindTexture(GL_TEXTURE_CUBE_MAP, envCubemap);
+
+        glViewport(0, 0, IRRADIANCE_RESOLUTION, IRRADIANCE_RESOLUTION);
+        glBindFramebuffer(GL_FRAMEBUFFER, captureFBO);
+        glDisable(GL_CULL_FACE);
+
+        for (unsigned int i = 0; i < 6; ++i){
+            SoglProgramManager::setMat4("view", captureViews[i]);
+            glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, irradianceMap, 0);
+
+            glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+            renderCube();
+        }
+        glEnable(GL_CULL_FACE);
+
+        glBindFramebuffer(GL_FRAMEBUFFER, 0);
     }
 
     void SoglSkyboxModule::renderSkybox(CameraData &camData){

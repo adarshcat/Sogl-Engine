@@ -26,17 +26,20 @@ namespace sogl
         void renderSkybox(CameraData &camData);
         void renderCube();
 
-        const int RESOLUTION = 512;
+        const int ENV_RESOLUTION = 512;
+        const int IRRADIANCE_RESOLUTION = 32;
         const std::string HDRI_ROOT = "assets/hdri/";
         const int WIDTH, HEIGHT;
         
-        GLuint envCubemap;
+        GLuint envCubemap, irradianceMap;
         GLuint hdrTexture;
 
         private:
         const std::string cubemapShader = "skybox/cubemapShader";
         const std::string skyboxShader = "skybox/skyboxShader";
+        const std::string irradianceShader = "skybox/irradianceShader";
 
+        void initialiseIrradiance(glm::mat4 captureProjection, glm::mat4 captureViews[]);
         
         GLuint captureFBO, captureRBO;
 

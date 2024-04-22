@@ -38,7 +38,7 @@ const float ssaoBlurCutoff = 0.1;
 uniform sampler2D ssaoMap;
 
 //skybox
-uniform samplerCube skybox;
+uniform samplerCube skyIrradiance;
 
 
 float getLinearDepth(float depth){
@@ -120,13 +120,9 @@ float getSSAO(vec2 location){
 }
 #endif
 
-vec3 renderSky(vec3 cameraDirection){
-    return texture(skybox, cameraDirection).rgb;
-}
-
 // PBR related functions-------------------------------------------
-vec3 fresnelSchlick(float cosTheta, vec3 F0){
-    return F0 + (1.0 - F0) * pow(clamp(1.0 - cosTheta, 0.0, 1.0), 5.0);
+vec3 fresnelSchlickRoughness(float cosTheta, vec3 F0, float roughness){
+    return F0 + (max(vec3(1.0 - roughness), F0) - F0) * pow(clamp(1.0 - cosTheta, 0.0, 1.0), 5.0);
 }
 
 float DistributionGGX(vec3 N, vec3 H, float roughness){
@@ -168,11 +164,9 @@ void main(){
 
     vec4 normalMetallic = texture(gbuffer.gNormalMet, texCoord).rgba;
     vec3 worldNormal = normalize(normalMetallic.rgb);
-    vec3 cameraDirection = normalize((camera.invView * vec4((texCoord - vec2(0.5))*2.0, -1, 1)).xyz - camera.position);
+    //vec3 cameraDirection = normalize((camera.invView * vec4((texCoord - vec2(0.5))*2.0, -1, 1)).xyz - camera.position);
 
     if (depthValue >= 1.0){
-        /*FragColor = vec4(renderSky(cameraDirection), 1.0);
-        return;*/
         discard;
     }
 
@@ -196,7 +190,7 @@ void main(){
     vec3 F0 = vec3(0.04);
     F0 = mix(F0, albedo, metallic);
 
-    vec3 F = fresnelSchlick(max(dot(halfVector, viewDir), 0.0), F0);
+    vec3 F = fresnelSchlickRoughness(max(dot(halfVector, viewDir), 0.0), F0, roughness);
     float NDF = DistributionGGX(worldNormal, halfVector, roughness);
     float G = GeometrySmith(worldNormal, viewDir, dirLight.direction, roughness);
 
@@ -217,7 +211,15 @@ void main(){
 #else
     float ao = 1.0;
 #endif
-    vec3 ambient = vec3(0.2) * albedo * ao;
+
+    // calculating ambient occlusion
+#ifdef IRRADIANCE_ENABLED
+    vec3 irradiance = texture(skyIrradiance, worldNormal).rgb;
+    vec3 diffuse = irradiance * albedo;
+    vec3 ambient = kD * diffuse * ao;
+#else
+    vec3 ambient = kD * vec3(0.2) * albedo * ao;
+#endif
 
     // shadows
 #ifdef SHADOW_ENABLED

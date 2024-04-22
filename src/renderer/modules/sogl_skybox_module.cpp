@@ -6,6 +6,7 @@
 
 namespace sogl
 {
+    SoglSkyboxModule::SoglSkyboxModule(const int _WIDTH, const int _HEIGHT): WIDTH{_WIDTH}, HEIGHT{_HEIGHT}{}
     SoglSkyboxModule::~SoglSkyboxModule(){
         glDeleteFramebuffers(1, &captureFBO);
         glDeleteRenderbuffers(1, &captureRBO);
@@ -63,7 +64,7 @@ namespace sogl
         glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_LINEAR); 
         glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
-        // render equirectangular skybox to cubemap
+        // render settings for cubemap
         glm::mat4 captureProjection = glm::perspective(glm::radians(90.0f), 1.0f, 0.1f, 10.0f);
         glm::mat4 captureViews[] =
         {
@@ -78,12 +79,13 @@ namespace sogl
         // create shader for converting to cubemap
         SoglProgramManager::addProgram(cubemapShader);
         SoglProgramManager::useProgram(cubemapShader);
-        SoglProgramManager::setInt("equirectangularMap", 0);
+        SoglProgramManager::bindImage("equirectangularMap", 0);
         SoglProgramManager::setMat4("projection", captureProjection);
 
         glActiveTexture(GL_TEXTURE0);
         glBindTexture(GL_TEXTURE_2D, hdrTexture);
 
+        // render equirectangular skybox to cubemap
         glViewport(0, 0, RESOLUTION, RESOLUTION);
         glBindFramebuffer(GL_FRAMEBUFFER, captureFBO);
 
@@ -103,8 +105,34 @@ namespace sogl
 
         glBindFramebuffer(GL_FRAMEBUFFER, 0);
         glEnable(GL_CULL_FACE);
+
+        // initialise the skybox shader for later rendering the skybox
+        SoglProgramManager::addProgram(skyboxShader);
+        SoglProgramManager::useProgram(skyboxShader);
+        SoglProgramManager::bindImage("skybox", 0);
+        glActiveTexture(GL_TEXTURE0);
+        glBindTexture(GL_TEXTURE_CUBE_MAP, envCubemap);
     }
 
+    void SoglSkyboxModule::renderSkybox(CameraData &camData){
+        glViewport(0, 0, WIDTH, HEIGHT);
+        glBindFramebuffer(GL_FRAMEBUFFER, 0);
+
+        SoglProgramManager::useProgram(skyboxShader);
+        glDisable(GL_CULL_FACE);
+        glDepthMask(GL_FALSE);
+
+        glActiveTexture(GL_TEXTURE0);
+        glBindTexture(GL_TEXTURE_CUBE_MAP, envCubemap);
+
+        //pass in the camera uniforms
+        SoglProgramManager::setMat4("projection", camData.projectionMatrix);
+        SoglProgramManager::setMat4("view", glm::mat4(glm::mat3(camData.viewMatrix)));
+
+        renderCube();
+        glDepthMask(GL_TRUE);
+        glEnable(GL_CULL_FACE);
+    }
 
     void SoglSkyboxModule::renderCube() {
         // initialize (if necessary)
@@ -176,4 +204,3 @@ namespace sogl
         glBindVertexArray(0);
     }
 } // namespace sogl
-

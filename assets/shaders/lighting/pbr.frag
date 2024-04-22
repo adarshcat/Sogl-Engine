@@ -121,11 +121,6 @@ float getSSAO(vec2 location){
 #endif
 
 vec3 renderSky(vec3 cameraDirection){
-    float elevation = 1.0 - max(dot(cameraDirection, vec3(0, 1, 0)), 0.0);
-    elevation = pow(elevation, 1.5);
-
-    //return mix(vec3(0, 0.9, 1.0), vec3(0.4, 1, 1), elevation);
-
     return texture(skybox, cameraDirection).rgb;
 }
 
@@ -176,8 +171,9 @@ void main(){
     vec3 cameraDirection = normalize((camera.invView * vec4((texCoord - vec2(0.5))*2.0, -1, 1)).xyz - camera.position);
 
     if (depthValue >= 1.0){
-        FragColor = vec4(renderSky(cameraDirection), 1.0);
-        return;
+        /*FragColor = vec4(renderSky(cameraDirection), 1.0);
+        return;*/
+        discard;
     }
 
     vec3 viewPos = getViewpos(texCoord, depthValue);

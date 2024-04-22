@@ -9,7 +9,7 @@ namespace sogl
     // Setups renderin onto a glfw window
     SoglRenderer::SoglRenderer(SoglWindow& wind, const int width, const int height):
         WIDTH{width}, HEIGHT{height}, soglWindow{wind}, ssaoModule{SoglSSAOModule(width/2, height/2, 32)},
-        skyboxModule{SoglSkyboxModule()}
+        skyboxModule{SoglSkyboxModule(width, height)}
     {
         glewExperimental =  GL_TRUE;
 
@@ -166,8 +166,13 @@ namespace sogl
 
         glDisable(GL_DEPTH_TEST);
 
-        //if (ssaoEnabled) ssaoPass(camData);
         if (ssaoEnabled) ssaoModule.ssaoPass(camData, gDepth, gNormalMet, renderQuadVAO, ssaoBlurEnabled);
+
+        // clear the screen and render the final image
+        glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+        glClear(GL_COLOR_BUFFER_BIT);
+        
+        skyboxModule.renderSkybox(camData);
         lightingPass(camData, dirLightMatrix);
     }
 
@@ -206,8 +211,6 @@ namespace sogl
     void SoglRenderer::lightingPass(CameraData &camData, glm::mat4 &dirLightMatrix){
         glViewport(0, 0, WIDTH, HEIGHT);
         glBindFramebuffer(GL_FRAMEBUFFER, 0);
-        glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-        glClear(GL_COLOR_BUFFER_BIT);
 
         SoglProgramManager::useProgram(lightingShader);
 

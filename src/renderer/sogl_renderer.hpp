@@ -45,7 +45,7 @@ namespace sogl
 
         private:
         const std::string lightingShader = "lighting/pbr";
-        const std::string skyboxImage = "veranda_2k.hdr";
+        const std::string skyboxImage = "veranda_4k.hdr";
 
         SoglWindow& soglWindow;
         DirectionalLight directionalLight;
@@ -59,6 +59,7 @@ namespace sogl
         // renderer initialisation functions
         void initialiseGBuffer();
         void initialiseRenderQuad();
+        void initialiseRenderCube();
         void initialiseShadowMap();
 
         // renderer update functions
@@ -81,6 +82,10 @@ namespace sogl
         //render quad
         GLuint quadVertexBuffer;
         GLuint renderQuadVAO;
+
+        //render cube
+        GLuint renderCubeVAO;
+        GLuint renderCubeVBO;
 
         // render passes
         void geometryPass(std::vector<std::unique_ptr<SoglGameObject>> &gameObjects, CameraData &camData);

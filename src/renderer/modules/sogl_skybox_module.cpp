@@ -11,11 +11,9 @@ namespace sogl
         glDeleteFramebuffers(1, &captureFBO);
         glDeleteRenderbuffers(1, &captureRBO);
 
-        glDeleteVertexArrays(1, &cubeVAO);
-        glDeleteBuffers(1, &cubeVBO);
-
         glDeleteTextures(1, &hdrTexture);
         glDeleteTextures(1, &envCubemap);
+        glDeleteTextures(1, &diffuseIrradianceMap);
     }
 
     void SoglSkyboxModule::loadHDR(std::string hdriPath){
@@ -40,7 +38,7 @@ namespace sogl
         }
     }
 
-    void SoglSkyboxModule::initialiseSkybox(){
+    void SoglSkyboxModule::initialiseSkybox(GLuint cubeVAO){
         // generate capture frameBuffer
         glGenFramebuffers(1, &captureFBO);
         glGenRenderbuffers(1, &captureRBO);
@@ -95,7 +93,9 @@ namespace sogl
             glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, envCubemap, 0);
             
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-            renderCube(); // renders a 1x1 cube
+            // render cube
+            glBindVertexArray(cubeVAO);
+            glDrawArrays(GL_TRIANGLES, 0, 36);
         }
 
         glBindFramebuffer(GL_FRAMEBUFFER, 0);
@@ -108,12 +108,13 @@ namespace sogl
         glActiveTexture(GL_TEXTURE0);
         glBindTexture(GL_TEXTURE_CUBE_MAP, envCubemap);
 
-        initialiseIrradiance(captureProjection, captureViews);
+        initialiseDiffuseIrradiance(captureProjection, captureViews, cubeVAO);
     }
 
-    void SoglSkyboxModule::initialiseIrradiance(glm::mat4 captureProjection, glm::mat4 captureViews[]){
-        glGenTextures(1, &irradianceMap);
-        glBindTexture(GL_TEXTURE_CUBE_MAP, irradianceMap);
+    void SoglSkyboxModule::initialiseDiffuseIrradiance(glm::mat4 captureProjection, glm::mat4 captureViews[], GLuint cubeVAO){
+        // initialise diffuse irradiance cubemap
+        glGenTextures(1, &diffuseIrradianceMap);
+        glBindTexture(GL_TEXTURE_CUBE_MAP, diffuseIrradianceMap);
 
         for (unsigned int i = 0; i < 6; ++i){
             glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, GL_RGB16F, IRRADIANCE_RESOLUTION, IRRADIANCE_RESOLUTION,
@@ -124,7 +125,9 @@ namespace sogl
         glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
         glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
         glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+        // initialisation complete----------------------
 
+        // bind framebuffers and prepare for convoluting diffuse irradiance map
         glBindFramebuffer(GL_FRAMEBUFFER, captureFBO);
         glBindRenderbuffer(GL_RENDERBUFFER, captureRBO);
         glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT24, IRRADIANCE_RESOLUTION, IRRADIANCE_RESOLUTION);
@@ -138,21 +141,24 @@ namespace sogl
 
         glViewport(0, 0, IRRADIANCE_RESOLUTION, IRRADIANCE_RESOLUTION);
         glBindFramebuffer(GL_FRAMEBUFFER, captureFBO);
-        glDisable(GL_CULL_FACE);
+        glDisable(GL_CULL_FACE); // disable cull face temporarily because the cube is renderer from inside
 
         for (unsigned int i = 0; i < 6; ++i){
             SoglProgramManager::setMat4("view", captureViews[i]);
-            glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, irradianceMap, 0);
+            glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, diffuseIrradianceMap, 0);
 
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-            renderCube();
+            // render cube
+            glBindVertexArray(cubeVAO);
+            glDrawArrays(GL_TRIANGLES, 0, 36);
         }
         glEnable(GL_CULL_FACE);
 
         glBindFramebuffer(GL_FRAMEBUFFER, 0);
     }
 
-    void SoglSkyboxModule::renderSkybox(CameraData &camData){
+
+    void SoglSkyboxModule::renderSkybox(CameraData &camData, GLuint cubeVAO){
         glViewport(0, 0, WIDTH, HEIGHT);
         glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
@@ -167,78 +173,19 @@ namespace sogl
         SoglProgramManager::setMat4("projection", camData.projectionMatrix);
         SoglProgramManager::setMat4("view", glm::mat4(glm::mat3(camData.viewMatrix)));
 
-        renderCube();
+        // render cube
+        glBindVertexArray(cubeVAO);
+        glDrawArrays(GL_TRIANGLES, 0, 36);
+
         glDepthMask(GL_TRUE);
         glEnable(GL_CULL_FACE);
     }
 
-    void SoglSkyboxModule::renderCube() {
-        // initialize (if necessary)
-        if (cubeVAO == 0)
-        {
-            GLfloat vertices[] = {
-                // back face
-                -1.0f, -1.0f, -1.0f,  0.0f,  0.0f, -1.0f, 0.0f, 0.0f, // bottom-left
-                1.0f,  1.0f, -1.0f,  0.0f,  0.0f, -1.0f, 1.0f, 1.0f, // top-right
-                1.0f, -1.0f, -1.0f,  0.0f,  0.0f, -1.0f, 1.0f, 0.0f, // bottom-right         
-                1.0f,  1.0f, -1.0f,  0.0f,  0.0f, -1.0f, 1.0f, 1.0f, // top-right
-                -1.0f, -1.0f, -1.0f,  0.0f,  0.0f, -1.0f, 0.0f, 0.0f, // bottom-left
-                -1.0f,  1.0f, -1.0f,  0.0f,  0.0f, -1.0f, 0.0f, 1.0f, // top-left
-                // front face
-                -1.0f, -1.0f,  1.0f,  0.0f,  0.0f,  1.0f, 0.0f, 0.0f, // bottom-left
-                1.0f, -1.0f,  1.0f,  0.0f,  0.0f,  1.0f, 1.0f, 0.0f, // bottom-right
-                1.0f,  1.0f,  1.0f,  0.0f,  0.0f,  1.0f, 1.0f, 1.0f, // top-right
-                1.0f,  1.0f,  1.0f,  0.0f,  0.0f,  1.0f, 1.0f, 1.0f, // top-right
-                -1.0f,  1.0f,  1.0f,  0.0f,  0.0f,  1.0f, 0.0f, 1.0f, // top-left
-                -1.0f, -1.0f,  1.0f,  0.0f,  0.0f,  1.0f, 0.0f, 0.0f, // bottom-left
-                // left face
-                -1.0f,  1.0f,  1.0f, -1.0f,  0.0f,  0.0f, 1.0f, 0.0f, // top-right
-                -1.0f,  1.0f, -1.0f, -1.0f,  0.0f,  0.0f, 1.0f, 1.0f, // top-left
-                -1.0f, -1.0f, -1.0f, -1.0f,  0.0f,  0.0f, 0.0f, 1.0f, // bottom-left
-                -1.0f, -1.0f, -1.0f, -1.0f,  0.0f,  0.0f, 0.0f, 1.0f, // bottom-left
-                -1.0f, -1.0f,  1.0f, -1.0f,  0.0f,  0.0f, 0.0f, 0.0f, // bottom-right
-                -1.0f,  1.0f,  1.0f, -1.0f,  0.0f,  0.0f, 1.0f, 0.0f, // top-right
-                // right face
-                1.0f,  1.0f,  1.0f,  1.0f,  0.0f,  0.0f, 1.0f, 0.0f, // top-left
-                1.0f, -1.0f, -1.0f,  1.0f,  0.0f,  0.0f, 0.0f, 1.0f, // bottom-right
-                1.0f,  1.0f, -1.0f,  1.0f,  0.0f,  0.0f, 1.0f, 1.0f, // top-right         
-                1.0f, -1.0f, -1.0f,  1.0f,  0.0f,  0.0f, 0.0f, 1.0f, // bottom-right
-                1.0f,  1.0f,  1.0f,  1.0f,  0.0f,  0.0f, 1.0f, 0.0f, // top-left
-                1.0f, -1.0f,  1.0f,  1.0f,  0.0f,  0.0f, 0.0f, 0.0f, // bottom-left     
-                // bottom face
-                -1.0f, -1.0f, -1.0f,  0.0f, -1.0f,  0.0f, 0.0f, 1.0f, // top-right
-                1.0f, -1.0f, -1.0f,  0.0f, -1.0f,  0.0f, 1.0f, 1.0f, // top-left
-                1.0f, -1.0f,  1.0f,  0.0f, -1.0f,  0.0f, 1.0f, 0.0f, // bottom-left
-                1.0f, -1.0f,  1.0f,  0.0f, -1.0f,  0.0f, 1.0f, 0.0f, // bottom-left
-                -1.0f, -1.0f,  1.0f,  0.0f, -1.0f,  0.0f, 0.0f, 0.0f, // bottom-right
-                -1.0f, -1.0f, -1.0f,  0.0f, -1.0f,  0.0f, 0.0f, 1.0f, // top-right
-                // top face
-                -1.0f,  1.0f, -1.0f,  0.0f,  1.0f,  0.0f, 0.0f, 1.0f, // top-left
-                1.0f,  1.0f , 1.0f,  0.0f,  1.0f,  0.0f, 1.0f, 0.0f, // bottom-right
-                1.0f,  1.0f, -1.0f,  0.0f,  1.0f,  0.0f, 1.0f, 1.0f, // top-right     
-                1.0f,  1.0f,  1.0f,  0.0f,  1.0f,  0.0f, 1.0f, 0.0f, // bottom-right
-                -1.0f,  1.0f, -1.0f,  0.0f,  1.0f,  0.0f, 0.0f, 1.0f, // top-left
-                -1.0f,  1.0f,  1.0f,  0.0f,  1.0f,  0.0f, 0.0f, 0.0f  // bottom-left        
-            };
-            glGenVertexArrays(1, &cubeVAO);
-            glGenBuffers(1, &cubeVBO);
-            // fill buffer
-            glBindBuffer(GL_ARRAY_BUFFER, cubeVBO);
-            glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-            // link vertex attributes
-            glBindVertexArray(cubeVAO);
-            glEnableVertexAttribArray(0);
-            glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)0);
-            glEnableVertexAttribArray(1);
-            glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(3 * sizeof(float)));
-            glEnableVertexAttribArray(2);
-            glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(6 * sizeof(float)));
-            glBindBuffer(GL_ARRAY_BUFFER, 0);
-            glBindVertexArray(0);
-        }
-        // render Cube
-        glBindVertexArray(cubeVAO);
-        glDrawArrays(GL_TRIANGLES, 0, 36);
-        glBindVertexArray(0);
+
+#pragma region getters
+    GLuint SoglSkyboxModule::getDiffuseIrradiance(){
+        return diffuseIrradianceMap;
     }
+#pragma endregion getters
+
 } // namespace sogl

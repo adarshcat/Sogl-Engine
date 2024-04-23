@@ -14,6 +14,8 @@ namespace sogl
         glDeleteTextures(1, &hdrTexture);
         glDeleteTextures(1, &envCubemap);
         glDeleteTextures(1, &diffuseIrradianceMap);
+        glDeleteTextures(1, &prefilterMap);
+        glDeleteTextures(1, &brdfLUTTexture);
     }
 
     void SoglSkyboxModule::loadHDR(std::string hdriPath){
@@ -58,7 +60,7 @@ namespace sogl
         glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
         glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
         glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
-        glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_LINEAR); 
+        glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
         glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
         // render settings for cubemap
@@ -101,12 +103,14 @@ namespace sogl
         glBindFramebuffer(GL_FRAMEBUFFER, 0);
         glEnable(GL_CULL_FACE);
 
+        // generate environment cubemap mipmaps
+        glBindTexture(GL_TEXTURE_CUBE_MAP, envCubemap);
+        glGenerateMipmap(GL_TEXTURE_CUBE_MAP);
+
         // initialise the skybox shader for later rendering the skybox
         SoglProgramManager::addProgram(skyboxShader);
         SoglProgramManager::useProgram(skyboxShader);
         SoglProgramManager::bindImage("skybox", 0);
-        glActiveTexture(GL_TEXTURE0);
-        glBindTexture(GL_TEXTURE_CUBE_MAP, envCubemap);
 
         initialiseDiffuseIrradiance(captureProjection, captureViews, cubeVAO);
         initialiseSpecularIrradiance(captureProjection, captureViews, cubeVAO, quadVAO);

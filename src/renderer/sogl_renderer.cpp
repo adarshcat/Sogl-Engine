@@ -65,8 +65,10 @@ namespace sogl
         ssaoModule.initialiseSSAO();
         ssaoModule.initialiseSSAOBlur();
 
-        skyboxModule.loadHDR(skyboxImage);
-        skyboxModule.initialiseSkybox(renderCubeVAO, renderQuadVAO);
+        if (irradianceEnabled){
+            skyboxModule.loadHDR(skyboxImage);
+            skyboxModule.initialiseSkybox(renderCubeVAO, renderQuadVAO);
+        }
     }
 
     void SoglRenderer::initialiseGBuffer(){
@@ -295,6 +297,7 @@ namespace sogl
             glBindTexture(GL_TEXTURE_2D, shadowMap);
             SoglProgramManager::setMat4("dirLight.transformMatrix", dirLightMatrix);
         }
+        
         if (ssaoEnabled){
             glActiveTexture(GL_TEXTURE4);
             if (ssaoBlurEnabled)
@@ -303,15 +306,17 @@ namespace sogl
                 glBindTexture(GL_TEXTURE_2D, ssaoModule.ssaoOutput);
         }
 
-        //attach skybox diffuse irradiance map
-        glActiveTexture(GL_TEXTURE5);
-        glBindTexture(GL_TEXTURE_CUBE_MAP, skyboxModule.getDiffuseIrradiance());
+        if (irradianceEnabled){
+            //attach skybox diffuse irradiance map
+            glActiveTexture(GL_TEXTURE5);
+            glBindTexture(GL_TEXTURE_CUBE_MAP, skyboxModule.getDiffuseIrradiance());
 
-        //attach skybox specular prefilter map with brdf lut
-        glActiveTexture(GL_TEXTURE6);
-        glBindTexture(GL_TEXTURE_CUBE_MAP, skyboxModule.getPrefilterMap());
-        glActiveTexture(GL_TEXTURE7);
-        glBindTexture(GL_TEXTURE_2D, skyboxModule.getBrdfLUT());
+            //attach skybox specular prefilter map with brdf lut
+            glActiveTexture(GL_TEXTURE6);
+            glBindTexture(GL_TEXTURE_CUBE_MAP, skyboxModule.getPrefilterMap());
+            glActiveTexture(GL_TEXTURE7);
+            glBindTexture(GL_TEXTURE_2D, skyboxModule.getBrdfLUT());
+        }
 
         // pass necessary camera parameters
         SoglProgramManager::setMat4("camera.invView", camData.invViewMatrix);

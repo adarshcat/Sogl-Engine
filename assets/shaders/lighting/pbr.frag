@@ -184,7 +184,6 @@ void main(){
     vec3 albedo = albedoSpecData.rgb;
     float roughness = albedoSpecData.a;
     float metallic = normalMetallic.a;
-
     // g-buffer fetch/data-reconstruction complete---------------------------
 
     // PBR

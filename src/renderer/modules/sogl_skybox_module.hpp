@@ -23,24 +23,36 @@ namespace sogl
         // --------------------------
 
         void loadHDR(std::string hdriPath);
-        void initialiseSkybox(GLuint cubeVAO);
+        void initialiseSkybox(GLuint cubeVAO, GLuint quadVAO);
 
         GLuint getDiffuseIrradiance();
+        GLuint getPrefilterMap();
+        GLuint getBrdfLUT();
         void renderSkybox(CameraData &camData, GLuint cubeVAO);
 
-        const int ENV_RESOLUTION = 512*2;
+        private:
+        const int ENV_RESOLUTION = 512;
         const int IRRADIANCE_RESOLUTION = 32;
+        const int PREFILTER_RESOLUTION = 128;
+        const int BRDF_LUT_RESOLUTION = 512;
+
         const std::string HDRI_ROOT = "assets/hdri/";
         const int WIDTH, HEIGHT;
 
-        private:
-        const std::string cubemapShader = "skybox/cubemapShader";
-        const std::string skyboxShader = "skybox/skyboxShader";
-        const std::string irradianceShader = "skybox/irradianceShader";
+        const std::string cubemapShader = "skybox/skybox_gen";
+        const std::string skyboxShader = "skybox/skybox_render";
+        const std::string irradianceShader = "skybox/diffuse_irradiance";
+        const std::string prefilterShader = "skybox/prefilter";
+        const std::string brdfLUTShader = "skybox/brdflut_gen";
 
         void initialiseDiffuseIrradiance(glm::mat4 captureProjection, glm::mat4 captureViews[], GLuint cubeVAO);
-        
+
+        void initialiseSpecularIrradiance(glm::mat4 captureProjection, glm::mat4 captureViews[], GLuint cubeVAO, GLuint quadVAO);
+        void generatePrefilterEnvMap(glm::mat4 captureProjection, glm::mat4 captureViews[], GLuint cubeVAO);
+        void generateBRDFLUT(GLuint quadVAO);
+
         GLuint envCubemap, diffuseIrradianceMap;
+        GLuint prefilterMap, brdfLUTTexture;
         GLuint hdrTexture;
         GLuint captureFBO, captureRBO;
 

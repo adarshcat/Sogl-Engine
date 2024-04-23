@@ -62,6 +62,11 @@ namespace sogl
     void SoglProgramManager::useProgram(std::string programName){
         if (currentProgram == programName) return;
 
+        if (activePrograms.find(programName) == activePrograms.end()){
+            std::cout << "Sogl Program manager: shader program not present!" << std::endl;
+            return;
+        }
+
         glUseProgram(activePrograms[programName]);
         currentProgram = programName;
         currentProgramId = activePrograms[programName];

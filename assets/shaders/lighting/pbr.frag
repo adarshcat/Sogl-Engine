@@ -39,7 +39,8 @@ uniform sampler2D ssaoMap;
 
 //skybox
 uniform samplerCube skyIrradiance;
-
+uniform samplerCube prefilterMap;
+uniform sampler2D brdfLUT;
 
 float getLinearDepth(float depth){
     float ndc = depth * 2.0 - 1.0;
@@ -125,6 +126,10 @@ vec3 fresnelSchlickRoughness(float cosTheta, vec3 F0, float roughness){
     return F0 + (max(vec3(1.0 - roughness), F0) - F0) * pow(clamp(1.0 - cosTheta, 0.0, 1.0), 5.0);
 }
 
+vec3 fresnelSchlick(float cosTheta, vec3 F0){
+    return F0 + (1.0 - F0) * pow(clamp(1.0 - cosTheta, 0.0, 1.0), 5.0);
+}
+
 float DistributionGGX(vec3 N, vec3 H, float roughness){
     float a = roughness*roughness;
     float a2 = a*a;
@@ -183,14 +188,16 @@ void main(){
     // g-buffer fetch/data-reconstruction complete---------------------------
 
     // PBR
+
     vec3 halfVector = normalize(viewDir + dirLight.direction);
+    vec3 reflectionVector = reflect(viewDir, worldNormal);
 
     vec3 radiance = dirLight.color * dirLight.strength;
 
     vec3 F0 = vec3(0.04);
     F0 = mix(F0, albedo, metallic);
 
-    vec3 F = fresnelSchlickRoughness(max(dot(halfVector, viewDir), 0.0), F0, roughness);
+    vec3 F = fresnelSchlick(max(dot(halfVector, viewDir), 0.0), F0);
     float NDF = DistributionGGX(worldNormal, halfVector, roughness);
     float G = GeometrySmith(worldNormal, viewDir, dirLight.direction, roughness);
 
@@ -202,8 +209,9 @@ void main(){
     vec3 kD = vec3(1.0) - kS;
     kD *= 1.0 - metallic;
   
-    float NdotL = max(dot(worldNormal, dirLight.direction), 0.0);        
+    float NdotL = max(dot(worldNormal, dirLight.direction), 0.0);
     vec3 lightOutput = (kD * albedo / PI + specular) * radiance * NdotL;
+
 
     // ssao
 #ifdef SSAO_ENABLED
@@ -212,11 +220,25 @@ void main(){
     float ao = 1.0;
 #endif
 
-    // calculating ambient occlusion
+
 #ifdef IRRADIANCE_ENABLED
-    vec3 irradiance = texture(skyIrradiance, worldNormal).rgb;
-    vec3 diffuse = irradiance * albedo;
-    vec3 ambient = kD * diffuse * ao;
+    // fresnel calculation for indirect lighting from the scene
+    F = fresnelSchlickRoughness(max(dot(worldNormal, viewDir), 0.0), F0, roughness);
+    kS = F;
+    kD = 1.0 - kS;
+    kD *= 1.0 - metallic;
+
+    // getting diffuse irradiance
+    vec3 diffuseIrradiance = texture(skyIrradiance, worldNormal).rgb;
+    vec3 diffuse = diffuseIrradiance * albedo;
+
+    // calculating specular irradiance
+    const float MAX_REFLECTION_LOD = 4.0;
+    vec3 prefilteredColor = textureLod(prefilterMap, reflectionVector,  roughness * MAX_REFLECTION_LOD).rgb;
+    vec2 brdf = texture(brdfLUT, vec2(max(dot(worldNormal, viewDir), 0.0), roughness)).rg;
+    vec3 envSpecular = prefilteredColor * (F * brdf.x + brdf.y);
+
+    vec3 ambient = (kD * diffuse + envSpecular) * ao;
 #else
     vec3 ambient = kD * vec3(0.2) * albedo * ao;
 #endif

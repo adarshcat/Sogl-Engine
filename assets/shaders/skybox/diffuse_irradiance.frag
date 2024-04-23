@@ -7,8 +7,7 @@ uniform samplerCube envMap;
 
 const float PI = 3.14159265359;
 
-void main()
-{		
+void main(){		
     // the sample direction equals the hemisphere's orientation 
     vec3 normal = normalize(WorldPos);
   

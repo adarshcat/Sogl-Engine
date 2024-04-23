@@ -38,7 +38,7 @@ namespace sogl
         }
     }
 
-    void SoglSkyboxModule::initialiseSkybox(GLuint cubeVAO){
+    void SoglSkyboxModule::initialiseSkybox(GLuint cubeVAO, GLuint quadVAO){
         // generate capture frameBuffer
         glGenFramebuffers(1, &captureFBO);
         glGenRenderbuffers(1, &captureRBO);
@@ -86,7 +86,7 @@ namespace sogl
         glViewport(0, 0, ENV_RESOLUTION, ENV_RESOLUTION);
         glBindFramebuffer(GL_FRAMEBUFFER, captureFBO);
 
-        glDisable(GL_CULL_FACE);
+        glDisable(GL_CULL_FACE); // disable cull face temporarily because the cube is renderer from inside
 
         for (unsigned int i = 0; i < 6; ++i){
             SoglProgramManager::setMat4("view", captureViews[i]);
@@ -109,6 +109,7 @@ namespace sogl
         glBindTexture(GL_TEXTURE_CUBE_MAP, envCubemap);
 
         initialiseDiffuseIrradiance(captureProjection, captureViews, cubeVAO);
+        initialiseSpecularIrradiance(captureProjection, captureViews, cubeVAO, quadVAO);
     }
 
     void SoglSkyboxModule::initialiseDiffuseIrradiance(glm::mat4 captureProjection, glm::mat4 captureViews[], GLuint cubeVAO){
@@ -157,6 +158,96 @@ namespace sogl
         glBindFramebuffer(GL_FRAMEBUFFER, 0);
     }
 
+    void SoglSkyboxModule::initialiseSpecularIrradiance(glm::mat4 captureProjection, glm::mat4 captureViews[], GLuint cubeVAO, GLuint quadVAO){
+        generatePrefilterEnvMap(captureProjection, captureViews, cubeVAO);
+        generateBRDFLUT(quadVAO);
+    }
+
+    void SoglSkyboxModule::generatePrefilterEnvMap(glm::mat4 captureProjection, glm::mat4 captureViews[], GLuint cubeVAO){
+        // generate the prefilter map
+        glGenTextures(1, &prefilterMap);
+        glBindTexture(GL_TEXTURE_CUBE_MAP, prefilterMap);
+
+        for (unsigned int i = 0; i < 6; ++i){
+            glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, GL_RGB16F, PREFILTER_RESOLUTION, PREFILTER_RESOLUTION, 0, GL_RGB, GL_FLOAT, nullptr);
+        }
+
+        glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+        glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+        glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
+        glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR); 
+        glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+        glGenerateMipmap(GL_TEXTURE_CUBE_MAP);
+        // prefilter initilisation over------------
+
+        // pass in the necessary inputs to the prefilter shader
+        SoglProgramManager::addProgram(prefilterShader, "ENV_MAP_RESOLUTION "+std::to_string(float(PREFILTER_RESOLUTION)));
+        SoglProgramManager::useProgram(prefilterShader);
+        SoglProgramManager::bindImage("envMap", 0);
+        SoglProgramManager::setMat4("projection", captureProjection);
+        glActiveTexture(GL_TEXTURE0);
+        glBindTexture(GL_TEXTURE_CUBE_MAP, envCubemap);
+
+        // bind the frambuffer and start rendering onto the cubemap
+        glBindFramebuffer(GL_FRAMEBUFFER, captureFBO);
+        glDisable(GL_CULL_FACE); // disable cull face temporarily because the cube is renderer from inside
+        unsigned int maxMipLevels = 5;
+        for (unsigned int mip = 0; mip < maxMipLevels; mip++){
+            // resize framebuffer according to mip-level size.
+            unsigned int mipWidth  = static_cast<unsigned int>(PREFILTER_RESOLUTION * std::pow(0.5, mip));
+            unsigned int mipHeight = static_cast<unsigned int>(PREFILTER_RESOLUTION * std::pow(0.5, mip));
+            glBindRenderbuffer(GL_RENDERBUFFER, captureRBO);
+            glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT24, mipWidth, mipHeight);
+            glViewport(0, 0, mipWidth, mipHeight);
+
+            float roughness = (float)mip / (float)(maxMipLevels - 1);
+            SoglProgramManager::setFloat("roughness", roughness);
+            for (unsigned int i = 0; i < 6; ++i)
+            {
+                SoglProgramManager::setMat4("view", captureViews[i]);
+                glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, prefilterMap, mip);
+
+                glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+                // render the cube
+                glBindVertexArray(cubeVAO);
+                glDrawArrays(GL_TRIANGLES, 0, 36);
+            }
+        }
+
+        glEnable(GL_CULL_FACE);
+        glBindFramebuffer(GL_FRAMEBUFFER, 0);
+    }
+
+    void SoglSkyboxModule::generateBRDFLUT(GLuint quadVAO){
+        // initialise the lut texture
+        glGenTextures(1, &brdfLUTTexture);
+
+        glBindTexture(GL_TEXTURE_2D, brdfLUTTexture);
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RG16F, BRDF_LUT_RESOLUTION, BRDF_LUT_RESOLUTION, 0, GL_RG, GL_FLOAT, 0);
+
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+        glBindFramebuffer(GL_FRAMEBUFFER, captureFBO);
+        glBindRenderbuffer(GL_RENDERBUFFER, captureRBO);
+        glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT24, BRDF_LUT_RESOLUTION, BRDF_LUT_RESOLUTION);
+        glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, brdfLUTTexture, 0);
+
+        SoglProgramManager::addProgram(brdfLUTShader);
+        SoglProgramManager::useProgram(brdfLUTShader);
+        glViewport(0, 0, BRDF_LUT_RESOLUTION, BRDF_LUT_RESOLUTION);
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+        // draw the render quad
+        glBindVertexArray(quadVAO);
+        glDrawArrays(GL_TRIANGLES, 0, 6);
+
+        glBindFramebuffer(GL_FRAMEBUFFER, 0);
+    }
+
 
     void SoglSkyboxModule::renderSkybox(CameraData &camData, GLuint cubeVAO){
         glViewport(0, 0, WIDTH, HEIGHT);
@@ -185,6 +276,14 @@ namespace sogl
 #pragma region getters
     GLuint SoglSkyboxModule::getDiffuseIrradiance(){
         return diffuseIrradianceMap;
+    }
+
+    GLuint SoglSkyboxModule::getPrefilterMap(){
+        return prefilterMap;
+    }
+
+    GLuint SoglSkyboxModule::getBrdfLUT(){
+        return brdfLUTTexture;
     }
 #pragma endregion getters
 

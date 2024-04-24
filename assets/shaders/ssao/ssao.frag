@@ -61,7 +61,7 @@ void main(){
         float rangeCheck = smoothstep(0.0, 1.0, radius / abs(viewPos.z - sampleDepth));
 
         occlusion += (sampleDepth >= samplePos.z + bias ? 1.0 : 0.0) * rangeCheck;
-    } 
+    }
 
     occlusion = occlusion / KERNEL_SIZE;
     FragColor = vec4(occlusion, 0.0, 0.0, 1.0);

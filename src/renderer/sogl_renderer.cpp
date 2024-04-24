@@ -224,7 +224,6 @@ namespace sogl
 #pragma endregion rendererInitialisation
 
 
-
     // Renders onto glfw window, takes in all the renderable game objects and calls draw() on them
     void SoglRenderer::draw(std::vector<std::unique_ptr<SoglGameObject>> &gameObjects, CameraData camData){
         glm::mat4 dirLightMatrix = LightOperations::adjustShadowMap(directionalLight, camData.frustumSlice1);
@@ -360,7 +359,7 @@ namespace sogl
 
         if (lightingParams.size() > 0) lightingParams = lightingParams.substr(0, lightingParams.size()-1);
 
-        SoglProgramManager::recompileProgram(lightingShader, lightingParams);
+        SoglProgramManager::recompileProgram(quadShader, lightingShader, lightingParams);
         SoglProgramManager::useProgram(lightingShader);
         SoglProgramManager::bindImage("gbuffer.gDepth", 0);
         SoglProgramManager::bindImage("gbuffer.gNormalMet", 1);

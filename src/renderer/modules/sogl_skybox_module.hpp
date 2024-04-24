@@ -39,8 +39,11 @@ namespace sogl
         const std::string HDRI_ROOT = "assets/hdri/";
         const int WIDTH, HEIGHT;
 
-        const std::string cubemapShader = "skybox/skybox_gen";
-        const std::string skyboxShader = "skybox/skybox_render";
+        const std::string quadShader = "render_quad";
+        const std::string cubeShader = "render_cube";
+
+        const std::string skyCubeGenShader = "skybox/skybox_gen";
+        const std::string skyRenderShader = "skybox/skybox_render";
         const std::string irradianceShader = "skybox/diffuse_irradiance";
         const std::string prefilterShader = "skybox/prefilter";
         const std::string brdfLUTShader = "skybox/brdflut_gen";

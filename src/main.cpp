@@ -16,7 +16,7 @@ int main() {
     std::vector<std::unique_ptr<SoglGameObject>> cBoxModels = SoglModelLoader::loadModel("cBox.glb");
     std::vector<std::unique_ptr<SoglGameObject>> monkeyModel = SoglModelLoader::loadModel("monkey.obj");
 
-    float scFactor = 0.9;
+    float scFactor = 1.0;
     for (int i=0; i<cBoxModels.size(); i++)
         cBoxModels[i]->scale(glm::vec3(5.0 * scFactor));
     

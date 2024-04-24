@@ -15,15 +15,17 @@ namespace sogl
     std::string SoglProgramManager::defaultShader = "default/default";
     std::string SoglProgramManager::shadowSuffix = "_shadow";
 
-    GLuint SoglProgramManager::addProgram(std::string programName, std::string shaderParams){
+    GLuint SoglProgramManager::addProgram(std::string vertProgramName, std::string fragProgramName, std::string shaderParams){
+        std::string programName = fragProgramName;
+
         for (auto &[key, value]: activePrograms){
             if (std::strcmp(key.c_str(), programName.c_str()) == 0){
                 return value;
             }
         }
 
-        std::string vertexPath = programPath + programName + ".vert";
-        std::string fragmentPath = programPath + programName + ".frag";
+        std::string vertexPath = programPath + vertProgramName + ".vert";
+        std::string fragmentPath = programPath + fragProgramName + ".frag";
 
         GLuint programID = LoadShaders(vertexPath.c_str(), fragmentPath.c_str(), shaderParams);
 
@@ -35,11 +37,17 @@ namespace sogl
         return programID;
     }
 
+    GLuint SoglProgramManager::addProgram(std::string programName, std::string shaderParams){
+        return addProgram(programName, programName, shaderParams);
+    }
+
     GLuint SoglProgramManager::addProgram(std::string programName){
         return addProgram(programName, "");
     }
 
-    GLuint SoglProgramManager::recompileProgram(std::string programName, std::string shaderParams){
+
+    GLuint SoglProgramManager::recompileProgram(std::string vertProgramName, std::string fragProgramName, std::string shaderParams){
+        std::string programName = fragProgramName;
         // Check if the program is present
         bool present = false;
         for (auto &[key, value]: activePrograms){
@@ -50,14 +58,19 @@ namespace sogl
 
         // If not present, just add it
         if (!present)
-            return addProgram(programName, shaderParams);
+            return addProgram(vertProgramName, fragProgramName, shaderParams);
 
         // free old program id from gpu, erase reference from activePrograms map
         glDeleteProgram(activePrograms[programName]);
         activePrograms.erase(programName);
 
-        return addProgram(programName, shaderParams);
+        return addProgram(vertProgramName, fragProgramName, shaderParams);
     }
+
+    GLuint SoglProgramManager::recompileProgram(std::string programName, std::string shaderParams){
+        return recompileProgram(programName, programName, shaderParams);
+    }
+    
     
     void SoglProgramManager::useProgram(std::string programName){
         if (currentProgram == programName) return;

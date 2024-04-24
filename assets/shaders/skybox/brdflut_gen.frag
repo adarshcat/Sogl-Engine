@@ -1,7 +1,7 @@
 #version 330 core
 
 out vec2 FragColor;
-in vec2 TexCoords;
+in vec2 texCoord;
 
 const float PI = 3.14159265359;
 const uint SAMPLE_COUNT = 1024u;
@@ -105,6 +105,6 @@ vec2 IntegrateBRDF(float NdotV, float roughness){
 }
 
 void main() {
-    vec2 integratedBRDF = IntegrateBRDF(TexCoords.x, TexCoords.y);
+    vec2 integratedBRDF = IntegrateBRDF(texCoord.x, texCoord.y);
     FragColor = integratedBRDF;
 }

@@ -12,8 +12,11 @@ namespace sogl
     
     class SoglProgramManager{
         public:
+        static GLuint addProgram(std::string vertProgramName, std::string fragProgramName, std::string shaderParams);
         static GLuint addProgram(std::string programName, std::string shaderParams);
         static GLuint addProgram(std::string programName);
+
+        static GLuint recompileProgram(std::string vertProgramName, std::string fragProgramName, std::string shaderParams);
         static GLuint recompileProgram(std::string programName, std::string shaderParams);
         static void useProgram(std::string programName);
 

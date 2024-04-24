@@ -44,6 +44,7 @@ namespace sogl
         void toggleIrradiance(const bool state);
 
         private:
+        const std::string quadShader = "render_quad";
         const std::string lightingShader = "lighting/pbr";
         const std::string skyboxImage = "veranda_4k.hdr";
 

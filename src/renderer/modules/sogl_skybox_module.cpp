@@ -40,6 +40,7 @@ namespace sogl
         }
     }
 
+#pragma region skyboxInitialisation
     void SoglSkyboxModule::initialiseSkybox(GLuint cubeVAO, GLuint quadVAO){
         // generate capture frameBuffer
         glGenFramebuffers(1, &captureFBO);
@@ -63,7 +64,7 @@ namespace sogl
         glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
         glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
-        // render settings for cubemap
+        // render settings for all skybox related cubemaps
         glm::mat4 captureProjection = glm::perspective(glm::radians(90.0f), 1.0f, 0.1f, 10.0f);
         glm::mat4 captureViews[] =
         {
@@ -75,9 +76,9 @@ namespace sogl
             glm::lookAt(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3( 0.0f,  0.0f, -1.0f), glm::vec3(0.0f, -1.0f,  0.0f))
         };
 
-        // create shader for converting to cubemap
-        SoglProgramManager::addProgram(cubemapShader);
-        SoglProgramManager::useProgram(cubemapShader);
+        // create shader for converting equilateral hdri to cubemap
+        SoglProgramManager::addProgram(cubeShader, skyCubeGenShader, "");
+        SoglProgramManager::useProgram(skyCubeGenShader);
         SoglProgramManager::bindImage("equirectangularMap", 0);
         SoglProgramManager::setMat4("projection", captureProjection);
 
@@ -108,8 +109,8 @@ namespace sogl
         glGenerateMipmap(GL_TEXTURE_CUBE_MAP);
 
         // initialise the skybox shader for later rendering the skybox
-        SoglProgramManager::addProgram(skyboxShader);
-        SoglProgramManager::useProgram(skyboxShader);
+        SoglProgramManager::addProgram(cubeShader, skyRenderShader, "");
+        SoglProgramManager::useProgram(skyRenderShader);
         SoglProgramManager::bindImage("skybox", 0);
 
         initialiseDiffuseIrradiance(captureProjection, captureViews, cubeVAO);
@@ -137,7 +138,7 @@ namespace sogl
         glBindRenderbuffer(GL_RENDERBUFFER, captureRBO);
         glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT24, IRRADIANCE_RESOLUTION, IRRADIANCE_RESOLUTION);
 
-        SoglProgramManager::addProgram(irradianceShader);
+        SoglProgramManager::addProgram(cubeShader, irradianceShader, "");
         SoglProgramManager::useProgram(irradianceShader);
         SoglProgramManager::bindImage("envMap", 0);
         SoglProgramManager::setMat4("projection", captureProjection);
@@ -168,7 +169,7 @@ namespace sogl
     }
 
     void SoglSkyboxModule::generatePrefilterEnvMap(glm::mat4 captureProjection, glm::mat4 captureViews[], GLuint cubeVAO){
-        // generate the prefilter map
+        // generate the prefilter cubemap
         glGenTextures(1, &prefilterMap);
         glBindTexture(GL_TEXTURE_CUBE_MAP, prefilterMap);
 
@@ -183,10 +184,10 @@ namespace sogl
         glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
         glGenerateMipmap(GL_TEXTURE_CUBE_MAP);
-        // prefilter initilisation over------------
+        // prefilter cubemap initilisation over------------
 
         // pass in the necessary inputs to the prefilter shader
-        SoglProgramManager::addProgram(prefilterShader, "ENV_MAP_RESOLUTION "+std::to_string(float(PREFILTER_RESOLUTION)));
+        SoglProgramManager::addProgram(cubeShader, prefilterShader, "ENV_MAP_RESOLUTION "+std::to_string(float(PREFILTER_RESOLUTION)));
         SoglProgramManager::useProgram(prefilterShader);
         SoglProgramManager::bindImage("envMap", 0);
         SoglProgramManager::setMat4("projection", captureProjection);
@@ -240,7 +241,7 @@ namespace sogl
         glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT24, BRDF_LUT_RESOLUTION, BRDF_LUT_RESOLUTION);
         glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, brdfLUTTexture, 0);
 
-        SoglProgramManager::addProgram(brdfLUTShader);
+        SoglProgramManager::addProgram(quadShader, brdfLUTShader, "");
         SoglProgramManager::useProgram(brdfLUTShader);
         glViewport(0, 0, BRDF_LUT_RESOLUTION, BRDF_LUT_RESOLUTION);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -251,13 +252,14 @@ namespace sogl
 
         glBindFramebuffer(GL_FRAMEBUFFER, 0);
     }
+#pragma endregion skyboxInitialisation
 
 
     void SoglSkyboxModule::renderSkybox(CameraData &camData, GLuint cubeVAO){
         glViewport(0, 0, WIDTH, HEIGHT);
         glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
-        SoglProgramManager::useProgram(skyboxShader);
+        SoglProgramManager::useProgram(skyRenderShader);
         glDisable(GL_CULL_FACE);
         glDepthMask(GL_FALSE);
 

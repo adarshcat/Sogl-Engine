@@ -77,7 +77,7 @@ namespace sogl
         // initialise the ssao shader program
         const std::string ssaoParams = "KERNEL_SIZE "+std::to_string(SSAO_SAMPLES)+
                                         ",WINDOW_WIDTH "+std::to_string(SSAO_WIDTH)+",WINDOW_HEIGHT "+std::to_string(SSAO_HEIGHT);
-        SoglProgramManager::addProgram(ssaoShader, ssaoParams);
+        SoglProgramManager::addProgram(quadShader, ssaoShader, ssaoParams);
         SoglProgramManager::useProgram(ssaoShader);
 
         SoglProgramManager::bindImage("gDepth", 0);
@@ -101,7 +101,7 @@ namespace sogl
 
         glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
-        SoglProgramManager::addProgram(ssaoBlurShader);
+        SoglProgramManager::addProgram(quadShader, ssaoBlurShader, "");
         SoglProgramManager::useProgram(ssaoBlurShader);
 
         SoglProgramManager::bindImage("depthBuffer", 0);

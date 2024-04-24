@@ -29,6 +29,7 @@ namespace sogl
         GLuint ssaoBlurOutput, ssaoOutput;
 
         private:
+        const std::string quadShader = "render_quad";
         std::string ssaoShader = "ssao/ssao";
         std::string ssaoBlurShader = "ssao/ssao_blur";
 

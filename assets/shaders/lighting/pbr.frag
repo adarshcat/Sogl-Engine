@@ -96,7 +96,7 @@ float getSSAO(vec2 location){
     vec2 texSize = vec2(textureSize(gbuffer.gDepth, 0));
     vec2 texelSize = 1.0 / texSize;
     float result = 0.0;
-    float counter = 0;
+    float counter = 0.0;
 
     float depthSampleCurrent = texture(gbuffer.gDepth, texCoord).r;
     float depthLinearCurrent = getLinearDepth(depthSampleCurrent);
@@ -113,7 +113,6 @@ float getSSAO(vec2 location){
                 result += texture(ssaoMap, texCoord + offset).r * ((currentCutoff - abs(depthLinear - depthLinearCurrent)) / currentCutoff);
                 counter++;
             }
-            
         }
     }
 
@@ -189,7 +188,7 @@ void main(){
     // PBR
 
     vec3 halfVector = normalize(viewDir + dirLight.direction);
-    vec3 reflectionVector = reflect(viewDir, worldNormal);
+    vec3 reflectionVector = reflect(-viewDir, worldNormal);
 
     vec3 radiance = dirLight.color * dirLight.strength;
 

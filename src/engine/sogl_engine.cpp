@@ -37,7 +37,7 @@ namespace sogl
             // Fixed loop, runs a fixed number of times a second
             float lastFixedLoopTime = currentTime - lastFixedTick;
             if (lastFixedLoopTime > fixedLoopInterval){
-
+                //std::cout << std::to_string(int(1.0f/deltaTime)).c_str() << std::endl;
                 for (std::unique_ptr<SoglGameObject> &gameObj : gameObjects){
                     gameObj->process(deltaTime);
                     gameObj->fixedProcess(deltaTime);
@@ -85,19 +85,19 @@ namespace sogl
             static_cast<SoglMeshObject*>(gameObjects[0].get())->material.metallic = monkeyMetallic;
 
             ImGui::Checkbox("Shadows", &shadows);
-            soglRenderer.toggleShadows(shadows);
+            soglRenderer.toggleSetting(SoglRenderer::SHADOWS, shadows);
 
             ImGui::Checkbox("SSAO", &ssao);
-            soglRenderer.toggleSSAO(ssao);
+            soglRenderer.toggleSetting(SoglRenderer::SSAO, ssao);
 
             ImGui::Checkbox("SSAO Blur", &ssaoBlur);
-            soglRenderer.toggleSSAOBlur(ssaoBlur);
+            soglRenderer.toggleSetting(SoglRenderer::SSAO_BLUR, ssaoBlur);
 
             ImGui::SliderFloat("Sun Dir.", &time, 0.0, 3.14*2, "%.4f");
             ImGui::SliderFloat("Sun Strength", &sunStrength, 0.0, 16.0);
 
             ImGui::Checkbox("ibl", &ibl);
-            soglRenderer.toggleIrradiance(ibl);
+            soglRenderer.toggleSetting(SoglRenderer::IRRADIANCE, ibl);
 
             DirectionalLight sun;
             sun.direction = glm::normalize(glm::vec3(sin(time)*2.0f, 1.0f, cos(time)*-1.0f));

@@ -171,7 +171,8 @@ void main(){
     //vec3 cameraDirection = normalize((camera.invView * vec4((texCoord - vec2(0.5))*2.0, -1, 1)).xyz - camera.position);
 
     if (depthValue >= 1.0){
-        discard;
+        FragColor = vec4(0.0);
+        return;
     }
 
     vec3 viewPos = getViewpos(texCoord, depthValue);
@@ -251,9 +252,5 @@ void main(){
     vec3 lighting = ambient + lightOutput;
 #endif
 
-
-    // tonemapping and gamma correction
-    vec3 tonemapped = lighting/(lighting+1.0f);
-    float gamma = 2.2;
-    FragColor = vec4(pow(tonemapped, vec3(1.0/gamma)), 1.0);
+    FragColor = vec4(lighting, 1.0);
 }

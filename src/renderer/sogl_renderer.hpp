@@ -10,8 +10,10 @@
 #include "engine/env/sogl_lights.hpp"
 #include "util/sogl_helper.hpp"
 
+#include "renderer/modules/sogl_lighting_module.hpp"
 #include "renderer/modules/sogl_ssao_module.hpp"
 #include "renderer/modules/sogl_skybox_module.hpp"
+#include "renderer/modules/sogl_pp_module.hpp"
 
 // std
 #include <vector>
@@ -33,29 +35,31 @@ namespace sogl
         const int WIDTH;
         const int HEIGHT;
 
+        enum settingTypes{
+            SHADOWS,
+            SSAO,
+            SSAO_BLUR,
+            IRRADIANCE
+        };
+
         void initialiseRenderer();
+
+        // lighting update functions
         void updateDirectionalLight(DirectionalLight &dirLight);
+
         void draw(std::vector<std::unique_ptr<SoglGameObject>> &gameObjects, CameraData camData);
 
         // changed renderer settings
-        void toggleShadows(const bool state);
-        void toggleSSAO(const bool state);
-        void toggleSSAOBlur(const bool state);
-        void toggleIrradiance(const bool state);
+        void toggleSetting(settingTypes type, bool state);
 
         private:
-        const std::string quadShader = "render_quad";
-        const std::string lightingShader = "lighting/pbr";
         const std::string skyboxImage = "veranda_4k.hdr";
 
         SoglWindow& soglWindow;
         DirectionalLight directionalLight;
 
         // renderer settings
-        bool shadowEnabled = true;
-        bool ssaoEnabled = true;
-        bool ssaoBlurEnabled = true;
-        bool irradianceEnabled = true;
+        SoglLightingSettings lightingSettings;
 
         // renderer initialisation functions
         void initialiseGBuffer();
@@ -63,13 +67,11 @@ namespace sogl
         void initialiseRenderCube();
         void initialiseShadowMap();
 
-        // renderer update functions
-        void updateLighting();
-        void updateLightingShaderInputs();
-
         // renderer modules
+        SoglLightingModule lightingModule;
         SoglSSAOModule ssaoModule;
         SoglSkyboxModule skyboxModule;
+        SoglPPModule ppModule;
 
         //g-buffer
         GLuint gBuffer;

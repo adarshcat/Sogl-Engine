@@ -9,7 +9,8 @@ namespace sogl
     // Setups renderin onto a glfw window
     SoglRenderer::SoglRenderer(SoglWindow& wind, const int width, const int height):
         WIDTH{width}, HEIGHT{height}, soglWindow{wind}, ssaoModule{SoglSSAOModule(width/2, height/2, 32)},
-        skyboxModule{SoglSkyboxModule(width, height)}
+        skyboxModule{SoglSkyboxModule(width, height)}, lightingModule{SoglLightingModule(width, height)},
+        ppModule{SoglPPModule(width, height)}
     {
         glewExperimental =  GL_TRUE;
 
@@ -49,23 +50,24 @@ namespace sogl
 
 #pragma region rendererInitialisation
     void SoglRenderer::initialiseRenderer(){
-        updateLighting();
-        
         glEnable(GL_DEPTH_TEST);
         glDepthFunc(GL_LESS);
         glEnable(GL_CULL_FACE);
         glCullFace(GL_BACK);
         glEnable(GL_TEXTURE_CUBE_MAP_SEAMLESS);
 
-        initialiseGBuffer();
+        lightingModule.initialiseLighting();
+        ppModule.initialise();
+
         initialiseRenderQuad();
         initialiseRenderCube();
+        initialiseGBuffer();
         initialiseShadowMap();
 
         ssaoModule.initialiseSSAO();
         ssaoModule.initialiseSSAOBlur();
 
-        if (irradianceEnabled){
+        if (lightingSettings.irradianceEnabled){
             skyboxModule.loadHDR(skyboxImage);
             skyboxModule.initialiseSkybox(renderCubeVAO, renderQuadVAO);
         }
@@ -231,11 +233,11 @@ namespace sogl
         glEnable(GL_DEPTH_TEST);
 
         geometryPass(gameObjects, camData);
-        if (shadowEnabled) shadowPass(gameObjects, dirLightMatrix);
+        if (lightingSettings.shadowEnabled) shadowPass(gameObjects, dirLightMatrix);
 
         glDisable(GL_DEPTH_TEST);
 
-        if (ssaoEnabled) ssaoModule.ssaoPass(camData, gDepth, gNormalMet, renderQuadVAO, ssaoBlurEnabled);
+        if (lightingSettings.ssaoEnabled) ssaoModule.ssaoPass(camData, gDepth, gNormalMet, renderQuadVAO, lightingSettings.ssaoBlurEnabled);
 
         // clear the screen and render the final image
         glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
@@ -243,6 +245,8 @@ namespace sogl
 
         skyboxModule.renderSkybox(camData, renderCubeVAO);
         lightingPass(camData, dirLightMatrix);
+
+        ppModule.render(lightingModule.getOutputTexture(), renderQuadVAO);
     }
 
 
@@ -278,126 +282,66 @@ namespace sogl
     }
 
     void SoglRenderer::lightingPass(CameraData &camData, glm::mat4 &dirLightMatrix){
-        glViewport(0, 0, WIDTH, HEIGHT);
-        glBindFramebuffer(GL_FRAMEBUFFER, 0);
+        // pack the lighting data into the struct and pass it to lighting module for lighting
+        SoglLightingData lightingData;
+        lightingData.camData = camData;
+        lightingData.dirLightMatrix = dirLightMatrix;
 
-        SoglProgramManager::useProgram(lightingShader);
+        lightingData.gDepth = gDepth;
+        lightingData.gNormalMet = gNormalMet;
+        lightingData.gAlbedoSpec = gAlbedoSpec;
 
-        // bind the g-buffer to lighting shader program
-        glActiveTexture(GL_TEXTURE0);
-        glBindTexture(GL_TEXTURE_2D, gDepth);
-        glActiveTexture(GL_TEXTURE1);
-        glBindTexture(GL_TEXTURE_2D, gNormalMet);
-        glActiveTexture(GL_TEXTURE2);
-        glBindTexture(GL_TEXTURE_2D, gAlbedoSpec);
+        lightingData.shadowMap = shadowMap;
 
-        if (shadowEnabled){
-            glActiveTexture(GL_TEXTURE3);
-            glBindTexture(GL_TEXTURE_2D, shadowMap);
-            SoglProgramManager::setMat4("dirLight.transformMatrix", dirLightMatrix);
-        }
-        
-        if (ssaoEnabled){
-            glActiveTexture(GL_TEXTURE4);
-            if (ssaoBlurEnabled)
-                glBindTexture(GL_TEXTURE_2D, ssaoModule.ssaoBlurOutput);
-            else
-                glBindTexture(GL_TEXTURE_2D, ssaoModule.ssaoOutput);
-        }
+        lightingData.ssaoBlurOutput = ssaoModule.ssaoBlurOutput;
+        lightingData.ssaoOutput = ssaoModule.ssaoOutput;
 
-        if (irradianceEnabled){
-            //attach skybox diffuse irradiance map
-            glActiveTexture(GL_TEXTURE5);
-            glBindTexture(GL_TEXTURE_CUBE_MAP, skyboxModule.getDiffuseIrradiance());
+        lightingData.skyboxDiffuseIrradiance = skyboxModule.getDiffuseIrradiance();
+        lightingData.skyboxPrefilterMap = skyboxModule.getPrefilterMap();
+        lightingData.skyboxBrdfLUT = skyboxModule.getBrdfLUT();
 
-            //attach skybox specular prefilter map with brdf lut
-            glActiveTexture(GL_TEXTURE6);
-            glBindTexture(GL_TEXTURE_CUBE_MAP, skyboxModule.getPrefilterMap());
-            glActiveTexture(GL_TEXTURE7);
-            glBindTexture(GL_TEXTURE_2D, skyboxModule.getBrdfLUT());
-        }
-
-        // pass necessary camera parameters
-        SoglProgramManager::setMat4("camera.invView", camData.invViewMatrix);
-        SoglProgramManager::setMat4("camera.invProjection", camData.invProjectionMatrix);
-        SoglProgramManager::setVec3("camera.position", camData.camPos);
-        SoglProgramManager::setFloat("camera.near", camData.near);
-        SoglProgramManager::setFloat("camera.far", camData.far);
-        
-        // draw the render quad
-        glBindVertexArray(renderQuadVAO);
-        glDrawArrays(GL_TRIANGLES, 0, 6);
+        lightingModule.lightingPass(lightingData, lightingSettings, renderQuadVAO);
     }
 #pragma endregion renderpasses
 
 
-#pragma region updateLightingProgram
+#pragma region updateLighting
     // updates directional light parameters and also updates in the shader
     void SoglRenderer::updateDirectionalLight(DirectionalLight &dirLight){
         directionalLight.color = dirLight.color;
         directionalLight.direction = dirLight.direction;
         directionalLight.strength = dirLight.strength;
 
-        updateLightingShaderInputs();
+        lightingModule.updateLightingShaderInputs(dirLight);
     }
+#pragma endregion updateLighting
 
-    // updates directional light + etc. parameters in the shader
-    void SoglRenderer::updateLightingShaderInputs(){
-        SoglProgramManager::useProgram(lightingShader);
-        SoglProgramManager::setVec3("dirLight.color", directionalLight.color);
-        SoglProgramManager::setVec3("dirLight.direction", glm::normalize(directionalLight.direction));
-        SoglProgramManager::setFloat("dirLight.strength", directionalLight.strength);
+
+#pragma region rendererSettings
+    void SoglRenderer::toggleSetting(settingTypes type, bool state){
+        switch(type){
+            case settingTypes::SHADOWS:
+                if (lightingSettings.shadowEnabled == state) return;
+
+                lightingSettings.shadowEnabled = state;
+                lightingModule.updateLighting(lightingSettings);
+                break;
+            case settingTypes::SSAO:
+                if (lightingSettings.ssaoEnabled == state) return;
+
+                lightingSettings.ssaoEnabled = state;
+                lightingModule.updateLighting(lightingSettings);
+                break;
+            case settingTypes::SSAO_BLUR:
+                lightingSettings.ssaoBlurEnabled = state;
+                break;
+            case settingTypes::IRRADIANCE:
+                if (lightingSettings.irradianceEnabled == state) return;
+
+                lightingSettings.irradianceEnabled = state;
+                lightingModule.updateLighting(lightingSettings);
+                break;
+        }
     }
-
-    // recompiles lighting shader with updated flags (ssao, shadow, etc..) binds the sampler locations to respective indices
-    void SoglRenderer::updateLighting(){
-        std::string lightingParams = "";
-
-        if (shadowEnabled) lightingParams += "SHADOW_ENABLED,";
-        if (ssaoEnabled) lightingParams += "SSAO_ENABLED,";
-        if (irradianceEnabled) lightingParams += "IRRADIANCE_ENABLED,";
-
-        if (lightingParams.size() > 0) lightingParams = lightingParams.substr(0, lightingParams.size()-1);
-
-        SoglProgramManager::recompileProgram(quadShader, lightingShader, lightingParams);
-        SoglProgramManager::useProgram(lightingShader);
-        SoglProgramManager::bindImage("gbuffer.gDepth", 0);
-        SoglProgramManager::bindImage("gbuffer.gNormalMet", 1);
-        SoglProgramManager::bindImage("gbuffer.gAlbedoSpec", 2);
-        SoglProgramManager::bindImage("dirLight.shadowMap", 3);
-        SoglProgramManager::bindImage("ssaoMap", 4);
-        SoglProgramManager::bindImage("skyIrradiance", 5);
-        SoglProgramManager::bindImage("prefilterMap", 6);
-        SoglProgramManager::bindImage("brdfLUT", 7);
-
-        updateLightingShaderInputs();
-    }
-#pragma endregion updateLightingProgram
-
-#pragma region rendererToggles
-    void SoglRenderer::toggleShadows(const bool state){
-        if (shadowEnabled == state) return;
-
-        shadowEnabled = state;
-        updateLighting();
-    }
-
-    void SoglRenderer::toggleSSAO(const bool state){
-        if (ssaoEnabled == state) return;
-
-        ssaoEnabled = state;
-        updateLighting();
-    }
-
-    void SoglRenderer::toggleSSAOBlur(const bool state){
-        ssaoBlurEnabled = state;
-    }
-
-    void SoglRenderer::toggleIrradiance(const bool state){
-        if (irradianceEnabled == state) return;
-
-        irradianceEnabled = state;
-        updateLighting();
-    }
-#pragma endregion rendererToggles
+#pragma endregion rendererSettings
 } // namespace sogl

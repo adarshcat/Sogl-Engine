@@ -90,6 +90,10 @@ namespace sogl
         glUniform3f(glGetUniformLocation(currentProgramId, uniformName.c_str()), value.x, value.y, value.z);
     }
 
+    void SoglProgramManager::setVec2(const std::string uniformName, glm::vec2 value){
+        glUniform2f(glGetUniformLocation(currentProgramId, uniformName.c_str()), value.x, value.y);
+    }
+
     void SoglProgramManager::setMat4(const std::string uniformName, glm::mat4 value){
         glUniformMatrix4fv(glGetUniformLocation(currentProgramId, uniformName.c_str()),  1, GL_FALSE, &value[0][0]);
     }

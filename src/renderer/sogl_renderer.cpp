@@ -10,7 +10,7 @@ namespace sogl
     SoglRenderer::SoglRenderer(SoglWindow& wind, const int width, const int height):
         WIDTH{width}, HEIGHT{height}, soglWindow{wind}, ssaoModule{SoglSSAOModule(width/2, height/2, 32)},
         skyboxModule{SoglSkyboxModule(width, height)}, lightingModule{SoglLightingModule(width, height)},
-        ppModule{SoglPPModule(width, height)}
+        bloomModule{SoglBloomModule(width, height)}, ppModule{SoglPPModule(width, height)}
     {
         glewExperimental =  GL_TRUE;
 
@@ -56,9 +56,6 @@ namespace sogl
         glCullFace(GL_BACK);
         glEnable(GL_TEXTURE_CUBE_MAP_SEAMLESS);
 
-        lightingModule.initialiseLighting();
-        ppModule.initialise();
-
         initialiseRenderQuad();
         initialiseRenderCube();
         initialiseGBuffer();
@@ -66,6 +63,10 @@ namespace sogl
 
         ssaoModule.initialiseSSAO();
         ssaoModule.initialiseSSAOBlur();
+
+        lightingModule.initialiseLighting();
+        bloomModule.initialise();
+        ppModule.initialise();
 
         if (lightingSettings.irradianceEnabled){
             skyboxModule.loadHDR(skyboxImage);
@@ -239,14 +240,17 @@ namespace sogl
 
         if (lightingSettings.ssaoEnabled) ssaoModule.ssaoPass(camData, gDepth, gNormalMet, renderQuadVAO, lightingSettings.ssaoBlurEnabled);
 
-        // clear the screen and render the final image
-        glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-        glClear(GL_COLOR_BUFFER_BIT);
+        glEnable(GL_BLEND);
+        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-        skyboxModule.renderSkybox(camData, renderCubeVAO);
+        skyboxModule.renderSkybox(camData, lightingModule.getFBO(), renderCubeVAO);
         lightingPass(camData, dirLightMatrix);
 
-        ppModule.render(lightingModule.getOutputTexture(), renderQuadVAO);
+        glDisable(GL_BLEND);
+
+        bloomModule.bloomPass(lightingModule.getOutputTexture(), renderQuadVAO);
+
+        ppModule.render(lightingModule.getOutputTexture(), bloomModule.getBloomOutput(), renderQuadVAO);
     }
 
 

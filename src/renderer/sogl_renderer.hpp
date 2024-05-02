@@ -13,6 +13,7 @@
 #include "renderer/modules/sogl_lighting_module.hpp"
 #include "renderer/modules/sogl_ssao_module.hpp"
 #include "renderer/modules/sogl_skybox_module.hpp"
+#include "renderer/modules/sogl_bloom_module.hpp"
 #include "renderer/modules/sogl_pp_module.hpp"
 
 // std
@@ -68,9 +69,10 @@ namespace sogl
         void initialiseShadowMap();
 
         // renderer modules
-        SoglLightingModule lightingModule;
         SoglSSAOModule ssaoModule;
         SoglSkyboxModule skyboxModule;
+        SoglLightingModule lightingModule;
+        SoglBloomModule bloomModule;
         SoglPPModule ppModule;
 
         //g-buffer

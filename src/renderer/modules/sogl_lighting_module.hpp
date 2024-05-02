@@ -42,6 +42,7 @@ namespace sogl
 
         void lightingPass(SoglLightingData &lightingData, SoglLightingSettings &lightingSettings, GLuint quadVAO);
         GLuint getOutputTexture();
+        GLuint getFBO();
 
         void updateLighting(SoglLightingSettings &lightingSettings);
         void updateLightingShaderInputs(DirectionalLight &dirLight);

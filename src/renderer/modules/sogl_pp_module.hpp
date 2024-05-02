@@ -15,7 +15,7 @@ namespace sogl
 
         void initialise();
 
-        void render(GLuint hdrOutput, GLuint quadVAO);
+        void render(GLuint hdrOutput, GLuint bloomOutput, GLuint quadVAO);
 
         private:
         const int WIDTH = 400, HEIGHT = 500;

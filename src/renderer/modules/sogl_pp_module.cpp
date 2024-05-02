@@ -10,14 +10,20 @@ namespace sogl
         SoglProgramManager::addProgram(quadShader, ppShader, "");
         SoglProgramManager::useProgram(ppShader);
         SoglProgramManager::bindImage("hdrImage", 0);
+        SoglProgramManager::bindImage("bloomImage", 1);
     }
 
-    void SoglPPModule::render(GLuint hdrOutput, GLuint quadVAO){
+    void SoglPPModule::render(GLuint hdrOutput, GLuint bloomOutput, GLuint quadVAO){
         glBindFramebuffer(GL_FRAMEBUFFER, 0);
+        glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+        glClear(GL_COLOR_BUFFER_BIT);
 
         SoglProgramManager::useProgram(ppShader);
+
         glActiveTexture(GL_TEXTURE0);
         glBindTexture(GL_TEXTURE_2D, hdrOutput);
+        glActiveTexture(GL_TEXTURE1);
+        glBindTexture(GL_TEXTURE_2D, bloomOutput);
 
         // draw the render quad
         glBindVertexArray(quadVAO);

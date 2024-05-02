@@ -28,7 +28,7 @@ namespace sogl
         GLuint getDiffuseIrradiance();
         GLuint getPrefilterMap();
         GLuint getBrdfLUT();
-        void renderSkybox(CameraData &camData, GLuint cubeVAO);
+        void renderSkybox(CameraData &camData, GLuint FBO, GLuint cubeVAO);
 
         private:
         const int ENV_RESOLUTION = 512;

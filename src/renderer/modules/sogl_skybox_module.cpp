@@ -255,13 +255,17 @@ namespace sogl
 #pragma endregion skyboxInitialisation
 
 
-    void SoglSkyboxModule::renderSkybox(CameraData &camData, GLuint cubeVAO){
+    void SoglSkyboxModule::renderSkybox(CameraData &camData, GLuint FBO, GLuint cubeVAO){
         glViewport(0, 0, WIDTH, HEIGHT);
-        glBindFramebuffer(GL_FRAMEBUFFER, 0);
+        glBindFramebuffer(GL_FRAMEBUFFER, FBO);
+
+        glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+        
 
         SoglProgramManager::useProgram(skyRenderShader);
         glDisable(GL_CULL_FACE);
-        glDepthMask(GL_FALSE);
+        //glDepthMask(GL_FALSE);
 
         glActiveTexture(GL_TEXTURE0);
         glBindTexture(GL_TEXTURE_CUBE_MAP, envCubemap);
@@ -274,7 +278,7 @@ namespace sogl
         glBindVertexArray(cubeVAO);
         glDrawArrays(GL_TRIANGLES, 0, 36);
 
-        glDepthMask(GL_TRUE);
+        //glDepthMask(GL_TRUE);
         glEnable(GL_CULL_FACE);
     }
 

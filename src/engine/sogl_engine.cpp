@@ -94,10 +94,16 @@ namespace sogl
             soglRenderer.toggleSetting(SoglRenderer::SSAO_BLUR, ssaoBlur);
 
             ImGui::SliderFloat("Sun Dir.", &time, 0.0, 3.14*2, "%.4f");
-            ImGui::SliderFloat("Sun Strength", &sunStrength, 0.0, 16.0);
+            ImGui::SliderFloat("Sun Strength", &sunStrength, 0.0, 40.0);
 
             ImGui::Checkbox("ibl", &ibl);
             soglRenderer.toggleSetting(SoglRenderer::IRRADIANCE, ibl);
+            
+            ImGui::Checkbox("Bloom", &bloomEnabled);
+
+            ImGui::SliderFloat("Bloom Strength", &bloomStrength, 0.0, 0.3, "%.4f");
+            SoglProgramManager::useProgram("postprocessing/pp");
+            SoglProgramManager::setFloat("bloomStrength", bloomStrength * bloomEnabled);
 
             DirectionalLight sun;
             sun.direction = glm::normalize(glm::vec3(sin(time)*2.0f, 1.0f, cos(time)*-1.0f));

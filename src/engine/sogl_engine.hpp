@@ -48,13 +48,16 @@ namespace sogl
         bool ssaoBlur = true;
 
         float monkeyCol[3]{1.0f, 1.0f, 1.0f};
-        float monkeyRough = 0.5;
+        float monkeyRough = 0.2;
         float monkeyMetallic = 1.0;
 
         float time = 3.45;
-        float sunStrength = 8.0;
+        float sunStrength = 32.0;
 
         bool ibl = true;
+
+        bool bloomEnabled = true;
+        float bloomStrength = 0.02;
 #endif
     };
 } // namespace sogl

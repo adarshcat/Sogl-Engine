@@ -13,6 +13,7 @@ namespace sogl
     GLuint SoglProgramManager::currentProgramId = 0;
 
     std::string SoglProgramManager::defaultShader = "default/default";
+    std::string SoglProgramManager::defaultShaderTransparent = "default/default_transparent";
     std::string SoglProgramManager::shadowSuffix = "_shadow";
 
     GLuint SoglProgramManager::addProgram(std::string vertProgramName, std::string fragProgramName, std::string shaderParams){

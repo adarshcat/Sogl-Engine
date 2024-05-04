@@ -9,10 +9,9 @@ namespace sogl
 
     }
 
-    void SoglLightingModule::initialiseLighting(){
-        // generate the frame buffer
-        glGenFramebuffers(1, &FBO);  
-        glBindFramebuffer(GL_FRAMEBUFFER, FBO);
+    void SoglLightingModule::initialiseLighting(GLuint renderFBO){
+        // bind render frame buffer
+        glBindFramebuffer(GL_FRAMEBUFFER, renderFBO);
 
         // generate the output texture
         glGenTextures(1, &outputTex);
@@ -23,6 +22,12 @@ namespace sogl
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 
+        GLuint rboDepth;
+        glGenRenderbuffers(1, &rboDepth);
+        glBindRenderbuffer(GL_RENDERBUFFER, rboDepth);
+        glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT, WIDTH, HEIGHT);
+        glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, rboDepth);
+
         glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, outputTex, 0);
         glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
@@ -30,11 +35,34 @@ namespace sogl
         updateLighting(ls);
     }
 
+    void SoglLightingModule::updateShaderParams(SoglLightingData &lightingData, SoglLightingSettings &lightingSettings){
+        SoglProgramManager::setMat4("camera.invView", lightingData.camData.invViewMatrix);
+        SoglProgramManager::setMat4("camera.invProjection", lightingData.camData.invProjectionMatrix);
+        SoglProgramManager::setVec3("camera.position", lightingData.camData.camPos);
+        SoglProgramManager::setFloat("camera.near", lightingData.camData.near);
+        SoglProgramManager::setFloat("camera.far", lightingData.camData.far);
 
-    void SoglLightingModule::lightingPass(SoglLightingData &lightingData, SoglLightingSettings &lightingSettings, GLuint quadVAO){
+        if (lightingSettings.shadowEnabled) SoglProgramManager::setMat4("dirLight.transformMatrix", lightingData.dirLightMatrix);
+
+        SoglProgramManager::setVec3("dirLight.color", directionalLight.color);
+        SoglProgramManager::setVec3("dirLight.direction", glm::normalize(directionalLight.direction));
+        SoglProgramManager::setFloat("dirLight.strength", directionalLight.strength);
+    }
+
+
+    void SoglLightingModule::lightingPass(SoglLightingData &lightingData, SoglLightingSettings &lightingSettings, std::vector<std::unique_ptr<SoglGameObject>> &gameObjects, GLuint renderFBO, GLuint quadVAO){
         glViewport(0, 0, WIDTH, HEIGHT);
-        glBindFramebuffer(GL_FRAMEBUFFER, FBO);
+        glBindFramebuffer(GL_FRAMEBUFFER, renderFBO);
 
+        glEnable(GL_DEPTH_TEST);
+        defferedShading(lightingData, lightingSettings, quadVAO);
+        forwardShading(lightingData, lightingSettings, gameObjects, renderFBO);
+        glDisable(GL_DEPTH_TEST);
+
+        glBindFramebuffer(GL_FRAMEBUFFER, 0);
+    }
+
+    void SoglLightingModule::defferedShading(SoglLightingData &lightingData, SoglLightingSettings &lightingSettings, GLuint quadVAO){
         SoglProgramManager::useProgram(lightingShader);
 
         // bind the g-buffer to lighting shader program
@@ -48,7 +76,6 @@ namespace sogl
         if (lightingSettings.shadowEnabled){
             glActiveTexture(GL_TEXTURE3);
             glBindTexture(GL_TEXTURE_2D, lightingData.shadowMap);
-            SoglProgramManager::setMat4("dirLight.transformMatrix", lightingData.dirLightMatrix);
         }
         
         if (lightingSettings.ssaoEnabled){
@@ -71,42 +98,58 @@ namespace sogl
             glBindTexture(GL_TEXTURE_2D, lightingData.skyboxBrdfLUT);
         }
 
-        // pass necessary camera parameters
-        SoglProgramManager::setMat4("camera.invView", lightingData.camData.invViewMatrix);
-        SoglProgramManager::setMat4("camera.invProjection", lightingData.camData.invProjectionMatrix);
-        SoglProgramManager::setVec3("camera.position", lightingData.camData.camPos);
-        SoglProgramManager::setFloat("camera.near", lightingData.camData.near);
-        SoglProgramManager::setFloat("camera.far", lightingData.camData.far);
+        updateShaderParams(lightingData, lightingSettings);
         
         // draw the render quad
         glBindVertexArray(quadVAO);
         glDrawArrays(GL_TRIANGLES, 0, 6);
-
-        glBindFramebuffer(GL_FRAMEBUFFER, 0);
     }
+
+    void SoglLightingModule::forwardShading(SoglLightingData &lightingData, SoglLightingSettings &lightingSettings, std::vector<std::unique_ptr<SoglGameObject>> &gameObjects, GLuint renderFBO){
+        SoglProgramManager::useProgram(SoglProgramManager::defaultShaderTransparent);
+        // set shader parameters
+        glActiveTexture(GL_TEXTURE0);
+        glBindTexture(GL_TEXTURE_2D, lightingData.gDepth);
+        glActiveTexture(GL_TEXTURE1);
+        glBindTexture(GL_TEXTURE_2D, lightingData.shadowMap);
+        glActiveTexture(GL_TEXTURE2);
+        glBindTexture(GL_TEXTURE_CUBE_MAP, lightingData.skyboxDiffuseIrradiance);
+        glActiveTexture(GL_TEXTURE3);
+        glBindTexture(GL_TEXTURE_CUBE_MAP, lightingData.skyboxPrefilterMap);
+        glActiveTexture(GL_TEXTURE4);
+        glBindTexture(GL_TEXTURE_2D, lightingData.skyboxBrdfLUT);
+        
+        updateShaderParams(lightingData, lightingSettings);
+        
+        // copy the depth buffer form gbuffer FBO to current FBO for forward pass
+        glDisable(GL_CULL_FACE);
+        glBindFramebuffer(GL_READ_FRAMEBUFFER, lightingData.gBuffer);
+        glBindFramebuffer(GL_DRAW_FRAMEBUFFER, renderFBO);
+        glBlitFramebuffer(0, 0, WIDTH, HEIGHT, 0, 0, WIDTH, HEIGHT, GL_DEPTH_BUFFER_BIT, GL_NEAREST);
+
+        for (std::unique_ptr<SoglGameObject> &gameObj : gameObjects){
+            SoglMeshObject* meshObj = static_cast<SoglMeshObject*>(gameObj.get());
+            if (meshObj->material.transparent){
+                meshObj->drawTransparent(lightingData.camData);
+            }
+        }
+        
+        glEnable(GL_CULL_FACE);
+    }
+
 
     GLuint SoglLightingModule::getOutputTexture(){
         return outputTex;
     }
 
-    GLuint SoglLightingModule::getFBO(){
-        return FBO;
-    }
-
-
 #pragma region updateLightingProgram
 
-    // updates directional light + etc. parameters in the shader
-    void SoglLightingModule::updateLightingShaderInputs(DirectionalLight &dirLight){
+    // updates directional light
+    void SoglLightingModule::setDirectionalLight(DirectionalLight &dirLight){
         directionalLight = dirLight;
-
-        SoglProgramManager::useProgram(lightingShader);
-        SoglProgramManager::setVec3("dirLight.color", directionalLight.color);
-        SoglProgramManager::setVec3("dirLight.direction", glm::normalize(directionalLight.direction));
-        SoglProgramManager::setFloat("dirLight.strength", directionalLight.strength);
     }
 
-    // recompiles lighting shader with updated flags (ssao, shadow, etc..) binds the sampler locations to respective indices
+    // recompiles lighting and transparency shader with updated flags (ssao, shadow, etc..) binds the sampler locations to respective indices
     void SoglLightingModule::updateLighting(SoglLightingSettings &lightingSettings){
         std::string lightingParams = "";
 
@@ -127,7 +170,22 @@ namespace sogl
         SoglProgramManager::bindImage("prefilterMap", 6);
         SoglProgramManager::bindImage("brdfLUT", 7);
 
-        updateLightingShaderInputs(directionalLight);
+        // fuck it, here goes the transparency shader settings
+        lightingParams = "";
+
+        if (lightingSettings.shadowEnabled) lightingParams += "SHADOW_ENABLED,";
+        if (lightingSettings.irradianceEnabled) lightingParams += "IRRADIANCE_ENABLED,";
+
+        if (lightingParams.size() > 0) lightingParams = lightingParams.substr(0, lightingParams.size()-1);
+
+        SoglProgramManager::recompileProgram(SoglProgramManager::defaultShaderTransparent, lightingParams);
+        SoglProgramManager::useProgram(SoglProgramManager::defaultShaderTransparent);
+
+        SoglProgramManager::bindImage("gDepth", 0);
+        SoglProgramManager::bindImage("dirLight.shadowMap", 1);
+        SoglProgramManager::bindImage("skyIrradiance", 2);
+        SoglProgramManager::bindImage("prefilterMap", 3);
+        SoglProgramManager::bindImage("brdfLUT", 4);
     }
 #pragma endregion updateLightingProgram
 

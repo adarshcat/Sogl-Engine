@@ -56,6 +56,8 @@ namespace sogl
         glCullFace(GL_BACK);
         glEnable(GL_TEXTURE_CUBE_MAP_SEAMLESS);
 
+        glGenFramebuffers(1, &renderFBO);
+
         initialiseRenderQuad();
         initialiseRenderCube();
         initialiseGBuffer();
@@ -64,7 +66,7 @@ namespace sogl
         ssaoModule.initialiseSSAO();
         ssaoModule.initialiseSSAOBlur();
 
-        lightingModule.initialiseLighting();
+        lightingModule.initialiseLighting(renderFBO);
         bloomModule.initialise();
         ppModule.initialise();
 
@@ -84,6 +86,8 @@ namespace sogl
         glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA16F, WIDTH, HEIGHT, 0, GL_RGBA, GL_FLOAT, NULL);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
         glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, gNormalMet, 0);
         
         // - albedo + specular color buffer
@@ -92,6 +96,8 @@ namespace sogl
         glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, WIDTH, HEIGHT, 0, GL_RGBA, GL_UNSIGNED_BYTE, NULL);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
         glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT1, GL_TEXTURE_2D, gAlbedoSpec, 0);
 
         // attach basic depth buffer
@@ -102,8 +108,6 @@ namespace sogl
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_COMPARE_FUNC, GL_LEQUAL);
-        glTexParameteri (GL_TEXTURE_2D, GL_TEXTURE_COMPARE_MODE, GL_NONE);
         
         glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, gDepth, 0);
 
@@ -231,26 +235,35 @@ namespace sogl
     void SoglRenderer::draw(std::vector<std::unique_ptr<SoglGameObject>> &gameObjects, CameraData camData){
         glm::mat4 dirLightMatrix = LightOperations::adjustShadowMap(directionalLight, camData.frustumSlice1);
 
+        // geometry and shadow
         glEnable(GL_DEPTH_TEST);
-
         geometryPass(gameObjects, camData);
         if (lightingSettings.shadowEnabled) shadowPass(gameObjects, dirLightMatrix);
-
         glDisable(GL_DEPTH_TEST);
+        // -------------------
 
+        // ssao
         if (lightingSettings.ssaoEnabled) ssaoModule.ssaoPass(camData, gDepth, gNormalMet, renderQuadVAO, lightingSettings.ssaoBlurEnabled);
 
+        // main rendering
         glEnable(GL_BLEND);
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-        skyboxModule.renderSkybox(camData, lightingModule.getFBO(), renderCubeVAO);
-        lightingPass(camData, dirLightMatrix);
+        glBindFramebuffer(GL_FRAMEBUFFER, renderFBO);
+
+        glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+        skyboxModule.renderSkybox(camData, renderCubeVAO);
+        lightingPass(camData, gameObjects, dirLightMatrix);
 
         glDisable(GL_BLEND);
+        // ---------------
 
+        // post processing
         bloomModule.bloomPass(lightingModule.getOutputTexture(), renderQuadVAO);
-
         ppModule.render(lightingModule.getOutputTexture(), bloomModule.getBloomOutput(), renderQuadVAO);
+        // ---------------
     }
 
 
@@ -264,7 +277,9 @@ namespace sogl
         
         // Draw calls to all the game objects
         for (std::unique_ptr<SoglGameObject> &gameObj : gameObjects){
-            gameObj->draw(camData);
+            SoglMeshObject* meshObj = static_cast<SoglMeshObject*>(gameObj.get());
+            if (!meshObj->material.transparent)
+                meshObj->draw(camData);
         }
         glBindFramebuffer(GL_FRAMEBUFFER, 0);
     }
@@ -285,12 +300,13 @@ namespace sogl
         glBindFramebuffer(GL_FRAMEBUFFER, 0);
     }
 
-    void SoglRenderer::lightingPass(CameraData &camData, glm::mat4 &dirLightMatrix){
+    void SoglRenderer::lightingPass(CameraData &camData, std::vector<std::unique_ptr<SoglGameObject>> &gameObjects, glm::mat4 &dirLightMatrix){
         // pack the lighting data into the struct and pass it to lighting module for lighting
         SoglLightingData lightingData;
         lightingData.camData = camData;
         lightingData.dirLightMatrix = dirLightMatrix;
 
+        lightingData.gBuffer = gBuffer;
         lightingData.gDepth = gDepth;
         lightingData.gNormalMet = gNormalMet;
         lightingData.gAlbedoSpec = gAlbedoSpec;
@@ -304,7 +320,7 @@ namespace sogl
         lightingData.skyboxPrefilterMap = skyboxModule.getPrefilterMap();
         lightingData.skyboxBrdfLUT = skyboxModule.getBrdfLUT();
 
-        lightingModule.lightingPass(lightingData, lightingSettings, renderQuadVAO);
+        lightingModule.lightingPass(lightingData, lightingSettings, gameObjects, renderFBO, renderQuadVAO);
     }
 #pragma endregion renderpasses
 
@@ -316,7 +332,7 @@ namespace sogl
         directionalLight.direction = dirLight.direction;
         directionalLight.strength = dirLight.strength;
 
-        lightingModule.updateLightingShaderInputs(dirLight);
+        lightingModule.setDirectionalLight(dirLight);
     }
 #pragma endregion updateLighting
 

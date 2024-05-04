@@ -79,6 +79,9 @@ namespace sogl
         GLuint gBuffer;
         GLuint gPositionView, gNormalMet, gAlbedoSpec, gDepth;
 
+        //render fbo
+        GLuint renderFBO;
+
         //shadow
         const unsigned int SHADOW_WIDTH = WIDTH*1.25, SHADOW_HEIGHT = WIDTH*1.25;
         GLuint shadowBuffer;
@@ -95,7 +98,7 @@ namespace sogl
         // render passes
         void geometryPass(std::vector<std::unique_ptr<SoglGameObject>> &gameObjects, CameraData &camData);
         void shadowPass(std::vector<std::unique_ptr<SoglGameObject>> &gameObjects, glm::mat4 &lightSpaceMatrix);
-        void lightingPass(CameraData &camData, glm::mat4 &lightSpaceMatrix);
+        void lightingPass(CameraData &camData, std::vector<std::unique_ptr<SoglGameObject>> &gameObjects, glm::mat4 &lightSpaceMatrix);
     };
 
 } // namespace sogl

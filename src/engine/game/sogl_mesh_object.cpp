@@ -8,27 +8,32 @@
 namespace sogl
 {
     
-    SoglMeshObject::SoglMeshObject(std::vector<Vertex> &_inVertices, std::vector<unsigned int> &_inIndices, std::string &_shader, Material &_mat): 
-            vertices{_inVertices}, indices{_inIndices}, shader{_shader}, material{_mat}
+    SoglMeshObject::SoglMeshObject(std::vector<Vertex> &_inVertices, std::vector<unsigned int> &_inIndices, std::string &_shader, std::string &_shaderTransparent, Material &_mat): 
+            vertices{_inVertices}, indices{_inIndices}, shader{_shader}, shaderTransparent{_shaderTransparent}, material{_mat}
     {
-        SoglProgramManager::addProgram(shader);
-        SoglProgramManager::addProgram(shader+SoglProgramManager::shadowSuffix);
+        SoglProgramManager::addProgram(shader); // add geometry shader
+        SoglProgramManager::addProgram(shaderTransparent); // add transparent geometry shader
+        SoglProgramManager::addProgram(shader+SoglProgramManager::shadowSuffix); // add shadow shader
         initialiseStorageBuffer();
     }
 
     SoglMeshObject::SoglMeshObject(std::vector<Vertex> &_inVertices, std::vector<unsigned int> &_inIndices): 
-            vertices{_inVertices}, indices{_inIndices}, shader{SoglProgramManager::defaultShader}, material{Material()}
+            vertices{_inVertices}, indices{_inIndices}, shader{SoglProgramManager::defaultShader}, 
+            shaderTransparent{SoglProgramManager::defaultShaderTransparent}, material{Material()}
     {
-        SoglProgramManager::addProgram(shader);
-        SoglProgramManager::addProgram(shader+SoglProgramManager::shadowSuffix);
+        SoglProgramManager::addProgram(shader); // add geometry shader
+        SoglProgramManager::addProgram(shaderTransparent); // add transparent geometry shader
+        SoglProgramManager::addProgram(shader+SoglProgramManager::shadowSuffix); // add shadow shader
         initialiseStorageBuffer();
     }
 
     SoglMeshObject::SoglMeshObject(std::vector<Vertex> &_inVertices, std::vector<unsigned int> &_inIndices, Material &_mat): 
-            vertices{_inVertices}, indices{_inIndices}, shader{SoglProgramManager::defaultShader}, material{_mat}
+            vertices{_inVertices}, indices{_inIndices}, shader{SoglProgramManager::defaultShader},
+            shaderTransparent{SoglProgramManager::defaultShaderTransparent}, material{_mat}
     {
-        SoglProgramManager::addProgram(shader);
-        SoglProgramManager::addProgram(shader+SoglProgramManager::shadowSuffix);
+        SoglProgramManager::addProgram(shader); // add geometry shader
+        SoglProgramManager::addProgram(shaderTransparent); // add transparent geometry shader
+        SoglProgramManager::addProgram(shader+SoglProgramManager::shadowSuffix); // add shadow shader
         initialiseStorageBuffer();
     }
 
@@ -79,6 +84,19 @@ namespace sogl
         glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);
     }
 
+    void SoglMeshObject::drawTransparent(CameraData &camData){
+        SoglProgramManager::useProgram(shaderTransparent);
+        applyMaterial();
+        SoglProgramManager::setMat4("mvpMatrix", camData.viewProjectionMatrix * modelMatrix);
+        SoglProgramManager::setMat4("mvMatrix", camData.viewMatrix * modelMatrix);
+        SoglProgramManager::setMat4("modelMatrix", modelMatrix);
+        SoglProgramManager::setFloat("camera.near", camData.near);
+        SoglProgramManager::setFloat("camera.far", camData.far);
+
+        glBindVertexArray(vertexArrayObject);
+        glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);
+    }
+
     void SoglMeshObject::drawShadow(glm::mat4 &lightSpaceMatrix){
         SoglProgramManager::useProgram(shader+"_shadow");
         applyMaterial();
@@ -94,6 +112,10 @@ namespace sogl
         SoglProgramManager::setVec3("albedo", material.albedo);
         SoglProgramManager::setFloat("roughness", material.roughness);
         SoglProgramManager::setFloat("metallic", material.metallic);
+
+        // transparency
+        if (material.transparent)
+            SoglProgramManager::setFloat("alpha", material.alpha);
     }
 
 } // namespace sogl

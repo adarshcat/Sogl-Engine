@@ -255,12 +255,8 @@ namespace sogl
 #pragma endregion skyboxInitialisation
 
 
-    void SoglSkyboxModule::renderSkybox(CameraData &camData, GLuint FBO, GLuint cubeVAO){
+    void SoglSkyboxModule::renderSkybox(CameraData &camData, GLuint cubeVAO){
         glViewport(0, 0, WIDTH, HEIGHT);
-        glBindFramebuffer(GL_FRAMEBUFFER, FBO);
-
-        glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         
 
         SoglProgramManager::useProgram(skyRenderShader);

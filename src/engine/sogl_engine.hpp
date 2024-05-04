@@ -57,7 +57,7 @@ namespace sogl
         bool ibl = true;
 
         bool bloomEnabled = true;
-        float bloomStrength = 0.02;
+        float bloomStrength = 0.013;
 #endif
     };
 } // namespace sogl

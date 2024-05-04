@@ -8,6 +8,8 @@ namespace sogl
         glm::vec3 albedo = glm::vec3(1.0);
         float roughness = 0.5;
         float metallic = 0.0;
+        float alpha = 1.0;
+        bool transparent = false;
     };
 
     struct Vertex{
@@ -18,12 +20,13 @@ namespace sogl
 
     class SoglMeshObject : public SoglGameObject{
         public:
-        SoglMeshObject(std::vector<Vertex> &_inVertices, std::vector<unsigned int> &_inIndices, std::string &_shader, Material &_mat);
+        SoglMeshObject(std::vector<Vertex> &_inVertices, std::vector<unsigned int> &_inIndices, std::string &_shader, std::string &_shaderTransparent, Material &_mat);
         SoglMeshObject(std::vector<Vertex> &_inVertices, std::vector<unsigned int> &_inIndices);
         SoglMeshObject(std::vector<Vertex> &_inVertices, std::vector<unsigned int> &_inIndices, Material &_mat);
         ~SoglMeshObject();
 
         virtual void draw(CameraData &camData);
+        virtual void drawTransparent(CameraData &camData);
         virtual void drawShadow(glm::mat4 &lightSpaceMatrix);
 
         Material material;
@@ -43,5 +46,6 @@ namespace sogl
         GLuint elementBuffer;
 
         std::string shader;
+        std::string shaderTransparent;
     };
 } // namespace sogl

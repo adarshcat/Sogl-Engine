@@ -19,6 +19,7 @@ namespace sogl
         SoglGameObject(glm::mat4 _transform);
 
         virtual void draw(CameraData &camData){}
+        virtual void drawTransparent(CameraData &camData){}
         virtual void drawShadow(glm::mat4 &lightSpaceMatrix){}
 
         virtual void process(const float delta){}

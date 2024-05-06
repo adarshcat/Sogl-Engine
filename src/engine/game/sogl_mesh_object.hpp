@@ -1,6 +1,9 @@
 #pragma once
 
+
 #include "engine/game/sogl_game_object.hpp"
+#include "util/shaders/sogl_program_manager.hpp"
+#include "engine/env/sogl_lights.hpp"
 
 namespace sogl
 {
@@ -26,13 +29,14 @@ namespace sogl
         ~SoglMeshObject();
 
         virtual void draw(CameraData &camData);
-        virtual void drawTransparent(CameraData &camData);
+        virtual void drawTransparent(SoglLightingData &lightingData, SoglLightingSettings &lightingSettings, DirectionalLight &dirLight);
         virtual void drawShadow(glm::mat4 &lightSpaceMatrix);
 
         Material material;
 
         private:
         void initialiseStorageBuffer();
+        void initialiseShader();
 
         protected:
         void applyMaterial();

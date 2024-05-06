@@ -3,8 +3,11 @@
 #include "util/shaders/sogl_program_manager.hpp"
 #include "engine/env/sogl_camera.hpp"
 #include "engine/env/sogl_lights.hpp"
+
 #include "engine/game/sogl_game_object.hpp"
 #include "engine/game/sogl_mesh_object.hpp"
+
+#include "renderer/sogl_render_structs.hpp"
 #include "util/sogl_helper.hpp"
 
 //std
@@ -13,32 +16,6 @@
 
 namespace sogl
 {
-    
-    struct SoglLightingData{
-        CameraData camData;
-        glm::mat4 dirLightMatrix;
-
-        GLuint gBuffer;
-        GLuint gDepth;
-        GLuint gNormalMet;
-        GLuint gAlbedoSpec;
-
-        GLuint shadowMap;
-
-        GLuint ssaoBlurOutput;
-        GLuint ssaoOutput;
-
-        GLuint skyboxDiffuseIrradiance;
-        GLuint skyboxPrefilterMap;
-        GLuint skyboxBrdfLUT;
-    };
-
-    struct SoglLightingSettings{
-        bool shadowEnabled = true;
-        bool ssaoEnabled = true;
-        bool ssaoBlurEnabled = true;
-        bool irradianceEnabled = true;
-    };
 
     class SoglLightingModule{
         public:

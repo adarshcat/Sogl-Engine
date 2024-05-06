@@ -2,6 +2,8 @@
 
 #define PI 3.1415926535
 
+#define IRRADIANCE_ENABLED
+
 out vec4 fragColor;
 
 in vec4 clipSpacePos;
@@ -15,6 +17,9 @@ uniform vec3 albedo;
 uniform float roughness;
 uniform float metallic;
 uniform float alpha;
+
+uniform bool shadowEnabled = true;
+uniform bool irradianceEnabled = true;
 
 struct CameraData {
     mat4 invView;
@@ -60,7 +65,6 @@ vec3 getViewpos(vec2 coord, float depth){
 }
 
 
-#ifdef SHADOW_ENABLED
 float shadowCalculation(vec4 fragPosLightSpace, vec3 normal){
     vec3 projCoords = fragPosLightSpace.xyz / fragPosLightSpace.w;
     projCoords = projCoords * 0.5 + 0.5;
@@ -88,7 +92,6 @@ float shadowCalculation(vec4 fragPosLightSpace, vec3 normal){
     
     return shadow;
 }
-#endif
 
 
 // PBR related functions-------------------------------------------
@@ -161,38 +164,39 @@ void main(){
     float NdotL = max(dot(worldNormal, dirLight.direction), 0.0);
     vec3 lightOutput = (kD * albedo / PI + specular) * radiance * NdotL;
 
+    vec3 ambient;
+    if (irradianceEnabled){
+        // fresnel calculation for indirect lighting from the scene
+        F = fresnelSchlickRoughness(max(dot(worldNormal, viewDir), 0.0), F0, roughness);
+        kS = F;
+        kD = 1.0 - kS;
+        kD *= 1.0 - metallic;
 
-#ifdef IRRADIANCE_ENABLED
-    // fresnel calculation for indirect lighting from the scene
-    F = fresnelSchlickRoughness(max(dot(worldNormal, viewDir), 0.0), F0, roughness);
-    kS = F;
-    kD = 1.0 - kS;
-    kD *= 1.0 - metallic;
+        // getting diffuse irradiance
+        vec3 diffuseIrradiance = texture(skyIrradiance, worldNormal).rgb;
+        vec3 diffuse = diffuseIrradiance * albedo;
 
-    // getting diffuse irradiance
-    vec3 diffuseIrradiance = texture(skyIrradiance, worldNormal).rgb;
-    vec3 diffuse = diffuseIrradiance * albedo;
+        // calculating specular irradiance
+        const float MAX_REFLECTION_LOD = 4.0;
+        vec3 prefilteredColor = textureLod(prefilterMap, reflectionVector,  roughness * MAX_REFLECTION_LOD).rgb;
+        vec2 brdf = texture(brdfLUT, vec2(max(dot(worldNormal, viewDir), 0.0), roughness)).rg;
+        vec3 envSpecular = prefilteredColor * (F * brdf.x + brdf.y);
 
-    // calculating specular irradiance
-    const float MAX_REFLECTION_LOD = 4.0;
-    vec3 prefilteredColor = textureLod(prefilterMap, reflectionVector,  roughness * MAX_REFLECTION_LOD).rgb;
-    vec2 brdf = texture(brdfLUT, vec2(max(dot(worldNormal, viewDir), 0.0), roughness)).rg;
-    vec3 envSpecular = prefilteredColor * (F * brdf.x + brdf.y);
-
-    vec3 ambient = (kD * diffuse + envSpecular);
-#else
-    vec3 ambient = kD * vec3(0.2) * albedo;
-#endif
-
-    // shadows
-#ifdef SHADOW_ENABLED
-    vec4 fragPosLightSpace = dirLight.transformMatrix * vec4(worldPos, 1.0);
-    float shadow = shadowCalculation(fragPosLightSpace, worldNormal);
+        ambient = (kD * diffuse + envSpecular);
+    } else{
+        ambient = kD * vec3(0.2) * albedo;
+    }
     
-    vec3 lighting = ambient + (1.0 - shadow) * lightOutput;
-#else
-    vec3 lighting = ambient + lightOutput;
-#endif
+    vec3 lighting;
+    // shadows
+    if (shadowEnabled){
+        vec4 fragPosLightSpace = dirLight.transformMatrix * vec4(worldPos, 1.0);
+        float shadow = shadowCalculation(fragPosLightSpace, worldNormal);
+        
+        lighting = ambient + (1.0 - shadow) * lightOutput;
+    } else{
+        lighting = ambient + lightOutput;
+    }
 
     fragColor = vec4(lighting, alpha);
 }

@@ -3,7 +3,8 @@
 #include <GL/glew.h>
 #include <glm/gtc/matrix_transform.hpp>
 #include "engine/env/sogl_camera.hpp"
-
+#include "renderer/sogl_render_structs.hpp"
+#include "engine/env/sogl_lights.hpp"
 
 //std
 #include <iostream>
@@ -19,7 +20,7 @@ namespace sogl
         SoglGameObject(glm::mat4 _transform);
 
         virtual void draw(CameraData &camData){}
-        virtual void drawTransparent(CameraData &camData){}
+        virtual void drawTransparent(SoglLightingData &lightingData, SoglLightingSettings &lightingSettings, DirectionalLight &dirLight){}
         virtual void drawShadow(glm::mat4 &lightSpaceMatrix){}
 
         virtual void process(const float delta){}

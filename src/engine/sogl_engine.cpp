@@ -73,7 +73,7 @@ namespace sogl
 
             ImGui::Checkbox("Rotating", &model0rot);
             if (model0rot)
-                gameObjects[0]->rotate(glm::vec3(0, 1, 0), 0.001f);
+                gameObjects[0]->rotate(glm::vec3(0, 1, 0), 0.008f);
             
             ImGui::ColorEdit3("color", monkeyCol);
             static_cast<SoglMeshObject*>(gameObjects[0].get())->material.albedo = glm::vec3(monkeyCol[0], monkeyCol[1], monkeyCol[2]);
@@ -102,8 +102,12 @@ namespace sogl
             ImGui::Checkbox("Bloom", &bloomEnabled);
 
             ImGui::SliderFloat("Bloom Strength", &bloomStrength, 0.0, 0.3, "%.4f");
+
+            ImGui::Checkbox("FXAA", &fxaaEnabled);
+
             SoglProgramManager::useProgram("postprocessing/pp");
             SoglProgramManager::setFloat("bloomStrength", bloomStrength * bloomEnabled);
+            SoglProgramManager::setFloat("fxaaEnabled", fxaaEnabled);
 
             DirectionalLight sun;
             sun.direction = glm::normalize(glm::vec3(sin(time)*2.0f, 1.0f, cos(time)*-1.0f));

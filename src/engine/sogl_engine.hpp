@@ -58,6 +58,8 @@ namespace sogl
 
         bool bloomEnabled = true;
         float bloomStrength = 0.013;
+
+        bool fxaaEnabled = true;
 #endif
     };
 } // namespace sogl

@@ -19,6 +19,7 @@ namespace sogl
 
         private:
         const int WIDTH = 400, HEIGHT = 500;
+        const float INV_WIDTH, INV_HEIGHT;
         const std::string quadShader = "render_quad";
         const std::string ppShader = "postprocessing/pp";
     };

@@ -24,7 +24,7 @@ int main() {
     monkeyModel[0]->translate(glm::vec3(10, 2, 0));
     monkeyModel[0]->scale(glm::vec3(1.5 * scFactor));
 
-    planeModel[0]->translate(glm::vec3(0, 4, 0));
+    planeModel[0]->translate(glm::vec3(0, -4, 0));
     static_cast<SoglMeshObject*>(planeModel[0].get())->material.transparent = true;
     static_cast<SoglMeshObject*>(planeModel[0].get())->material.alpha = 0.5;
     static_cast<SoglMeshObject*>(planeModel[0].get())->material.albedo = glm::vec3(0.0, 0.5, 0.8);

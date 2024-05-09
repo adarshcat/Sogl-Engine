@@ -105,9 +105,12 @@ namespace sogl
 
             ImGui::Checkbox("FXAA", &fxaaEnabled);
 
+            ImGui::ColorEdit3("Color balance", hsvOffset);
+
             SoglProgramManager::useProgram("postprocessing/pp");
             SoglProgramManager::setFloat("bloomStrength", bloomStrength * bloomEnabled);
             SoglProgramManager::setFloat("fxaaEnabled", fxaaEnabled);
+            SoglProgramManager::setVec3("hsvOffset", glm::vec3(hsvOffset[0], hsvOffset[1], hsvOffset[2]));
 
             DirectionalLight sun;
             sun.direction = glm::normalize(glm::vec3(sin(time)*2.0f, 1.0f, cos(time)*-1.0f));

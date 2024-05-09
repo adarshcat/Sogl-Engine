@@ -25,7 +25,7 @@ namespace sogl
         for(unsigned int i = 0; i < node->mNumMeshes; i++) {
             aiMesh *mesh = scene->mMeshes[node->mMeshes[i]];
             std::unique_ptr<SoglGameObject> meshObject = processMesh(mesh, scene);
-            meshObject->setTransform(transform);
+            //meshObject->setTransform(transform);
             loadedGameObjects.push_back(std::move(meshObject));
         }
         
@@ -74,13 +74,20 @@ namespace sogl
         }
         
         aiColor3D albedo (1.0, 1.0, 1.0);
+        float roughness;
+        float metallic;
+        
         // process material
         if(mesh->mMaterialIndex >= 0) {
             scene->mMaterials[mesh->mMaterialIndex]->Get(AI_MATKEY_COLOR_DIFFUSE, albedo);
+            scene->mMaterials[mesh->mMaterialIndex]->Get(AI_MATKEY_ROUGHNESS_FACTOR, roughness);
+            scene->mMaterials[mesh->mMaterialIndex]->Get(AI_MATKEY_METALLIC_FACTOR, metallic);
         }
 
         Material mat;
         mat.albedo = glm::vec3(albedo.r, albedo.g, albedo.b);
+        mat.roughness = roughness;
+        mat.metallic = metallic;
 
         return std::unique_ptr<SoglGameObject>(new SoglMeshObject(vertices, indices, mat));
     }

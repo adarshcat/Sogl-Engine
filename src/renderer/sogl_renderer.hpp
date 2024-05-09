@@ -54,7 +54,7 @@ namespace sogl
         void toggleSetting(settingTypes type, bool state);
 
         private:
-        const std::string skyboxImage = "veranda_4k.hdr";
+        const std::string skyboxImage = "gf.hdr";
 
         SoglWindow& soglWindow;
         DirectionalLight directionalLight;

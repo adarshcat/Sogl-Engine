@@ -2,10 +2,10 @@
 
 #define EDGE_THRESHOLD_MIN 0.0312
 #define EDGE_THRESHOLD_MAX 0.125
-#define ITERATIONS 12
+#define ITERATIONS 15 //12
 #define SUBPIXEL_QUALITY 0.75
 
-const float QUALITY[12] = float[](1.0, 1.0, 1.0, 1.0, 1.0, 1.5, 2.0, 2.0, 2.0, 2.0, 4.0, 8.0);
+const float QUALITY[15] = float[](1.0, 1.0, 1.0, 1.0, 1.0, 1.5, 2.0, 2.0, 2.0, 2.0, 4.0, 5.0, 6.0, 7.0, 8.0);
 
 out vec4 FragColor;
 in vec2 texCoord;
@@ -14,6 +14,8 @@ uniform vec2 inverseScreenSize;
 
 uniform bool fxaaEnabled = true;
 uniform float bloomStrength = 0.05;
+
+uniform vec3 hsvOffset;
 
 uniform sampler2D hdrImage;
 uniform sampler2D bloomImage;
@@ -216,6 +218,44 @@ vec2 FXAA(sampler2D screenTex){
     return finalUv;
 }
 
+// uncharted tonemapping code for filmic tonemapping
+vec3 uncharted2_tonemap_partial(vec3 x){
+    float A = 0.15f;
+    float B = 0.50f;
+    float C = 0.10f;
+    float D = 0.20f;
+    float E = 0.02f;
+    float F = 0.30f;
+    return ((x*(A*x+C*B)+D*E)/(x*(A*x+B)+D*F))-E/F;
+}
+
+vec3 uncharted2_filmic(vec3 v){
+    float exposure_bias = 2.0f;
+    vec3 curr = uncharted2_tonemap_partial(v * exposure_bias);
+
+    vec3 W = vec3(11.2f);
+    vec3 white_scale = vec3(1.0f) / uncharted2_tonemap_partial(W);
+    return curr * white_scale;
+}
+
+// hsv to rgb and vice versa
+vec3 rgb2hsv(vec3 c){
+    vec4 K = vec4(0.0, -1.0 / 3.0, 2.0 / 3.0, -1.0);
+    vec4 p = mix(vec4(c.bg, K.wz), vec4(c.gb, K.xy), step(c.b, c.g));
+    vec4 q = mix(vec4(p.xyw, c.r), vec4(c.r, p.yzx), step(p.x, c.r));
+
+    float d = q.x - min(q.w, q.y);
+    float e = 1.0e-10;
+    return vec3(abs(q.z + (q.w - q.y) / (6.0 * d + e)), d / (q.x + e), q.x);
+}
+
+vec3 hsv2rgb(vec3 c){
+    vec4 K = vec4(1.0, 2.0 / 3.0, 1.0 / 3.0, 3.0);
+    vec3 p = abs(fract(c.xxx + K.xyz) * 6.0 - K.www);
+    return c.z * mix(K.xxx, clamp(p - K.xxx, 0.0, 1.0), c.y);
+}
+// ---------------------------
+
 void main(){
     vec2 sampleLoc = texCoord;
 
@@ -227,7 +267,12 @@ void main(){
 
     vec3 color = hdrSample + bloomSample * bloomStrength;
 
-    vec3 tonemapped = color/(color+1.0f);
+    vec3 tonemapped = uncharted2_filmic(color);
+
+    vec3 hsvColor = rgb2hsv(tonemapped);
+    hsvColor += hsvOffset;
+    tonemapped = hsv2rgb(hsvColor);
+
     float gamma = 2.2;
     FragColor = vec4(pow(tonemapped, vec3(1.0/gamma)), 1.0);
 }

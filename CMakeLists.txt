@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.27)
-project(LearnOpengl VERSION 0.1.0 LANGUAGES C CXX)
+project(SoglEngine VERSION 0.1.0 LANGUAGES C CXX)
 
 include(CTest)
 enable_testing()
@@ -25,11 +25,11 @@ file(GLOB SOURCES
     src/util/*.cpp src/util/shaders/*.cpp src/util/imgui/*.cpp src/util/imgui/backends/*.cpp
     src/*.cpp)
 
-add_executable(LearnOpengl ${SOURCES})
+add_executable(SoglEngine ${SOURCES})
 
-target_compile_definitions(LearnOpengl PUBLIC IMGUI_IMPL_OPENGL_LOADER_GLEW)
+target_compile_definitions(SoglEngine PUBLIC IMGUI_IMPL_OPENGL_LOADER_GLEW)
 
-target_link_libraries(LearnOpengl PRIVATE
+target_link_libraries(SoglEngine PRIVATE
     opengl32
     ${CMAKE_SOURCE_DIR}/lib/glew32.lib
     ${CMAKE_SOURCE_DIR}/lib/libglfw3dll.a

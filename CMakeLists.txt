@@ -31,9 +31,9 @@ target_compile_definitions(SoglEngine PUBLIC IMGUI_IMPL_OPENGL_LOADER_GLEW)
 
 target_link_libraries(SoglEngine PRIVATE
     opengl32
-    ${CMAKE_SOURCE_DIR}/lib/glew32.lib
-    ${CMAKE_SOURCE_DIR}/lib/libglfw3dll.a
-    ${CMAKE_SOURCE_DIR}/lib/libassimp.dll.a
+    glew32
+    glfw3
+    assimp
 )
 
 set(CPACK_PROJECT_NAME ${PROJECT_NAME})
